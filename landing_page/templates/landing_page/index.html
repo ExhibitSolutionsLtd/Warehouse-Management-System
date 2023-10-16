@@ -1,0 +1,37 @@
+{% extends "landing_page/base.html" %}
+
+{% block content %}
+    <div class="container vh-100 d-flex align-items-center">
+        <div class="">
+            <div class="row">
+                <img src="../../static/images/logo-2.png" class="img-fluid mx-auto col-4" alt="Logo">
+            </div>
+    
+            <div class="row">
+                <h2 class="col-12 text-center my-5">WELCOME TO WAREHOUSE MANAGEMENT SYSTEM</h2>
+            </div>
+    
+            <div class="row">
+                <h4 class="col-12 text-center my-5">
+                    LOG IN AS
+                </h4>
+            </div>
+    
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-3">
+                    <a href="" class="btn-landing px-5">ADMIN</a>
+                </div>
+                <div class="col-md-3 d-flex justify-content-center">
+                    <a href="" class="btn-landing">WAREHOUSE</a>
+                </div>
+                <div class="col-md-3 d-flex justify-content-end">
+                    <a href="" class="btn-landing px-5">SALES</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- {% for post in posts %}
+        <h1> By {{ post.author }} on {{ post.date_posted }}</h1>
+        <p>{{ post.content }}</p>
+    {% endfor %} -->
+{% endblock content %}

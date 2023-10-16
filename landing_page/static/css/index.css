@@ -1,0 +1,17 @@
+.btn-landing {
+    background-color: #10315B;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+  
+  .btn-landing:hover {
+    background-color: #0a1e39; /* You can change the hover color to your preference */
+  }
+  
