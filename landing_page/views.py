@@ -11,3 +11,6 @@ def landing_page(request):
         'posts':posts
     }
     return render(request, "landing_page/index.html", context)
+
+def dashboard(request):
+    return render(request, 'landing_page/dashboard.html')
