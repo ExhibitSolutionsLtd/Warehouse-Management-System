@@ -4,8 +4,8 @@ from .forms import UserRegisterForm
 
 # Create your views here.
 
-def login(request):
-    return render(request, 'login.html')
+# def login(request):
+#     return render(request, 'login.html')
 
 
 def register(request):
