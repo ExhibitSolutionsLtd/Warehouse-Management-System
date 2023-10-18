@@ -9,11 +9,12 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    transition: all .5s ease-in-out;
   }
   
   .btn-landing:hover {
     background-color: #0a1e39; /* You can change the hover color to your preference */
-    box-shadow: 20px 22px 80px 6px rgb(0, 0, 0, 0.75);
+    box-shadow: 5px 10px 40px 6px rgb(0, 0, 0, 0.75);
   }
   
  
