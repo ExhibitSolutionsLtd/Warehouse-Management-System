@@ -1,0 +1,26 @@
+{% extends 'landing_page/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div>
+        <div class="container">
+            <div class="row vh-100 d-flex justify-content-center align-items-center">
+                <div class="col-6">
+                    <!-- <h1 class="text-center">Admin Login</h1> -->
+
+                    <form action="" method="post" class="border p-5 rounded">
+                        <fieldset class="form-group">
+                            <legend>ADMIN REGISTER</legend>
+                            {% csrf_token %}
+                            {{form | crispy}}
+                            <div class="my-4 form-group">
+                                <button type="submit" class="mb-3 w-100 btn-landing">CREATE USER</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
