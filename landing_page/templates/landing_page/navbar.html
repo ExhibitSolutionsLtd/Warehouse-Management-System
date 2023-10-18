@@ -2,7 +2,7 @@
     /* Define the sidebar styles */
     .sidebar {
         height: 100%;
-        width: 250px; /* Adjust the width as needed */
+        width: 20vw; /* Adjust the width as needed */
         position: fixed;
         top: 0;
         left: 0;
@@ -24,11 +24,14 @@
         background-color: #555;
     }
 
-    /* Content area styles */
-    .content {
-        margin-left: 260px; /* Adjust the margin to match the sidebar width */
-        padding: 20px;
-    }
+    .accounts-sidebar{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding-left: 20px;
+        padding-bottom: 10px;
+        width: 90%;
+  }
 </style>
 
 <div class="sidebar">
@@ -40,5 +43,8 @@
     <a href="#">New Transactions</a>
     <a href="#">View</a>
     <a href="#">Reports</a>
-    <a href="{% url 'logout' %}">Logout</a>
+    <div class="accounts-sidebar">
+        <a href="#">Account Settings</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
 </div>
