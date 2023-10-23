@@ -53,13 +53,15 @@
     <div class="accounts-sidebar">
         <div class="btn-group dropup">
             <button type="button" class="btn dropdown-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Account Settings
+                <img src="../../static/images/0aa8581c2cb0aa948d63ce3ddad90c81.png" class="user-avator" alt="User Avator">
+                {{ user.username }}
             </button>
             <ul class="dropdown-menu">
               <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+              <a class="dropdown-item"  href="{% url 'logout' %}">Logout</a>
             </ul>
           </div>
         <!-- <a href="#">Account Settings</a> -->
-        <a href="{% url 'logout' %}">Logout</a>
+        <!-- <a href="{% url 'logout' %}">Logout</a> -->
     </div>
 </div>
