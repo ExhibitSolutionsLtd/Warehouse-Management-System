@@ -38,7 +38,7 @@ def profile(request):
 
     context = {
         'u_form': u_form,
-        'P_form': p_form
+        'p_form': p_form
     }
 
 
