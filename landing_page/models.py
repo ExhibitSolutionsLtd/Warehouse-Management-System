@@ -21,9 +21,9 @@ class Product(models.Model):
     ]
     barcode_id = models.IntegerField()
     product_name = models.CharField(max_length=50)
-    units = models.CharField(unit_choices)
+    units = models.CharField(max_length=50, choices=unit_choices)
     cost_per_unit = models.IntegerField()
     description = models.TextField()
-    nature = models.CharField(nature_choices)
+    nature = models.CharField(max_length=50, choices=nature_choices)
     product_image = models.ImageField("product_images")
     user = models.ForeignKey(User, related_name="created_by", on_delete=models.CASCADE)

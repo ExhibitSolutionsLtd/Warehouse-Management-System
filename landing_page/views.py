@@ -14,3 +14,7 @@ def landing_page(request):
 
 def dashboard(request):
     return render(request, 'landing_page/dashboard.html')
+
+
+def products(request):
+    return render(request, 'landing_page/products.html')
