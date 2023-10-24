@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import ProductCreationForm
 
 # Create your views here.
 
@@ -17,4 +19,17 @@ def dashboard(request):
 
 
 def products(request):
-    return render(request, 'landing_page/products.html')
+    if request.method == "POST":
+        product_form = ProductCreationForm()
+        if product_form.is_valid():
+            product_form.save()
+            messages.success(request, f'Product Added Successfully!')
+            return redirect('products')
+    else:
+        product_form = ProductCreationForm()
+
+    context = {
+        "product_form": product_form
+    }
+
+    return render(request, 'landing_page/products.html', context)
