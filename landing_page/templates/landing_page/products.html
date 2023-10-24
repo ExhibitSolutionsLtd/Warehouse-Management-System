@@ -9,7 +9,38 @@
                 {% endblock %}
             </div>
             <div class="col-md-10">
-                <h2>Manage Products</h2>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Manage Products</h2>
+
+                    <!-- Add Product Modal -->
+                    <div>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn-landing" data-bs-toggle="modal" data-bs-target="#myModal">
+                            ADD PRODUCT
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="myModalLabel">Add Product</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn-landing">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
                 <hr>
 
                 <!-- Table -->
