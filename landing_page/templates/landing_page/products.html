@@ -70,10 +70,10 @@
                             <tr>
                               <th scope="row">{{ product.barcode_id }}</th>
                               <td>{{ product.product_name }}</td>
-                              <td>{{ product. }}</td>
-                              <td>@mdo</td>
-                              <td>@mdo</td>
-                              <td>@mdo</td>
+                              <td>{{ product.units }}</td>
+                              <td>{{ product.currency }} {{ product.cost_per_unit }}</td>
+                              <td>{{ product.nature }}</td>
+                              <td>{{ product.description }}</td>
                             </tr>
                           </tbody>
                         {% endfor %}

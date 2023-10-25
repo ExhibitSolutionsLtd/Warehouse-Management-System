@@ -29,7 +29,7 @@ def products(request):
             return redirect('products')
     else:
         product_form = ProductCreationForm()
-        products = Product.objects.all()
+        products = Product.objects.all().order_by('-pk')
     context = {
         "product_form": product_form,
         "products": products

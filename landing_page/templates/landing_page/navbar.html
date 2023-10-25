@@ -43,8 +43,17 @@
 
 <div class="sidebar">
     <img src="../../static/images/logo-2.png" class="img-fluid mb-5" alt="">
+    <h5 class="py-2">
+      Welcome <span class="position-relative">{{ user.username }}!
+        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
+          <span class="visually-hidden">New alerts</span>
+        </span>
+      </span>
+      
+    </h5>
     <a href="{% url 'dashboard' %}">Dashboard</a>
-    <a href="{% url 'products' %}">Products</a>
+    <a href="{% url 'products' %}">Inventory</a>
+    <a href="#">Orders</a>
     <a href="#">Suppliers</a>
     <a href="#">Customers</a>
     <a href="#">New Transactions</a>
@@ -53,7 +62,10 @@
     <div class="accounts-sidebar">
         <div class="btn-group dropup">
             <button type="button" class="btn dropdown-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{{ user.profile.image.url }}" class="user-avator" alt="User Avator">
+                <img src="{{ user.profile.image.url }}" class="user-avator position-relative" alt="User Avator">
+                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle">
+                  <span class="visually-hidden">New alerts</span>
+                </span>
                 {{ user.username }}
             </button>
             <ul class="dropdown-menu">

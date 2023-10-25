@@ -15,5 +15,6 @@ class ProductCreationForm(forms.ModelForm):
                 "category",
                 "description",
                 "nature",
-                "product_image"
+                "product_image",
+                "user"
                   ]
