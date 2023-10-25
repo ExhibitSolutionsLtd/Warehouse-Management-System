@@ -20,19 +20,13 @@ class Product(models.Model):
         ("Transfer", "Transfer"),
         ("Reject", "Reject")
     ]
-
-    currency_choices = [
-        ("Ksh", "Ksh"),
-        ("$", "$"),
-        ("£", "£"),
-        ("€", "€")
-    ]
     category_choices = [
-        ("Food", "Food"),
+        ("Grocery", "Grocery"),
         ("Stationery", "Stationery"),
         ("Furniture", "Furniture"),
         ("Jewellery", "Jewellery"),
-        ("Clothing", "Clothing")
+        ("Clothing", "Clothing"),
+        ("Electronic", "Electronic")
     ]
     sku = models.CharField(verbose_name = "SKU", max_length=50) #Stock Keeping Unit
     item_name = models.CharField(max_length=100)
@@ -40,7 +34,7 @@ class Product(models.Model):
     category = models.CharField(max_length=50, choices=category_choices)
     description = models.TextField()
     # nature = models.CharField(max_length=50, choices=nature_choices)
-    location = models.CharField(verbose_name="Location (e.g., Aisle/Shelf/Bin)", max_length=100)
+    location = models.CharField(verbose_name ="Location (e.g., Aisle/Shelf/Bin)", max_length=100)
     product_image = models.ImageField("product_images")
     user = models.ForeignKey(User, related_name="created_by", on_delete=models.CASCADE)
 
@@ -57,3 +51,17 @@ class Product(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.product_image.path)
+
+
+class Order(models.Model):
+    ORDER_TYPE_CHOICES = [
+        ("inbound", "Inbound"),
+        ("Outbound", "Outbound")
+    ]
+    order_id = models.CharField(verbose_name='Order ID', max_length=50)
+    order_date = models.DateField(verbose_name='Order Date')
+    order_type = models.CharField(verbose_name='Order Type', choices=ORDER_TYPE_CHOICES)
+    associated_name = models.CharField(verbose_name='Supplier/Customer Name', max_length=100)
+    total_items = models.IntegerField(verbose_name='Total Items')
+    status = models.CharField(verbose_name='Status', choices=[('pending', 'Pending'), ('processing', 'Processing'), ('completed', 'Completed')])
+    notes = models.TextField(verbose_name='Notes', blank=True)
