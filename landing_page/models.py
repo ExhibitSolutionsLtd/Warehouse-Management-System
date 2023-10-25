@@ -34,15 +34,13 @@ class Product(models.Model):
         ("Jewellery", "Jewellery"),
         ("Clothing", "Clothing")
     ]
-    barcode_id = models.IntegerField()
-    product_name = models.CharField(max_length=50)
-    units = models.CharField(max_length=50, choices=unit_choices)
-    cost_per_unit = models.IntegerField()
-    stock_value = models.IntegerField()
-    currency = models.CharField(max_length=50, choices=currency_choices)
+    sku = models.CharField(verbose_name = "SKU", max_length=50) #Stock Keeping Unit
+    item_name = models.CharField(max_length=100)
+    quantity = models.IntegerField()
     category = models.CharField(max_length=50, choices=category_choices)
     description = models.TextField()
-    nature = models.CharField(max_length=50, choices=nature_choices)
+    # nature = models.CharField(max_length=50, choices=nature_choices)
+    location = models.CharField(verbose_name="Location (e.g., Aisle/Shelf/Bin)", max_length=100)
     product_image = models.ImageField("product_images")
     user = models.ForeignKey(User, related_name="created_by", on_delete=models.CASCADE)
 
