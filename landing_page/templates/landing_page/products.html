@@ -34,11 +34,11 @@
                                             <fieldset class="form-group">
                                                 {% csrf_token %}
                                                 {{ product_form | crispy }}
+                                                <div class="modal-footer">
+                                                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                                                    <button type="submit" class="btn-landing">Save changes</button>
+                                                </div>
                                             </fieldset>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn-landing">Save changes</button>
-                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -64,16 +64,22 @@
                         
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                      </tr>
-                    </tbody>
+                    {% if products %}
+                        {% for product in products %}
+                        <tbody>
+                            <tr>
+                              <th scope="row">{{ product.barcode_id }}</th>
+                              <td>{{ product.product_name }}</td>
+                              <td>{{ product. }}</td>
+                              <td>@mdo</td>
+                              <td>@mdo</td>
+                              <td>@mdo</td>
+                            </tr>
+                          </tbody>
+                        {% endfor %}
+                    {% else %}
+                          <h3 class="text-center">No Products added yet!</h3>
+                    {% endif %}
                   </table>
             </div>
         </div>

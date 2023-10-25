@@ -27,22 +27,33 @@ class Product(models.Model):
         ("£", "£"),
         ("€", "€")
     ]
+    category_choices = [
+        ("Food", "Food"),
+        ("Stationery", "Stationery"),
+        ("Furniture", "Furniture"),
+        ("Jewellery", "Jewellery"),
+        ("Clothing", "Clothing")
+    ]
     barcode_id = models.IntegerField()
     product_name = models.CharField(max_length=50)
     units = models.CharField(max_length=50, choices=unit_choices)
     cost_per_unit = models.IntegerField()
     stock_value = models.IntegerField()
     currency = models.CharField(max_length=50, choices=currency_choices)
+    category = models.CharField(max_length=50, choices=category_choices)
     description = models.TextField()
     nature = models.CharField(max_length=50, choices=nature_choices)
     product_image = models.ImageField("product_images")
     user = models.ForeignKey(User, related_name="created_by", on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.product_name}'
+
 
     def save(self):
         super().save()
 
-        img = Image.open(self.image.path)
+        img = Image.open(self.product_image.path)
 
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
