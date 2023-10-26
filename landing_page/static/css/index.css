@@ -1,3 +1,4 @@
+
 .btn-landing {
     background-color: #10315B;
     color: #ffffff;
@@ -92,4 +93,9 @@
     display: none;
     padding: 15px;
     border-top: none;
+}
+
+.table-content-div{
+  background-color: #f9fafd;
+  box-shadow: 10px 10px 50px rgb(85, 85, 85, 0.5);
 }

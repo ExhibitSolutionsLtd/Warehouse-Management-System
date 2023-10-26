@@ -15,7 +15,7 @@
 <body>
     {% if messages %}
         {% for message in messages %}
-            <div class=" col-8 mx-auto z-1 alert alert-{{ message.tags }}">{{message}}</div>
+            <div class=" col-6 mx-auto z-1 alert alert-{{ message.tags }}">{{message}}</div>
         {% endfor %}
     {% endif %}
     {% block content %} {% endblock content %}

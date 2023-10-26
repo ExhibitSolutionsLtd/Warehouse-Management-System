@@ -9,20 +9,20 @@
                     {% include 'landing_page/navbar.html' %}
                 {% endblock %}
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10 table-content-div mt-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>Manage Products</h2>
+                    <h2>Manage Inventory</h2>
 
                     <!-- Add Product Modal -->
                     <div>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn-landing" data-bs-toggle="modal" data-bs-target="#myModal">
-                            ADD PRODUCT
+                        <button type="button" class="btn-landing mt-1" data-bs-toggle="modal" data-bs-target="#myModal">
+                            ADD ITEM
                         </button>
                         
                         <!-- Modal -->
                         <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <legend class="modal-title fs-5" id="myModalLabel">Add Product</legend>
@@ -78,7 +78,7 @@
                           </tbody>
                         {% endfor %}
                     {% else %}
-                          <h4 class="text-center bg-danger text-white p-2">No products added yet!</h4>
+                          <h4 class="text-center bg-danger text-white p-2">No items added yet!</h4>
                     {% endif %}
                   </table>
             </div>

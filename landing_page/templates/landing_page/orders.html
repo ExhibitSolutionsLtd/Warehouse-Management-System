@@ -9,14 +9,14 @@
                     {% include 'landing_page/navbar.html' %}
                 {% endblock %}
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10 table-content-div mt-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Manage Orders</h2>
 
                     <!-- Add Product Modal -->
                     <div>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn-landing" data-bs-toggle="modal" data-bs-target="#myModal">
+                        <button type="button" class="btn-landing mt-1" data-bs-toggle="modal" data-bs-target="#myModal">
                             ADD ORDER
                         </button>
                         
@@ -60,20 +60,20 @@
                     <hr>
                      <!-- Inbound Table -->
 
-                    <table class="table table-striped-columns table-secondary table-hover">
+                    <table class="table table-striped-columns  table-hover">
                         <thead>
                         <tr>
                             <th scope="col">Order ID</th>
                             <th scope="col">Order Date</th>
                             <th scope="col">Order Type</th>
-                            <th scope="col">Supplier/Customer</th>
+                            <th scope="col">Supplier</th>
                             <th scope="col">Total Items</th>
                             <th scope="col">Status</th>
                             <th scope="col">Notes</th>
                         </tr>
                         </thead>
-                        {% if orders %}
-                            {% for order in orders %}
+                        {% if inbound_orders %}
+                            {% for order in inbound_orders %}
                             <tbody>
                                 <tr>
                                 <th scope="row">{{ order.order_id }}</th>
@@ -81,13 +81,13 @@
                                 <td>{{ order.order_type }}</td>
                                 <td>{{ order.associated_name }}</td>
                                 <td>{{ order.total_items }}</td>
-                                <td>{{ order.status }}</td>
+                                <td class="orderStatus">{{ order.status }}</td>
                                 <td>{{ order.notes }}</td>
                                 </tr>
                             </tbody>
                             {% endfor %}
                         {% else %}
-                            <h3 class="text-center">No Orders added yet!</h3>
+                            <h4 class="text-center bg-danger text-white p-2">No inbound orders added yet!</h4>
                         {% endif %}
                     </table>
                 </div>
@@ -103,14 +103,14 @@
                             <th scope="col">Order ID</th>
                             <th scope="col">Order Date</th>
                             <th scope="col">Order Type</th>
-                            <th scope="col">Supplier/Customer</th>
+                            <th scope="col">Customer</th>
                             <th scope="col">Total Items</th>
                             <th scope="col">Status</th>
                             <th scope="col">Notes</th>
                           </tr>
                         </thead>
-                        {% if orders %}
-                            {% for order in orders %}
+                        {% if outbound_orders %}
+                            {% for order in outbound_orders %}
                             <tbody>
                                 <tr>
                                   <th scope="row">{{ order.order_id }}</th>
@@ -118,13 +118,13 @@
                                   <td>{{ order.order_type }}</td>
                                   <td>{{ order.associated_name }}</td>
                                   <td>{{ order.total_items }}</td>
-                                  <td>{{ order.status }}</td>
+                                  <td class="orderStatus">{{ order.status }}</td>
                                   <td>{{ order.notes }}</td>
                                 </tr>
                               </tbody>
                             {% endfor %}
                         {% else %}
-                              <h3 class="text-center">No Orders added yet!</h3>
+                              <h4 class="text-center bg-danger text-white p-2">No outbound orders added yet!</h4>
                         {% endif %}
                       </table>
                 </div>

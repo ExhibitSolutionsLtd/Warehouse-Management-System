@@ -36,3 +36,23 @@ function openTab(tabName, elmnt) {
 // Default open the first tab
 document.getElementsByClassName('tablink')[0].click();
 
+let status_elems = document.querySelectorAll(".orderStatus");
+//loop through each element in nodelist
+status_elems.forEach((status_elem)=>{
+    // Check the text content of each element
+    if (status_elem.textContent.trim() === "Pending") {
+        status_elem.style.backgroundColor = "red";
+        status_elem.style.color = "white";
+    } else if(status_elem.textContent.trim() === "Processing"){
+        status_elem.style.backgroundColor = "yellow";
+        status_elem.style.color = "black";
+    } else{
+        status_elem.style.backgroundColor = "green";
+        status_elem.style.color = "white";
+    }
+})
+
+
+// modify rows attribute value in text area elements
+let textareaDiv = document.querySelector(".textarea");
+textareaDiv.rows = "4";

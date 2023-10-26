@@ -57,14 +57,14 @@ class Product(models.Model):
 
 class Order(models.Model):
     ORDER_TYPE_CHOICES = [
-        ("inbound", "Inbound"),
+        ("Inbound", "Inbound"),
         ("Outbound", "Outbound")
     ]
     order_id = models.CharField(verbose_name='Order ID', max_length=50)
     order_date = models.DateField(verbose_name='Order Date')
     order_type = models.CharField(verbose_name='Order Type', choices=ORDER_TYPE_CHOICES)
     total_items = models.PositiveIntegerField(verbose_name='Total Items')
-    status = models.CharField(verbose_name='Status', choices=[('pending', 'Pending'), ('processing', 'Processing'), ('completed', 'Completed')])
+    status = models.CharField(verbose_name='Status', choices=[('Pending', 'Pending'), ('Processing', 'Processing'), ('Completed', 'Completed')])
     notes = models.TextField(verbose_name='Notes', blank=True)
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)

@@ -48,10 +48,12 @@ def orders(request):
             return redirect('orders')
     else:
         order_form = OrderCreationForm()
-        orders = Order.objects.all().order_by('-pk')
+        inbound_orders = Order.objects.filter(order_type = 'Inbound')
+        outbound_orders = Order.objects.filter(order_type = 'Outbound')
     context = {
         "order_form": order_form,
-        "orders": orders
+        "inbound_orders": inbound_orders,
+        "outbound_orders":outbound_orders
     }
 
     return render(request, 'landing_page/orders.html', context)
