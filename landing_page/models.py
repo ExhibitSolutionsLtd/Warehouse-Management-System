@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 # Create your models here.
 
@@ -61,7 +63,28 @@ class Order(models.Model):
     order_id = models.CharField(verbose_name='Order ID', max_length=50)
     order_date = models.DateField(verbose_name='Order Date')
     order_type = models.CharField(verbose_name='Order Type', choices=ORDER_TYPE_CHOICES)
-    associated_name = models.CharField(verbose_name='Supplier/Customer Name', max_length=100)
-    total_items = models.IntegerField(verbose_name='Total Items')
+    total_items = models.PositiveIntegerField(verbose_name='Total Items')
     status = models.CharField(verbose_name='Status', choices=[('pending', 'Pending'), ('processing', 'Processing'), ('completed', 'Completed')])
     notes = models.TextField(verbose_name='Notes', blank=True)
+
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    associated_name = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self) -> str:
+        return f'Order no: {self.order_id}'
+
+
+class Customer(models.Model):
+    cust_f_name = models.CharField(max_length=100)
+    cust_l_name = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return f'{self.cust_f_name} {self.cust_l_name}'
+
+class Supplier(models.Model):
+    sup_f_name = models.CharField(max_length=100)
+    sup_l_name = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return f'{self.sup_f_name} {self.sup_l_name}'

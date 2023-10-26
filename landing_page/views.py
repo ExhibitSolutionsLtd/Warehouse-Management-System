@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import ProductCreationForm
-from .models import Product
+from .forms import ProductCreationForm, OrderCreationForm
+from .models import Product, Order, Customer, Supplier
 
 # Create your views here.
 
@@ -36,3 +36,22 @@ def products(request):
     }
 
     return render(request, 'landing_page/products.html', context)
+
+
+def orders(request):
+    if request.method == "POST":
+        order_form = OrderCreationForm(request.POST)
+        if order_form.is_valid():
+            order_form.instance.user = request.user
+            order_form.save()
+            messages.success(request, f'Order Added Successfully!')
+            return redirect('orders')
+    else:
+        order_form = OrderCreationForm()
+        orders = Order.objects.all().order_by('-pk')
+    context = {
+        "order_form": order_form,
+        "orders": orders
+    }
+
+    return render(request, 'landing_page/orders.html', context)
