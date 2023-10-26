@@ -86,7 +86,8 @@
 }
 
 .tablink.active {
-    background-color: #ccc;
+    background-color: #10315B;
+    color: #fff;
 }
 
 .tabcontent {
@@ -98,4 +99,9 @@
 .table-content-div{
   background-color: #f9fafd;
   box-shadow: 10px 10px 50px rgb(85, 85, 85, 0.5);
+}
+
+.card-content-div{
+  background-color: #f9fafd;
+  box-shadow: 1px 1px 20px 1px rgb(85, 85, 85, 0.5);
 }

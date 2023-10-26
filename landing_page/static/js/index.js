@@ -2,7 +2,7 @@
 // show and hide supplier and customer divs when the value for order type is inbound or outbound
 
 document.getElementById('id_order_type').addEventListener('change', function() {
-    if (this.value == 'inbound') {
+    if (this.value == 'Inbound') {
         document.getElementById('div_id_supplier').style.display = 'block';
         document.getElementById('div_id_customer').style.display = 'none';
     } else {
