@@ -62,3 +62,34 @@
     color: #ffffff;
   }
   
+
+  /* styling for Orders tabs */
+
+.tabs {
+  display: flex;
+}
+
+.tablink {
+    padding: 10px 15px;
+    cursor: pointer;
+    border: none;
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+}
+.tablink:nth-child(2){
+  border-left: #0a1e39 1px solid;
+}
+
+.tablink:hover {
+    background-color: #ddd;
+}
+
+.tablink.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    display: none;
+    padding: 15px;
+    border-top: none;
+}

@@ -50,38 +50,84 @@
 
                 <hr>
 
-                <!-- Table -->
+                <div class="tabs">
+                    <button class="tablink" onclick="openTab('Tab1', this)">Inbound Orders</button>
+                    <button class="tablink" onclick="openTab('Tab2', this)">Outbound Orders</button>
+                </div>
+                
+                <div id="Tab1" class="tabcontent">
+                    <h3>Inbound Orders</h3>
+                    <hr>
+                     <!-- Inbound Table -->
 
-                <table class="table table-striped table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Order Date</th>
-                        <th scope="col">Order Type</th>
-                        <th scope="col">Supplier/Customer</th>
-                        <th scope="col">Total Items</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Notes</th>
-                      </tr>
-                    </thead>
-                    {% if orders %}
-                        {% for order in orders %}
-                        <tbody>
-                            <tr>
-                              <th scope="row">{{ order.order_id }}</th>
-                              <td>{{ order.order_date }}</td>
-                              <td>{{ order.order_type }}</td>
-                              <td>{{ order.associated_name }}</td>
-                              <td>{{ order.total_items }}</td>
-                              <td>{{ order.status }}</td>
-                              <td>{{ order.notes }}</td>
-                            </tr>
-                          </tbody>
-                        {% endfor %}
-                    {% else %}
-                          <h3 class="text-center">No Orders added yet!</h3>
-                    {% endif %}
-                  </table>
+                    <table class="table table-striped-columns table-success table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Order Type</th>
+                            <th scope="col">Supplier/Customer</th>
+                            <th scope="col">Total Items</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Notes</th>
+                        </tr>
+                        </thead>
+                        {% if orders %}
+                            {% for order in orders %}
+                            <tbody>
+                                <tr>
+                                <th scope="row">{{ order.order_id }}</th>
+                                <td>{{ order.order_date }}</td>
+                                <td>{{ order.order_type }}</td>
+                                <td>{{ order.associated_name }}</td>
+                                <td>{{ order.total_items }}</td>
+                                <td>{{ order.status }}</td>
+                                <td>{{ order.notes }}</td>
+                                </tr>
+                            </tbody>
+                            {% endfor %}
+                        {% else %}
+                            <h3 class="text-center">No Orders added yet!</h3>
+                        {% endif %}
+                    </table>
+                </div>
+                
+                <div id="Tab2" class="tabcontent">
+                    <h3>Outbound Orders</h3>
+                    <hr>
+
+                    <!-- Outbound Table -->
+                    <table class="table table-striped-columns table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Order Type</th>
+                            <th scope="col">Supplier/Customer</th>
+                            <th scope="col">Total Items</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Notes</th>
+                          </tr>
+                        </thead>
+                        {% if orders %}
+                            {% for order in orders %}
+                            <tbody>
+                                <tr>
+                                  <th scope="row">{{ order.order_id }}</th>
+                                  <td>{{ order.order_date }}</td>
+                                  <td>{{ order.order_type }}</td>
+                                  <td>{{ order.associated_name }}</td>
+                                  <td>{{ order.total_items }}</td>
+                                  <td>{{ order.status }}</td>
+                                  <td>{{ order.notes }}</td>
+                                </tr>
+                              </tbody>
+                            {% endfor %}
+                        {% else %}
+                              <h3 class="text-center">No Orders added yet!</h3>
+                        {% endif %}
+                      </table>
+                </div>
             </div>
         </div>
     </div>

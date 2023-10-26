@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 
 # Create your models here.
@@ -78,6 +78,7 @@ class Order(models.Model):
 class Customer(models.Model):
     cust_f_name = models.CharField(max_length=100)
     cust_l_name = models.CharField(max_length=100)
+    orders = GenericRelation(Order)
 
     def __str__(self) -> str:
         return f'{self.cust_f_name} {self.cust_l_name}'
@@ -85,6 +86,7 @@ class Customer(models.Model):
 class Supplier(models.Model):
     sup_f_name = models.CharField(max_length=100)
     sup_l_name = models.CharField(max_length=100)
+    orders = GenericRelation(Order)
 
     def __str__(self) -> str:
         return f'{self.sup_f_name} {self.sup_l_name}'
