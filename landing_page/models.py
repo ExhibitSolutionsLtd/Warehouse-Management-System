@@ -80,8 +80,8 @@ class Customer(models.Model):
     cust_f_name = models.CharField(verbose_name='First Name', max_length=100)
     cust_l_name = models.CharField(verbose_name='Last Name', max_length=100)
     orders = GenericRelation(Order)
-    email = models.EmailField(verbose_name='Email Address', blank=True, max_length=50)
-    mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', max_length=12, blank=True)
+    email = models.EmailField(verbose_name='Email Address', max_length=50)
+    mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', max_length=12, blank=True, null=True)
     address = models.TextField(verbose_name='Home Address', blank=True)
     notes = models.TextField(verbose_name='Notes', blank=True)
 

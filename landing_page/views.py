@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import ProductCreationForm, OrderCreationForm
+from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm
 from .models import Product, Order, Customer, Supplier
+from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -15,6 +17,7 @@ def landing_page(request):
     }
     return render(request, "landing_page/index.html", context)
 
+@login_required
 def dashboard(request):
     return render(request, 'landing_page/dashboard.html')
 
@@ -42,7 +45,6 @@ def orders(request):
     if request.method == "POST":
         order_form = OrderCreationForm(request.POST)
         if order_form.is_valid():
-            order_form.instance.user = request.user
             order_form.save()
             messages.success(request, f'Order Added Successfully!')
             return redirect('orders')
@@ -57,3 +59,26 @@ def orders(request):
     }
 
     return render(request, 'landing_page/orders.html', context)
+
+def customers(request):
+    if request.method == "POST":
+        customer_form = CustomerCreationForm(request.POST)
+        if customer_form.is_valid():
+            customer_form.save()
+            messages.success(request, f'Customer Added Successfully!')
+            return redirect('customers')
+    else:
+        customer_form = CustomerCreationForm()
+        customers = Customer.objects.all()
+
+        paginator = Paginator(customers, 8)
+        page_number = request.GET.get('page')
+        customers_page = paginator.get_page(page_number)
+    context = {
+        "customer_form": customer_form,
+        "customers":customers,
+        "customers_page": customers_page
+    }
+
+    return render(request, 'landing_page/customers.html', context)
+

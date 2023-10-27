@@ -105,3 +105,52 @@
   background-color: #f9fafd;
   box-shadow: 1px 1px 20px 1px rgb(85, 85, 85, 0.5);
 }
+
+/* Base pagination styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.pagination .step-links {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* spacing between elements */
+}
+
+/* Style for pagination links */
+.pagination .step-links a {
+  padding: 5px 10px;
+  text-decoration: none;
+  border: 1px solid #10315B;
+  color: #10315B;
+  border-radius: 1px;
+  transition: background-color 0.4s, color 0.4s;
+}
+
+.pagination .step-links a:hover {
+  background-color: #10315B;
+  color: #fff;
+}
+
+/* Style for the current page indicator */
+.pagination .step-links .current {
+  padding: 5px 10px;
+  font-weight: bold;
+  color: #007BFF;
+}
+
+/* Optional: Style for disabling previous/next links on first/last page */
+.pagination .step-links a.disabled {
+  color: #aaa;
+  cursor: not-allowed;
+  border-color: #eee;
+  background-color: #f9f9f9;
+}
+
+.pagination .step-links a.disabled:hover {
+  background-color: #f9f9f9;
+  color: #aaa;
+}

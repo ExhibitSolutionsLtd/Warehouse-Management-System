@@ -46,3 +46,8 @@ class OrderCreationForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+    
+class CustomerCreationForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['cust_f_name', 'cust_l_name', 'email', 'mobile_no', 'address', 'notes']
