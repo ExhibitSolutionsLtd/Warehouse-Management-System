@@ -19,7 +19,11 @@ def landing_page(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'landing_page/dashboard.html')
+    inventory = Product.objects.all()
+    context = {
+        "inventory":inventory
+    }
+    return render(request, 'landing_page/dashboard.html', context)
 
 
 def products(request):

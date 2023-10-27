@@ -85,6 +85,9 @@
                                 <td>{{ order.notes }}</td>
                                 </tr>
                             </tbody>
+                            {% if order.status.Pending %}
+                                <li>{{ order.status }}</li>
+                            {% endif %}
                             {% endfor %}
                         {% else %}
                             <h4 class="text-center bg-danger text-white p-2">No inbound orders added yet!</h4>
