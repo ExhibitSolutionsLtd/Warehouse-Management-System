@@ -12,13 +12,13 @@
             </div>
             <div class="col-md-10 table-content-div mt-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4>Manage Inventory</h4>
+                    <h4>Suppliers Register</h4>
 
                     <!-- Add Product Modal -->
                     <div>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn-landing mt-1" data-bs-toggle="modal" data-bs-target="#myModal">
-                            <span class="mdi mdi-plus"></span> ADD ITEM
+                            <span class="mdi mdi-plus"></span> ADD SUPPLIER
                         </button>
                         
                         <!-- Modal -->
@@ -26,7 +26,7 @@
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <legend class="modal-title fs-5" id="myModalLabel">Add Product</legend>
+                                        <legend class="modal-title fs-5" id="myModalLabel">Add Supplier Details</legend>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -34,7 +34,7 @@
                                         <form action="" method="POST" enctype="multipart/form-data" class="p-5">
                                             <fieldset class="form-group">
                                                 {% csrf_token %}
-                                                {{ product_form | crispy }}
+                                                {{ supplier_form | crispy }}
                                                 <div class="modal-footer">
                                                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
                                                     <button type="submit" class="btn-landing w-100">Save</button>
@@ -56,32 +56,51 @@
                 <table class="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th scope="col"> SKU</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Email Address</th>
+                        <th scope="col">Mobile No.</th>
+                        <th scope="col">Home Address</th>
+                        <th scope="col">Notes</th>
                         
                       </tr>
                     </thead>
-                    {% if products %}
-                        {% for product in products %}
+                    {% if suppliers %}
+                        {% for supplier in suppliers_page %}
                         <tbody>
                             <tr>
-                              <th scope="row">{{ product.sku }}</th>
-                              <td> <img src="{{'product.product_image.url'}}" alt="">{{ product.item_name }}</td>
-                              <td>{{ product.quantity }}</td>
-                              <td>{{ product.category }}</td>
-                              <td>{{ product.location }}</td>
-                              <td>{{ product.description }}</td>
+                              <th scope="row">{{ supplier.pk }}</th>
+                              <td>{{ supplier.cust_f_name }}</td>
+                              <td>{{ supplier.cust_l_name }}</td>
+                              <td>{{ supplier.email }}</td>
+                              <td>{{ supplier.mobile_no }}</td>
+                              <td>{{ supplier.address }}</td>
+                              <td>{{ supplier.notes }}</td>
                             </tr>
                           </tbody>
                         {% endfor %}
                     {% else %}
-                          <h4 class="text-center bg-danger text-white p-2">No items added yet!</h4>
+                          <h4 class="text-center bg-danger text-white p-2">No suppliers found in register!</h4>
                     {% endif %}
                   </table>
+                  <div class="pagination">
+                    <span class="step-links">
+                        {% if suppliers_page.has_previous %}
+                            <a href="?page=1">&laquo; First</a>
+                            <a href="?page={{ suppliers_page.previous_page_number }}">Previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ suppliers_page.number }} of {{ suppliers_page.paginator.num_pages }}.
+                        </span>
+                
+                        {% if suppliers_page.has_next %}
+                            <a href="?page={{ suppliers_page.next_page_number }}">Next</a>
+                            <a href="?page={{ suppliers_page.paginator.num_pages }}">Last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
             </div>
         </div>
     </div>

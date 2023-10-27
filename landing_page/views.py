@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm
+from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm, SupplierCreationForm
 from .models import Product, Order, Customer, Supplier
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -81,4 +81,26 @@ def customers(request):
     }
 
     return render(request, 'landing_page/customers.html', context)
+
+def suppliers(request):
+    if request.method == "POST":
+        suppliers_form = SupplierCreationForm(request.POST)
+        if suppliers_form.is_valid():
+            suppliers_form.save()
+            messages.success(request, f'Supplier Added Successfully!')
+            return redirect('suppliers')
+    else:
+        suppliers_form = SupplierCreationForm()
+        suppliers = Supplier.objects.all()
+
+        paginator = Paginator(suppliers, 8)
+        page_number = request.GET.get('page')
+        suppliers_page = paginator.get_page(page_number)
+    context = {
+        "suppliers_form": suppliers_form,
+        "suppliers":suppliers,
+        "suppliers_page": suppliers_page
+    }
+
+    return render(request, 'landing_page/suppliers.html', context)
 

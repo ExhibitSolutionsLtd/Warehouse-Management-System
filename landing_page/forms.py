@@ -51,3 +51,9 @@ class CustomerCreationForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ['cust_f_name', 'cust_l_name', 'email', 'mobile_no', 'address', 'notes']
+
+
+class SupplierCreationForm(forms.ModelForm):
+    class Meta:
+        model = Supplier
+        fields = ['sup_f_name', 'sup_l_name', 'email', 'mobile_no', 'address', 'notes']
