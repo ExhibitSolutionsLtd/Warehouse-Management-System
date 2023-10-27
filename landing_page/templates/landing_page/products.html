@@ -1,5 +1,6 @@
 {% extends 'landing_page/base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
     <div class="container">
@@ -69,7 +70,7 @@
                         <tbody>
                             <tr>
                               <th scope="row">{{ product.sku }}</th>
-                              <td>{{ product.item_name }}</td>
+                              <td> <img src="{{'product.product_image.url'}}" alt="">{{ product.item_name }}</td>
                               <td>{{ product.quantity }}</td>
                               <td>{{ product.category }}</td>
                               <td>{{ product.location }}</td>

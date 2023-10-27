@@ -54,5 +54,7 @@ status_elems.forEach((status_elem)=>{
 
 
 // modify rows attribute value in text area elements
-let textareaDiv = document.querySelector(".textarea");
-textareaDiv.rows = "4";
+let textareaDivs = document.querySelectorAll(".textarea");
+textareaDivs.forEach((textareaDiv)=>{
+    textareaDiv.rows = "4";
+})

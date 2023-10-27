@@ -30,7 +30,7 @@ class Product(models.Model):
         ("Clothing", "Clothing"),
         ("Electronic", "Electronic")
     ]
-    sku = models.CharField(verbose_name = "SKU", max_length=50) #Stock Keeping Unit
+    sku = models.CharField(verbose_name = "Stock Keeping Unit", max_length=50) #Stock Keeping Unit
     item_name = models.CharField(max_length=100)
     quantity = models.IntegerField()
     category = models.CharField(max_length=50, choices=category_choices)
@@ -62,6 +62,7 @@ class Order(models.Model):
     ]
     order_id = models.CharField(verbose_name='Order ID', max_length=50)
     order_date = models.DateField(verbose_name='Order Date')
+    # item = models.ForeignKey(Product, related_name= "ordered_item", on_delete=models.CASCADE)
     order_type = models.CharField(verbose_name='Order Type', choices=ORDER_TYPE_CHOICES)
     total_items = models.PositiveIntegerField(verbose_name='Total Items')
     status = models.CharField(verbose_name='Status', choices=[('Pending', 'Pending'), ('Processing', 'Processing'), ('Completed', 'Completed')])
@@ -76,17 +77,25 @@ class Order(models.Model):
 
 
 class Customer(models.Model):
-    cust_f_name = models.CharField(max_length=100)
-    cust_l_name = models.CharField(max_length=100)
+    cust_f_name = models.CharField(verbose_name='First Name', max_length=100)
+    cust_l_name = models.CharField(verbose_name='Last Name', max_length=100)
     orders = GenericRelation(Order)
+    email = models.EmailField(verbose_name='Email Address', blank=True, max_length=50)
+    mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', max_length=12, blank=True)
+    address = models.TextField(verbose_name='Home Address', blank=True)
+    notes = models.TextField(verbose_name='Notes', blank=True)
 
     def __str__(self) -> str:
         return f'{self.cust_f_name} {self.cust_l_name}'
 
 class Supplier(models.Model):
-    sup_f_name = models.CharField(max_length=100)
-    sup_l_name = models.CharField(max_length=100)
+    sup_f_name = models.CharField(verbose_name='First Name', max_length=100)
+    sup_l_name = models.CharField(verbose_name='First Name', max_length=100)
     orders = GenericRelation(Order)
+    email = models.EmailField(verbose_name='Email Address', blank=True, max_length=50)
+    mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', max_length=12, blank=True)
+    address = models.TextField(verbose_name='Home Address', blank=True)
+    notes = models.TextField(verbose_name='Notes', blank=True)
 
     def __str__(self) -> str:
         return f'{self.sup_f_name} {self.sup_l_name}'
