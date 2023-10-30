@@ -1,9 +1,13 @@
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm, SupplierCreationForm
 from .models import Product, Order, Customer, Supplier
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -108,3 +112,13 @@ def suppliers(request):
 
     return render(request, 'landing_page/suppliers.html', context)
 
+class ProductUpdateView(UpdateView):
+    model = Product
+    template_name = 'landing_page/product_update.html'
+    fields = [ "sku", "item_name", "quantity", "category", "location", "description", "product_image",]
+    success_url = reverse_lazy('products')
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, f'Item editted successfully!')
+        return super().form_valid(form)

@@ -16,8 +16,8 @@ class ProductCreationForm(forms.ModelForm):
                   ]
         
 class OrderCreationForm(forms.ModelForm):
-    supplier = forms.ModelChoiceField(queryset=Supplier.objects.all(), required=False)
-    customer = forms.ModelChoiceField(queryset=Customer.objects.all(), required=False)
+    supplier = forms.ModelChoiceField(queryset=Supplier.objects.all())
+    customer = forms.ModelChoiceField(queryset=Customer.objects.all())
 
     class Meta:
         model = Order
