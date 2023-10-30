@@ -47,14 +47,28 @@
       Welcome <span class="position-relative text-warning text-uppercase">{{ user.username }}</span>!
       <hr class="mb-0">
     </h5>
-    <a href="{% url 'dashboard' %}"><span class="mdi mdi-home fs-5"></span> Dashboard</a>
-    <a href="{% url 'products' %}"><span class="mdi mdi-shopping fs-6"></span> Inventory</a>
-    <a href="{% url 'orders' %}"><span class="mdi mdi-package fs-6"></span> Orders</a>
-    <a href="{% url 'suppliers' %}"><span class="mdi mdi-account fs-6"></span> Suppliers</a>
-    <a href="{% url 'customers' %}"><span class="mdi mdi-account-outline fs-6"></span> Customers</a>
+    <a href="{% url 'dashboard' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
+      space_dashboard
+      </span> Dashboard</a>
+    <a href="{% url 'products' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
+      inventory
+      </span> Inventory</a>
+    <a href="{% url 'orders' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
+      orders
+      </span> Orders</a>
+    <a href="{% url 'suppliers' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
+      person
+      </span> Suppliers</a>
+    <a href="{% url 'customers' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
+      group
+      </span></span> Customers</a>
     <!-- <a href="#"><span class="mdi mdi-cash-multiple fs-6"></span> New Transactions</a> -->
-    <a href="#"><span class="mdi mdi-eye fs-6"></span> View</a>
-    <a href="#"><span class="mdi mdi-chart-areaspline fs-6"></span> Reports</a>
+    <a href="#" class="align-items-center d-flex"><span class="material-symbols-outlined">
+      visibility
+      </span> View</a>
+    <a href="#" class="align-items-center d-flex"><span class="material-symbols-outlined">
+      show_chart
+      </span> Reports</a>
     <div class="accounts-sidebar">
         <div class="btn-group dropup">
             <button type="button" class="btn dropdown-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
