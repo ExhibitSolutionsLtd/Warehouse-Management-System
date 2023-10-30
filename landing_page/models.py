@@ -35,13 +35,14 @@ class Product(models.Model):
     quantity = models.IntegerField()
     category = models.CharField(max_length=50, choices=category_choices)
     description = models.TextField()
-    # nature = models.CharField(max_length=50, choices=nature_choices)
     location = models.CharField(verbose_name ="Location (e.g., Aisle/Shelf/Bin)", max_length=100)
     product_image = models.ImageField("product_images")
     user = models.ForeignKey(User, related_name="created_by", on_delete=models.CASCADE)
+    item_created_at = models.DateTimeField(auto_now_add=True)
+    item_updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.product_name}'
+        return f'{self.item_name}'
 
 
     def save(self):
@@ -61,8 +62,9 @@ class Order(models.Model):
         ("Outbound", "Outbound")
     ]
     order_id = models.CharField(verbose_name='Order ID', max_length=50)
-    order_date = models.DateField(verbose_name='Order Date')
-    # item = models.ForeignKey(Product, related_name= "ordered_item", on_delete=models.CASCADE)
+    order_created_at = models.DateTimeField(auto_now_add=True)
+    order_updated_at = models.DateTimeField(auto_now=True)
+    item = models.ForeignKey(Product, related_name= "ordered_item", on_delete=models.CASCADE)
     order_type = models.CharField(verbose_name='Order Type', choices=ORDER_TYPE_CHOICES)
     total_items = models.PositiveIntegerField(verbose_name='Total Items')
     status = models.CharField(verbose_name='Status', choices=[('Pending', 'Pending'), ('Processing', 'Processing'), ('Completed', 'Completed')])

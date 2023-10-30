@@ -72,6 +72,7 @@
                             <th scope="col">Total Items</th>
                             <th scope="col">Status</th>
                             <th scope="col">Notes</th>
+                            <th scope="col">Actions</th>
                         </tr>
                         </thead>
                         {% if inbound_orders %}
@@ -85,6 +86,14 @@
                                 <td>{{ order.total_items }}</td>
                                 <td class="orderStatus">{{ order.status }}</td>
                                 <td>{{ order.notes }}</td>
+                                <td class="d-flex justify-content-evenly align-items-center">
+                                    <span class="material-symbols-outlined fs-3 actions" title="Edit">
+                                        edit_note
+                                        </span>
+                                        <span class="material-symbols-outlined text-danger actions" title="Delete">
+                                            delete
+                                            </span>
+                                  </td>
                                 </tr>
                             </tbody>
                             {% if order.status.Pending %}

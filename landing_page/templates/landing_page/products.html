@@ -64,6 +64,7 @@
                         <th scope="col">Category</th>
                         <th scope="col">Location</th>
                         <th scope="col">Description</th>
+                        <th scope="col">Actions</th>
                         
                       </tr>
                     </thead>
@@ -77,6 +78,14 @@
                               <td>{{ product.category }}</td>
                               <td>{{ product.location }}</td>
                               <td>{{ product.description }}</td>
+                              <td class="d-flex justify-content-evenly align-items-center">
+                                <span class="material-symbols-outlined fs-3 actions" title="Edit">
+                                    edit_note
+                                    </span>
+                                    <span class="material-symbols-outlined text-danger actions" title="Delete">
+                                        delete
+                                        </span>
+                              </td>
                             </tr>
                           </tbody>
                         {% endfor %}
