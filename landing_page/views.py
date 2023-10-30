@@ -6,7 +6,7 @@ from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm,
 from .models import Product, Order, Customer, Supplier
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 # Create your views here.
@@ -122,3 +122,8 @@ class ProductUpdateView(UpdateView):
         form.save()
         messages.success(self.request, f'Item editted successfully!')
         return super().form_valid(form)
+    
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'landing_page/product_delete.html'
+    success_url = reverse_lazy('products')
