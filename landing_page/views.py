@@ -101,7 +101,7 @@ def suppliers(request):
         page_number = request.GET.get('page')
         suppliers_page = paginator.get_page(page_number)
     context = {
-        "suppliers_form": suppliers_form,
+        "supplier_form": suppliers_form,
         "suppliers":suppliers,
         "suppliers_page": suppliers_page
     }

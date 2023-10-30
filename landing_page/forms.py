@@ -30,7 +30,7 @@ class OrderCreationForm(forms.ModelForm):
           super(OrderCreationForm, self).__init__(*args, **kwargs)
           
           if self.instance.id:  # If order already exists
-              if self.instance.order_type == "inbound":
+              if self.instance.order_type == "Inbound":
                   self.fields['supplier'].initial = self.instance.associated_name
               else:
                   self.fields['customer'].initial = self.instance.associated_name
@@ -38,7 +38,7 @@ class OrderCreationForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super(OrderCreationForm, self).save(commit=False)
         
-        if instance.order_type == "inbound":
+        if instance.order_type == "Inbound":
             instance.associated_name = self.cleaned_data['supplier']
         else:
             instance.associated_name = self.cleaned_data['customer']
