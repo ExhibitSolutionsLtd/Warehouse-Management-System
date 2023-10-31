@@ -127,3 +127,27 @@ class ProductDeleteView(DeleteView):
     model = Product
     template_name = 'landing_page/product_delete.html'
     success_url = reverse_lazy('products')
+
+    def form_valid(self, form):
+        messages.success(self.request, f'Item deleted successfully!')
+        return super().form_valid(form)
+
+class OrderUpdateView(UpdateView):
+    model = Order
+    template_name = 'landing_page/order_update.html'
+    # fields = [ "sku", "item_name", "quantity", "category", "location", "description", "order_image",]
+    success_url = reverse_lazy('orders')
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, f'Order edited successfully!')
+        return super().form_valid(form)
+    
+class OrderDeleteView(DeleteView):
+    model = Order
+    template_name = 'landing_page/order_delete.html'
+    success_url = reverse_lazy('orders')
+
+    def form_valid(self, form):
+        messages.success(self.request, f'Order deleted successfully!')
+        return super().form_valid(form)
