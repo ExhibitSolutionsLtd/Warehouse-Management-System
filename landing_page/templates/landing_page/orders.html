@@ -80,7 +80,7 @@
                             <tbody>
                                 <tr>
                                 <th scope="row">{{ order.order_id }}</th>
-                                <td>{{ order.order_date }}</td>
+                                <td>{{ order.order_created_at|date }}</td>
                                 <td>{{ order.order_type }}</td>
                                 <td>{{ order.associated_name }}</td>
                                 <td>{{ order.total_items }}</td>
@@ -125,7 +125,7 @@
                             <tbody>
                                 <tr>
                                   <th scope="row">{{ order.order_id }}</th>
-                                  <td>{{ order.order_date }}</td>
+                                  <td>{{ order.order_created_at|date }}</td>
                                   <td>{{ order.order_type }}</td>
                                   <td>{{ order.associated_name }}</td>
                                   <td>{{ order.total_items }}</td>
