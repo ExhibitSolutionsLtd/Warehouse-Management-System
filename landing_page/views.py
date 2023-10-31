@@ -151,3 +151,24 @@ class OrderDeleteView(DeleteView):
     def form_valid(self, form):
         messages.success(self.request, f'Order deleted successfully!')
         return super().form_valid(form)
+    
+
+class SupplierUpdateView(UpdateView):
+    model = Supplier
+    template_name = 'landing_page/supplier_update.html'
+    fields = ['sup_f_name', 'sup_l_name', 'email', 'mobile_no', 'address', 'notes']
+    success_url = reverse_lazy('suppliers')
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, f'Supplier details edited successfully!')
+        return super().form_valid(form)
+    
+class SupplierDeleteView(DeleteView):
+    model = Supplier
+    template_name = 'landing_page/supplier_delete.html'
+    success_url = reverse_lazy('suppliers')
+
+    def form_valid(self, form):
+        messages.success(self.request, f'Suppliers details deleted successfully!')
+        return super().form_valid(form)

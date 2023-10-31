@@ -1,0 +1,37 @@
+{% extends 'landing_page/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% block navbar %}
+                    {% include 'landing_page/navbar.html' %}
+                {% endblock %}
+            </div>
+            <div class="col-md-9 my-3">
+                <h4>Delete Supplier Details</h4>
+                <hr>
+                <div class="container rounded  border table-content-div">
+                    <div class="row">
+                        <div class="col-md-10 mx-auto">
+                        <!-- Delete confirmation form -->
+                            <legend>Are you sure you want to delete this Supplier?</legend>
+                            <form action="" method="POST" enctype="multipart/form-data" class="p-5">
+                                <fieldset class="form-group">
+                                    {% csrf_token %}
+                                    <div class="">
+                                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                                        <button type="submit" class="btn-landing bg-danger me-4">Delete</button>
+                                        <a href="{% url 'suppliers' %}" class="btn-landing-outline">Cancel</a>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

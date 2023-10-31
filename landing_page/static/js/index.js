@@ -1,15 +1,19 @@
 
 // show and hide supplier and customer divs when the value for order type is inbound or outbound
 
-document.getElementById('id_order_type').addEventListener('change', function() {
-    if (this.value == 'Inbound') {
-        document.getElementById('div_id_supplier').style.display = 'block';
-        document.getElementById('div_id_customer').style.display = 'none';
-    } else {
-        document.getElementById('div_id_supplier').style.display = 'none';
-        document.getElementById('div_id_customer').style.display = 'block';
-    }
-});
+order_type_elem = document.getElementById('id_order_type')
+
+if (order_type_elem!=null){
+    order_type_elem.addEventListener('change', function() {
+        if (this.value == 'Inbound') {
+            document.getElementById('div_id_supplier').style.display = 'block';
+            document.getElementById('div_id_customer').style.display = 'none';
+        } else {
+            document.getElementById('div_id_supplier').style.display = 'none';
+            document.getElementById('div_id_customer').style.display = 'block';
+        }
+    });
+}
 
 
 // functionality for the Orders Tabs
@@ -34,7 +38,10 @@ function openTab(tabName, elmnt) {
 }
 
 // Default open the first tab
-document.getElementsByClassName('tablink')[0].click();
+let tablink = document.getElementsByClassName('tablink')[0]
+if (tablink!=null){
+    tablink.click();
+}
 
 let status_elems = document.querySelectorAll(".orderStatus");
 //loop through each element in nodelist
@@ -58,3 +65,6 @@ let textareaDivs = document.querySelectorAll(".textarea");
 textareaDivs.forEach((textareaDiv)=>{
     textareaDiv.rows = "4";
 })
+
+// console.log(textareaDivs)
+// alert('Hello')
