@@ -16,15 +16,12 @@ class ProductCreationForm(forms.ModelForm):
                   ]
         
 class OrderCreationForm(forms.ModelForm):
-    supplier = forms.ModelChoiceField(queryset=Supplier.objects.all())
-    customer = forms.ModelChoiceField(queryset=Customer.objects.all())
+    supplier = forms.ModelChoiceField(queryset=Supplier.objects.all(), required=False)
+    customer = forms.ModelChoiceField(queryset=Customer.objects.all(), required=False)
 
     class Meta:
         model = Order
         exclude = ['associated_name', 'content_type', 'object_id']
-        widgets = {
-            'order_date': forms.DateInput(attrs={'type': 'date'}),
-        }
 
     def __init__(self, *args, **kwargs):
           super(OrderCreationForm, self).__init__(*args, **kwargs)
