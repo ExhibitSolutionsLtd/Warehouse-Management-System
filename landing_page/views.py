@@ -135,7 +135,7 @@ class ProductDeleteView(DeleteView):
 class OrderUpdateView(UpdateView):
     model = Order
     template_name = 'landing_page/order_update.html'
-    # fields = [ "sku", "item_name", "quantity", "category", "location", "description", "order_image",]
+    fields = [ "order_id", "item", "order_type", "total_items", "status", "notes"]
     success_url = reverse_lazy('orders')
 
     def form_valid(self, form):
