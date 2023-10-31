@@ -76,7 +76,7 @@
                         </tr>
                         </thead>
                         {% if inbound_orders %}
-                            {% for order in inbound_orders %}
+                            {% for order in customers_page_in %}
                             <tbody>
                                 <tr>
                                 <th scope="row">{{ order.order_id }}</th>
@@ -100,6 +100,23 @@
                             <h4 class="text-center bg-danger text-white p-2">No inbound orders added yet!</h4>
                         {% endif %}
                     </table>
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if customers_page_in.has_previous %}
+                                <a href="?page=1">&laquo; First</a>
+                                <a href="?page={{ customers_page_in.previous_page_number }}">Previous</a>
+                            {% endif %}
+                    
+                            <span class="current">
+                                Page {{ customers_page_in.number }} of {{ customers_page_in.paginator.num_pages }}.
+                            </span>
+                    
+                            {% if customers_page_in.has_next %}
+                                <a href="?page={{ customers_page_in.next_page_number }}">Next</a>
+                                <a href="?page={{ customers_page_in.paginator.num_pages }}">Last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
                 </div>
                 
                 <div id="Tab2" class="tabcontent">
@@ -121,7 +138,7 @@
                           </tr>
                         </thead>
                         {% if outbound_orders %}
-                            {% for order in outbound_orders %}
+                            {% for order in customers_page_out %}
                             <tbody>
                                 <tr>
                                   <th scope="row">{{ order.order_id }}</th>
@@ -141,7 +158,24 @@
                         {% else %}
                               <h4 class="text-center bg-danger text-white p-2">No outbound orders added yet!</h4>
                         {% endif %}
-                      </table>
+                    </table>
+                      <div class="pagination">
+                        <span class="step-links">
+                            {% if customers_page_out.has_previous %}
+                                <a href="?page=1">&laquo; First</a>
+                                <a href="?page={{ customers_page_out.previous_page_number }}">Previous</a>
+                            {% endif %}
+                    
+                            <span class="current">
+                                Page {{ customers_page_out.number }} of {{ customers_page_out.paginator.num_pages }}.
+                            </span>
+                    
+                            {% if customers_page_out.has_next %}
+                                <a href="?page={{ customers_page_out.next_page_number }}">Next</a>
+                                <a href="?page={{ customers_page_out.paginator.num_pages }}">Last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

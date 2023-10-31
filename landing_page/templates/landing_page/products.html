@@ -69,7 +69,7 @@
                       </tr>
                     </thead>
                     {% if products %}
-                        {% for product in products %}
+                        {% for product in products_page %}
                         <tbody>
                             <tr>
                               <th scope="row">{{ product.sku }}</th>
@@ -89,6 +89,23 @@
                           <h4 class="text-center bg-danger text-white p-2">No items added yet!</h4>
                     {% endif %}
                   </table>
+                  <div class="pagination">
+                    <span class="step-links">
+                        {% if products_page.has_previous %}
+                            <a href="?page=1">&laquo; First</a>
+                            <a href="?page={{ products_page.previous_page_number }}">Previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ products_page.number }} of {{ products_page.paginator.num_pages }}.
+                        </span>
+                
+                        {% if products_page.has_next %}
+                            <a href="?page={{ products_page.next_page_number }}">Next</a>
+                            <a href="?page={{ products_page.paginator.num_pages }}">Last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
             </div>
         </div>
     </div>

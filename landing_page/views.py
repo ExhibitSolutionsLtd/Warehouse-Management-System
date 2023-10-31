@@ -41,9 +41,14 @@ def products(request):
     else:
         product_form = ProductCreationForm()
         products = Product.objects.all().order_by('-pk')
+
+        paginator_prods = Paginator(products, 8)
+        page_number = request.GET.get('page')
+        products_page = paginator_prods.get_page(page_number)
     context = {
         "product_form": product_form,
-        "products": products
+        "products": products,
+        "products_page":products_page
     }
 
     return render(request, 'landing_page/products.html', context)
@@ -60,10 +65,19 @@ def orders(request):
         order_form = OrderCreationForm()
         inbound_orders = Order.objects.filter(order_type = 'Inbound')
         outbound_orders = Order.objects.filter(order_type = 'Outbound')
+        paginator_inbound = Paginator(inbound_orders, 8)
+        page_number_in = request.GET.get('page')
+        customers_page_in = paginator_inbound.get_page(page_number_in)
+
+        paginator_outbound = Paginator(outbound_orders, 8)
+        page_number_out = request.GET.get('page')
+        customers_page_out = paginator_outbound.get_page(page_number_out)
     context = {
         "order_form": order_form,
         "inbound_orders": inbound_orders,
-        "outbound_orders":outbound_orders
+        "outbound_orders":outbound_orders,
+        "customers_page_in":customers_page_in,
+        "customers_page_out":customers_page_out
     }
 
     return render(request, 'landing_page/orders.html', context)
@@ -120,7 +134,7 @@ class ProductUpdateView(UpdateView):
 
     def form_valid(self, form):
         form.save()
-        messages.success(self.request, f'Item editted successfully!')
+        messages.success(self.request, f'Item edited successfully!')
         return super().form_valid(form)
     
 class ProductDeleteView(DeleteView):
