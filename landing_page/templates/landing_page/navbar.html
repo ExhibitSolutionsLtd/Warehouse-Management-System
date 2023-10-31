@@ -9,6 +9,8 @@
         background-color: #0a1e39; /* Sidebar background color */
         color: #fff; /* Text color in the sidebar */
         padding: 20px;
+        z-index: 1;
+        transition: all 0.3s ease;
     }
 
     /* Style for the sidebar links */
@@ -39,51 +41,99 @@
     background-color: #0a1e39;
     color: #fff;
   }
+  .sidebar-hidden {
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+  #toggleSidebar{
+    position: relative;
+    z-index: 1;
+  }
+  .toggle-button {
+    position: fixed;
+    top: 0;
+    left: 11vw;
+    z-index: 2;  /*the button stays above the sidebar */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Additional style when sidebar is closed */
+.sidebar.closed {
+    width: 3vw;
+    overflow: hidden;
+    padding: 0;
+}
+
+.toggle-button.closed {
+    left: 0; /* Move it to where the sidebar starts */
+}
+
+.toggle-button div {
+  width: 35px;
+  height: 5px;
+  background-color: black;
+  margin: 6px 0;
+}
+
 </style>
 
-<div class="sidebar">
-    <img src="../../static/images/logo-2.png" class="img-fluid mb-5" alt="">
-    <h5 class="py-2">
-      Welcome <span class="position-relative text-warning text-uppercase">{{ user.username }}</span>!
-      <hr class="mb-0">
-    </h5>
-    <a href="{% url 'dashboard' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
-      space_dashboard
-      </span> Dashboard</a>
-    <a href="{% url 'products' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
-      inventory
-      </span> Inventory</a>
-    <a href="{% url 'orders' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
-      orders
-      </span> Orders</a>
-    <a href="{% url 'suppliers' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
-      person
-      </span> Suppliers</a>
-    <a href="{% url 'customers' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
-      group
-      </span></span> Customers</a>
-    <!-- <a href="#"><span class="mdi mdi-cash-multiple fs-6"></span> New Transactions</a> -->
-    <a href="#" class="align-items-center d-flex"><span class="material-symbols-outlined">
-      visibility
-      </span> View</a>
-    <a href="#" class="align-items-center d-flex"><span class="material-symbols-outlined">
-      show_chart
-      </span> Reports</a>
-    <div class="accounts-sidebar">
-        <div class="btn-group dropup">
-            <button type="button" class="btn dropdown-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{{ user.profile.image.url }}" class="user-avator position-relative" alt="User Avator">
-                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle">
-                  <span class="visually-hidden">New alerts</span>
-                </span>
-                {{ user.username }}
-            </button>
-            <ul class="dropdown-menu">
-              <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-              <a class="dropdown-item"  href="{% url 'logout' %}">Logout</a>
-            </ul>
-          </div>
-        <!-- <a href="#">Account Settings</a> -->
-        <!-- <a href="{% url 'logout' %}">Logout</a> -->
-    </div>
+
+<div id="toggleSidebar" class="toggle-button">
+  <div></div>
+  <div></div>
+  <div></div>
 </div>
+
+<!-- Sidebar Wrapper -->
+<div class="sidebar" id="sidebar">
+    
+
+    <!-- Existing sidebar content here -->
+    <div>
+      <img src="../../static/images/logo-2.png" class="img-fluid mb-5" alt="">
+      <h5 class="py-2">
+        Welcome <span class="position-relative text-warning text-uppercase">{{ user.username }}</span>!
+        <hr class="mb-0">
+      </h5>
+      <a href="{% url 'dashboard' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
+        space_dashboard
+        </span> Dashboard</a>
+      <a href="{% url 'products' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
+        inventory
+        </span> Inventory</a>
+      <a href="{% url 'orders' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
+        orders
+        </span> Orders</a>
+      <a href="{% url 'suppliers' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
+        person
+        </span> Suppliers</a>
+      <a href="{% url 'customers' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
+        group
+        </span></span> Customers</a>
+      <!-- <a href="#"><span class="mdi mdi-cash-multiple fs-6"></span> New Transactions</a> -->
+      <a href="#" class="align-items-center d-flex"><span class="material-symbols-outlined">
+        visibility
+        </span> View</a>
+      <a href="#" class="align-items-center d-flex"><span class="material-symbols-outlined">
+        show_chart
+        </span> Reports</a>
+      <div class="accounts-sidebar">
+          <div class="btn-group dropup">
+              <button type="button" class="btn dropdown-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="{{ user.profile.image.url }}" class="user-avator position-relative" alt="User Avator">
+                  <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle">
+                    <span class="visually-hidden">New alerts</span>
+                  </span>
+                  {{ user.username }}
+              </button>
+              <ul class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                <a class="dropdown-item"  href="{% url 'logout' %}">Logout</a>
+              </ul>
+            </div>
+      </div>
+  </div>
+</div>
+

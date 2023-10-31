@@ -65,6 +65,31 @@ let textareaDivs = document.querySelectorAll(".textarea");
 textareaDivs.forEach((textareaDiv)=>{
     textareaDiv.rows = "4";
 })
+//function that triggers printing of document
+function printDocument() {
+    printJS('productTbl', 'html');
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get the sidebar and toggle button elements
+    var sidebar = document.getElementById("sidebar");
+    var toggleSidebarButton = document.getElementById("toggleSidebar");
+
+    // Add click event listener to the toggle button
+    toggleSidebarButton.addEventListener("click", function() {
+        // Toggle the "closed" class based on its presence
+        if (sidebar.classList.contains("closed")) {
+            sidebar.classList.remove("closed");
+            toggleSidebarButton.classList.remove("closed")
+        } else {
+            sidebar.classList.add("closed");
+            toggleSidebarButton.classList.add("closed")
+        }
+    });
+});
+
+
+  
 
 // console.log(textareaDivs)
 // alert('Hello')
