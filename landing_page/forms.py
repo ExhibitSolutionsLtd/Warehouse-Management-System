@@ -1,4 +1,4 @@
-from .models import Product, InboundOrder, OutboundOrder, Customer, Supplier
+from .models import Product, Order, Customer, Supplier
 from django import forms
 
 
@@ -15,17 +15,35 @@ class ProductCreationForm(forms.ModelForm):
                 "product_image",
                   ]
         
-class InboundOrderCreationForm(forms.ModelForm):
+class OrderCreationForm(forms.ModelForm):
+    supplier = forms.ModelChoiceField(queryset=Supplier.objects.all(), required=False)
+    customer = forms.ModelChoiceField(queryset=Customer.objects.all(), required=False)
+
     class Meta:
-        model = InboundOrder
-        fields = [ "order_id", "associated_name", "item", "order_type", "total_items", "status", "notes"]
+        model = Order
+        exclude = ['associated_name', 'content_type', 'object_id']
 
-class OutboundOrderCreationForm(forms.ModelForm):
-    class Meta:
-        model = OutboundOrder
-        fields = [ "order_id", "associated_name", "item", "order_type", "total_items", "status", "notes"]
+    def __init__(self, *args, **kwargs):
+          super(OrderCreationForm, self).__init__(*args, **kwargs)
+          
+          if self.instance.id:  # If order already exists
+              if self.instance.order_type == "Inbound":
+                  self.fields['supplier'].initial = self.instance.associated_name
+              else:
+                  self.fields['customer'].initial = self.instance.associated_name
 
+    def save(self, commit=True):
+        instance = super(OrderCreationForm, self).save(commit=False)
+        
+        if instance.order_type == "Inbound":
+            instance.associated_name = self.cleaned_data['supplier']
+        else:
+            instance.associated_name = self.cleaned_data['customer']
 
+        if commit:
+            instance.save()
+        return instance
+    
 class CustomerCreationForm(forms.ModelForm):
     class Meta:
         model = Customer
