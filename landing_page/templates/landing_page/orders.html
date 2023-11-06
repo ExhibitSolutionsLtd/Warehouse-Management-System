@@ -69,7 +69,8 @@
                             <th scope="col">Order Date</th>
                             <th scope="col">Order Type</th>
                             <th scope="col">Supplier</th>
-                            <th scope="col">Total Items</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Quantity</th>
                             <th scope="col">Status</th>
                             <th scope="col">Notes</th>
                             <th scope="col">Actions</th>
@@ -79,10 +80,11 @@
                             {% for order in customers_page_in %}
                             <tbody>
                                 <tr>
-                                <th scope="row">{{ order.order_id }}</th>
+                                <th scope="row"><a href="{% url 'order-detail' order.id %}">{{ order.order_id }}</a></th>
                                 <td>{{ order.order_created_at|date }}</td>
                                 <td>{{ order.order_type }}</td>
                                 <td>{{ order.associated_name }}</td>
+                                <td>{{ order.item }}</td>
                                 <td>{{ order.total_items }}</td>
                                 <td class="orderStatus">{{ order.status }}</td>
                                 <td>{{ order.notes }}</td>
@@ -141,7 +143,7 @@
                             {% for order in customers_page_out %}
                             <tbody>
                                 <tr>
-                                  <th scope="row">{{ order.order_id }}</th>
+                                  <th scope="row"><a href="{% url 'order-detail' order.id %}">{{ order.order_id }}</a></th>
                                   <td>{{ order.order_created_at|date }}</td>
                                   <td>{{ order.order_type }}</td>
                                   <td>{{ order.associated_name }}</td>

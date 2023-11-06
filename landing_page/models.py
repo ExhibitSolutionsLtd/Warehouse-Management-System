@@ -67,7 +67,7 @@ class Order(models.Model):
     item = models.ForeignKey(Product, related_name= "ordered_item", on_delete=models.CASCADE)
     order_type = models.CharField(verbose_name='Order Type', choices=ORDER_TYPE_CHOICES)
     total_items = models.PositiveIntegerField(verbose_name='Total Items')
-    status = models.CharField(verbose_name='Status', choices=[('Pending', 'Pending'), ('Processing', 'Processing'), ('Completed', 'Completed')])
+    status = models.CharField(verbose_name='Status', choices=[('Pending', 'Pending'), ('Processing', 'Processing'), ('Completed', 'Completed'), ('GIT', 'GIT')])
     notes = models.TextField(verbose_name='Notes', blank=True)
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)

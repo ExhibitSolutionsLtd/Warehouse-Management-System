@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.views.generic import DetailView
 
 # Create your views here.
 
@@ -24,8 +25,12 @@ def landing_page(request):
 @login_required
 def dashboard(request):
     inventory = Product.objects.all()
+    pending = Order.objects.filter(status = 'Pending')
+    transit = Order.objects.filter(status = 'GIT')
     context = {
-        "inventory":inventory
+        "inventory":inventory,
+        "pending":pending,
+        "transit":transit,
     }
     return render(request, 'landing_page/dashboard.html', context)
 
@@ -206,3 +211,8 @@ class CustomerDeleteView(DeleteView):
     def form_valid(self, form):
         messages.success(self.request, f'Customers details deleted successfully!')
         return super().form_valid(form)
+    
+class OrderDetailView(DetailView):
+    model = Order
+    template_name = 'landing_page/order_detail.html'
+    context_object_name = 'order_detail'

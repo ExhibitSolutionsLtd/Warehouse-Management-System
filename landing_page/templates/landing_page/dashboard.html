@@ -35,7 +35,7 @@
                                 <h6 class="text-uppercase mt-0 align-items-center d-flex justify-content-between">Pending Orders <span class="material-symbols-outlined">
                                     inactive_order
                                     </span></h6>
-                                <h2 class="my-2" id="active-users-count">3</h2>
+                                <h2 class="my-2" id="active-users-count">{{pending|length}}</h2>
                                 <p class="mb-0 text-muted">
                                     <!-- <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 10.7%</span>
                                     <span class="text-nowrap">Since last month</span>   -->
@@ -50,7 +50,7 @@
                                 <h6 class="text-uppercase mt-0 align-items-center d-flex justify-content-between">Recent Shipments <span class="material-symbols-outlined">
                                     package
                                     </span></h6>
-                                <h2 class="my-2" id="active-users-count">1</h2>
+                                <h2 class="my-2" id="active-users-count">{{transit|length}}</h2>
                                 <p class="mb-0 text-muted">
                                     <!-- <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 6%</span>
                                     <span class="text-nowrap">Since last month</span>   -->
