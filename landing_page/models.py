@@ -55,33 +55,9 @@ class Product(models.Model):
             img.thumbnail(output_size)
             img.save(self.product_image.path)
 
-
-class Order(models.Model):
-    ORDER_TYPE_CHOICES = [
-        ("Inbound", "Inbound"),
-        ("Outbound", "Outbound")
-    ]
-    order_id = models.CharField(verbose_name='Order ID', max_length=50)
-    order_created_at = models.DateTimeField(auto_now_add=True)
-    order_updated_at = models.DateTimeField(auto_now=True)
-    item = models.ForeignKey(Product, related_name= "ordered_item", on_delete=models.CASCADE)
-    order_type = models.CharField(verbose_name='Order Type', choices=ORDER_TYPE_CHOICES)
-    total_items = models.PositiveIntegerField(verbose_name='Total Items')
-    status = models.CharField(verbose_name='Status', choices=[('Pending', 'Pending'), ('Processing', 'Processing'), ('Completed', 'Completed'), ('GIT', 'GIT')])
-    notes = models.TextField(verbose_name='Notes', blank=True)
-
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    associated_name = GenericForeignKey('content_type', 'object_id')
-
-    def __str__(self) -> str:
-        return f'Order no: {self.order_id}'
-
-
 class Customer(models.Model):
     cust_f_name = models.CharField(verbose_name='First Name', max_length=100)
     cust_l_name = models.CharField(verbose_name='Last Name', max_length=100)
-    orders = GenericRelation(Order)
     email = models.EmailField(verbose_name='Email Address', max_length=50)
     mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', max_length=12, blank=True, null=True)
     address = models.TextField(verbose_name='Address', blank=True)
@@ -93,7 +69,6 @@ class Customer(models.Model):
 class Supplier(models.Model):
     sup_f_name = models.CharField(verbose_name='First Name', max_length=100)
     sup_l_name = models.CharField(verbose_name='Last Name', max_length=100)
-    orders = GenericRelation(Order)
     email = models.EmailField(verbose_name='Email Address', blank=True, max_length=50)
     mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', max_length=12, blank=True)
     address = models.TextField(verbose_name='Address', blank=True)
@@ -101,3 +76,36 @@ class Supplier(models.Model):
 
     def __str__(self) -> str:
         return f'{self.sup_f_name} {self.sup_l_name}'
+
+
+class InboundOrder(models.Model):
+    order_id = models.CharField(verbose_name='Order ID', max_length=50)
+    associated_name = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+    order_created_at = models.DateTimeField(auto_now_add=True)
+    order_updated_at = models.DateTimeField(auto_now=True)
+    item = models.ForeignKey(Product, related_name= "ordered_item", on_delete=models.CASCADE)
+    order_type = models.CharField(verbose_name='Order Type', default="Inbound", editable=False)
+    total_items = models.PositiveIntegerField(verbose_name='Total Items')
+    status = models.CharField(verbose_name='Status', choices=[('Pending', 'Pending'), ('Processing', 'Processing'), ('Completed', 'Completed'), ('GIT', 'GIT')])
+    notes = models.TextField(verbose_name='Notes', blank=True)
+
+
+    def __str__(self) -> str:
+        return f'Inbound Order no: {self.order_id}'
+    
+class OutboundOrder(models.Model):
+    order_id = models.CharField(verbose_name='Order ID', max_length=50)
+    associated_name = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    order_created_at = models.DateTimeField(auto_now_add=True)
+    order_updated_at = models.DateTimeField(auto_now=True)
+    item = models.ForeignKey(Product, related_name= "ordered_item", on_delete=models.CASCADE)
+    order_type = models.CharField(verbose_name='Order Type', default="Outbound", editable=False)
+    total_items = models.PositiveIntegerField(verbose_name='Total Items')
+    status = models.CharField(verbose_name='Status', choices=[('Pending', 'Pending'), ('Processing', 'Processing'), ('Completed', 'Completed'), ('GIT', 'GIT')])
+    notes = models.TextField(verbose_name='Notes', blank=True)
+
+
+    def __str__(self) -> str:
+        return f'Outbound Order no: {self.order_id}'
+
+
