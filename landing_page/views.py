@@ -223,10 +223,12 @@ def reports(request):
     today = timezone.localdate()
     todays_inventory = Product.objects.filter(item_created_at__date=today)
     pending = Order.objects.filter(status = 'Pending')
+    recent_shipments = Order.objects.filter(status = 'GIT', order_created_at__date = today)
 
     context = {
         'today':today,
         'todays_inventory':todays_inventory,
-        'pending':pending
+        'pending':pending,
+        'recent_shipments':recent_shipments
     }
     return render(request, 'landing_page/reports.html', context)
