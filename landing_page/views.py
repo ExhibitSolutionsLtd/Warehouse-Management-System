@@ -10,6 +10,7 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -28,14 +29,20 @@ def dashboard(request):
     inventory = Product.objects.all()
     pending = Order.objects.filter(status = 'Pending')
     transit = Order.objects.filter(status = 'GIT')
+    all_orders = Order.objects.all()
+    all_customers = Customer.objects.all()
+    all_suppliers = Supplier.objects.all()
     context = {
         "inventory":inventory,
         "pending":pending,
         "transit":transit,
+        'all_orders':all_orders,
+        'all_customers':all_customers,
+        'all_suppliers':all_suppliers
     }
     return render(request, 'landing_page/dashboard.html', context)
 
-
+@login_required
 def products(request):
     if request.method == "POST":
         product_form = ProductCreationForm(request.POST, request.FILES)
@@ -59,7 +66,7 @@ def products(request):
 
     return render(request, 'landing_page/products.html', context)
 
-
+@login_required
 def orders(request):
     if request.method == "POST":
         order_form = OrderCreationForm(request.POST)
@@ -87,7 +94,7 @@ def orders(request):
     }
 
     return render(request, 'landing_page/orders.html', context)
-
+@login_required
 def customers(request):
     if request.method == "POST":
         customer_form = CustomerCreationForm(request.POST)
@@ -110,6 +117,7 @@ def customers(request):
 
     return render(request, 'landing_page/customers.html', context)
 
+@login_required
 def suppliers(request):
     if request.method == "POST":
         suppliers_form = SupplierCreationForm(request.POST)
@@ -132,7 +140,7 @@ def suppliers(request):
 
     return render(request, 'landing_page/suppliers.html', context)
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     template_name = 'landing_page/product_update.html'
     fields = [ "sku", "item_name", "quantity", "category", "location", "description", "product_image",]
@@ -143,7 +151,7 @@ class ProductUpdateView(UpdateView):
         messages.success(self.request, f'Item edited successfully!')
         return super().form_valid(form)
     
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'landing_page/product_delete.html'
     success_url = reverse_lazy('products')
@@ -152,7 +160,7 @@ class ProductDeleteView(DeleteView):
         messages.success(self.request, f'Item deleted successfully!')
         return super().form_valid(form)
 
-class OrderUpdateView(UpdateView):
+class OrderUpdateView(LoginRequiredMixin, UpdateView):
     model = Order
     template_name = 'landing_page/order_update.html'
     fields = [ "order_id", "item", "order_type", "total_items", "status", "notes"]
@@ -163,7 +171,7 @@ class OrderUpdateView(UpdateView):
         messages.success(self.request, f'Order edited successfully!')
         return super().form_valid(form)
     
-class OrderDeleteView(DeleteView):
+class OrderDeleteView(LoginRequiredMixin, DeleteView):
     model = Order
     template_name = 'landing_page/order_delete.html'
     success_url = reverse_lazy('orders')
@@ -173,7 +181,7 @@ class OrderDeleteView(DeleteView):
         return super().form_valid(form)
     
 
-class SupplierUpdateView(UpdateView):
+class SupplierUpdateView(LoginRequiredMixin, UpdateView):
     model = Supplier
     template_name = 'landing_page/supplier_update.html'
     fields = ['sup_f_name', 'sup_l_name', 'email', 'mobile_no', 'address', 'notes']
@@ -184,7 +192,7 @@ class SupplierUpdateView(UpdateView):
         messages.success(self.request, f'Supplier details edited successfully!')
         return super().form_valid(form)
     
-class SupplierDeleteView(DeleteView):
+class SupplierDeleteView(LoginRequiredMixin, DeleteView):
     model = Supplier
     template_name = 'landing_page/supplier_delete.html'
     success_url = reverse_lazy('suppliers')
@@ -193,7 +201,7 @@ class SupplierDeleteView(DeleteView):
         messages.success(self.request, f'Suppliers details deleted successfully!')
         return super().form_valid(form)
     
-class CustomerUpdateView(UpdateView):
+class CustomerUpdateView(LoginRequiredMixin, UpdateView):
     model = Customer
     template_name = 'landing_page/customer_update.html'
     fields = ['cust_f_name', 'cust_l_name', 'email', 'mobile_no', 'address', 'notes']
@@ -204,7 +212,7 @@ class CustomerUpdateView(UpdateView):
         messages.success(self.request, f'Customer details edited successfully!')
         return super().form_valid(form)
     
-class CustomerDeleteView(DeleteView):
+class CustomerDeleteView(LoginRequiredMixin, DeleteView):
     model = Customer
     template_name = 'landing_page/customer_delete.html'
     success_url = reverse_lazy('customers')
@@ -213,7 +221,7 @@ class CustomerDeleteView(DeleteView):
         messages.success(self.request, f'Customers details deleted successfully!')
         return super().form_valid(form)
     
-class OrderDetailView(DetailView):
+class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
     template_name = 'landing_page/order_detail.html'
     context_object_name = 'order_detail'

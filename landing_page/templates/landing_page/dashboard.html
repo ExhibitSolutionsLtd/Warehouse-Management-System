@@ -67,7 +67,7 @@
                                 <h6 class="text-uppercase mt-0 align-items-center d-flex justify-content-between">Total Customers <span class="material-symbols-outlined">
                                     group
                                     </span></h6>
-                                <h2 class="my-2" id="active-users-count">{{inventory|length}}</h2>
+                                <h2 class="my-2" id="active-users-count">{{all_customers|length}}</h2>
                                 <p class="mb-0 text-muted">
                                     <!-- <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 5.27%</span>
                                     <span class="text-nowrap">Since last month</span>   -->
@@ -82,7 +82,7 @@
                                 <h6 class="text-uppercase mt-0 align-items-center d-flex justify-content-between">Total Suppliers <span class="material-symbols-outlined">
                                     person
                                     </span></h6>
-                                <h2 class="my-2" id="active-users-count">{{pending|length}}</h2>
+                                <h2 class="my-2" id="active-users-count">{{all_suppliers|length}}</h2>
                                 <p class="mb-0 text-muted">
                                     <!-- <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 10.7%</span>
                                     <span class="text-nowrap">Since last month</span>   -->
@@ -97,7 +97,7 @@
                                 <h6 class="text-uppercase mt-0 align-items-center d-flex justify-content-between">Total Orders <span class="material-symbols-outlined">
                                     orders
                                     </span></h6>
-                                <h2 class="my-2" id="active-users-count">{{transit|length}}</h2>
+                                <h2 class="my-2" id="active-users-count">{{all_orders|length}}</h2>
                                 <p class="mb-0 text-muted">
                                     <!-- <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 6%</span>
                                     <span class="text-nowrap">Since last month</span>   -->
@@ -108,9 +108,28 @@
                 </div>
                 
                 <div>
-                    <h6>Alerts</h6>
+                    <h5>Alerts</h5>
                     <hr>
-                    <p>Alerts go here...</p>
+                    {% if inventory %}
+                    <h6>Low Stock</h6>
+                            <table class="table table-striped-columns table-hover table-sm table-bordered">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Inventory Name</th>
+                                    <th scope="col">Quantity Remaining</th>
+                                </tr>
+                                </thead>
+                            {% for product in inventory %}
+                                {% if product.quantity < 10 %}
+                                        <tbody>
+                                            <tr>
+                                            <th scope="row">{{ product.item_name }}</th>
+                                            <td class="text-danger">{{ product.quantity }}</td>
+                                            </tr>
+                                        </tbody>
+                                {% endif %}
+                            {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>

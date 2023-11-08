@@ -32,7 +32,7 @@ class Product(models.Model):
     ]
     sku = models.CharField(verbose_name = "Stock Keeping Unit", max_length=50) #Stock Keeping Unit
     item_name = models.CharField(max_length=100)
-    quantity = models.IntegerField()
+    quantity = models.PositiveIntegerField()
     category = models.CharField(max_length=50, choices=category_choices)
     description = models.TextField(blank=True)
     location = models.CharField(verbose_name ="Location (e.g., Aisle/Shelf/Bin)", max_length=100)
