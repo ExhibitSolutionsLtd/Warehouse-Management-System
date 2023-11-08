@@ -3,8 +3,29 @@ from django.contrib.auth.models import User
 from PIL import Image
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+import qrcode
+from io import BytesIO
+from django.core.files import File
+from PIL import Image, ImageDraw
 
 # Create your models here.
+
+def generate_qr_code(data):
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(data)
+    qr.make(fit=True)
+
+    img = qr.make_image(fill='black', back_color='white')
+    buffer = BytesIO()
+    img.save(buffer)
+    filename = f'{data}-qr.png'
+    filebuffer = File(buffer, name=filename)
+    return filebuffer
 
 class Product(models.Model):
     unit_choices = [
@@ -40,12 +61,13 @@ class Product(models.Model):
     user = models.ForeignKey(User, related_name="created_by", on_delete=models.CASCADE)
     item_created_at = models.DateTimeField(auto_now_add=True)
     item_updated_at = models.DateTimeField(auto_now=True)
+    qr_code = models.ImageField(upload_to='qr_codes/', blank=True)
 
     def __str__(self):
         return f'{self.item_name}'
 
 
-    def save(self):
+    def save(self, *args, **kwargs):
         super().save()
 
         img = Image.open(self.product_image.path)
@@ -54,6 +76,27 @@ class Product(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.product_image.path)
+        
+        if not self.qr_code:
+            # Generate a simple table in Python string format with two columns and seven rows.
+
+            table_data = [
+                ('SKU', self.sku),
+                ('Product Name', self.item_name),
+                ('Quantity', self.quantity),
+                ('Category', self.category),
+                ('Location', self.location),
+                ('Description', self.description),
+            ]
+
+            # Create a table string
+            data = '| # \t| Details \t|\n|-----------|-----------|\n' + \
+                        '\n'.join('| {} \t| {} \t|'.format(row[0], row[1]) for row in table_data)
+            #saves a qr image with encorded instance data
+            # data = f"{self.sku} {self.item_name} {self.quantity} {self.category}"  # This should be the data unique to each instance
+            self.qr_code = generate_qr_code(data)
+        super().save(*args, **kwargs)
+
 
 
 class Order(models.Model):
