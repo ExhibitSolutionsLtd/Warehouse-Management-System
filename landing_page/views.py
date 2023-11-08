@@ -236,3 +236,8 @@ def reports(request):
         'recent_shipments':recent_shipments
     }
     return render(request, 'landing_page/reports.html', context)
+
+class ProductDetailsView(LoginRequiredMixin, DetailView):
+    model = Product
+    template_name = 'landing_page/product_detail.html'
+    context_object_name = 'product_detail'

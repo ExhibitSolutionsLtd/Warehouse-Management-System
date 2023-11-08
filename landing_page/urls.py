@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ProductUpdateView, ProductDeleteView, OrderUpdateView,OrderDeleteView, SupplierUpdateView, SupplierDeleteView, CustomerUpdateView, CustomerDeleteView, OrderDetailView
+from .views import ProductUpdateView, ProductDeleteView, OrderUpdateView,OrderDeleteView, SupplierUpdateView, SupplierDeleteView, CustomerUpdateView, CustomerDeleteView, OrderDetailView, ProductDetailsView
 
 urlpatterns = [
     path('', views.landing_page, name="landing-page"),
@@ -17,7 +17,8 @@ urlpatterns = [
     path('supplier/<int:pk>/delete/', SupplierDeleteView.as_view(), name="supplier-delete"),
     path('customer/<int:pk>/edit/', CustomerUpdateView.as_view(), name="customers-update"),
     path('customer/<int:pk>/delete/', CustomerDeleteView.as_view(), name="customer-delete"),
-    path('product/<int:pk>/detail/', OrderDetailView.as_view(), name="order-detail"),
+    path('order/<int:pk>/detail/', OrderDetailView.as_view(), name="order-detail"),
+    path('product/<int:pk>/detail/', ProductDetailsView.as_view(), name="product-detail"),
     path('reports', views.reports, name="reports"),
 
 ]
