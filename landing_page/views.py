@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
+from django.utils import timezone
 
 # Create your views here.
 
@@ -216,3 +217,16 @@ class OrderDetailView(DetailView):
     model = Order
     template_name = 'landing_page/order_detail.html'
     context_object_name = 'order_detail'
+
+
+def reports(request):
+    today = timezone.localdate()
+    todays_inventory = Product.objects.filter(item_created_at__date=today)
+    pending = Order.objects.filter(status = 'Pending')
+
+    context = {
+        'today':today,
+        'todays_inventory':todays_inventory,
+        'pending':pending
+    }
+    return render(request, 'landing_page/reports.html', context)

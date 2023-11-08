@@ -55,7 +55,7 @@
 
                 <!-- Table -->
 
-                <table class="table table-striped table-hover table-sm" id="productTbl">
+                <table class="table table-striped table-hover table-sm table-bordered" id="productTbl">
                     <thead>
                       <tr>
                         <th scope="col"> SKU</th>
@@ -109,6 +109,12 @@
                     <button onclick="printDocument()" class="btn btn-primary mt-1 align-items-center d-flex">
                          PRINT
                     </button>
+
+                    <!-- <button onclick="printJS('productTbl', 'html')">Print</button>
+
+                    <button type="button" onclick="printJS({ printable: 'productTbl', type: 'html', header: 'PrintJS - Form Element Selection' })">
+                        Print Form with Header
+                     </button> -->
 
             </div>
         </div>

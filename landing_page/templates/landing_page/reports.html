@@ -1,0 +1,113 @@
+{% extends 'landing_page/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% block navbar %}
+                    {% include 'landing_page/navbar.html' %}
+                {% endblock %}
+            </div>
+            <div class="col-md-10 table-content-div mt-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4>Manage Reports</h4>
+
+                    <!-- Search bar -->
+                    
+                </div>
+                
+
+                <hr>
+
+                <!-- Table -->
+                <legend>Daily Inventory</legend>
+                <h6>Today- {{today|date:"D, d M Y"}}</h6>
+
+                <table class="table table-striped table-hover table-sm table-bordered" id="productTbl">
+                    <thead>
+                      <tr>
+                        <th scope="col"> SKU</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Description</th>                        
+                      </tr>
+                    </thead>
+                    {% if todays_inventory %}
+                        {% for product in todays_inventory %}
+                        <tbody>
+                            <tr>
+                              <th scope="row">{{ product.sku }}</th>
+                              <td>{{ product.item_name }}</td>
+                              <td>{{ product.quantity }}</td>
+                              <td>{{ product.category }}</td>
+                              <td>{{ product.location }}</td>
+                              <td>{{ product.description }}</td>
+                            </tr>
+                          </tbody>
+                        {% endfor %}
+                    {% else %}
+                          <h4 class="text-center bg-danger text-white p-2">No items added yet!</h4>
+                    {% endif %}
+                  </table>
+                    <a href="{% url 'products' %}" class="float-end btn-landing-outline d-flex align-items-center">View other Inventory <span class="material-symbols-outlined">
+                        chevron_right
+                        </span></a>
+                    <!-- <button onclick="printDocument()" class="btn btn-primary mt-1 align-items-center d-flex">
+                         PRINT
+                    </button> -->
+
+                    <!-- <button onclick="printJS('productTbl', 'html')">Print</button>
+
+                    <button type="button" onclick="printJS({ printable: 'productTbl', type: 'html', header: 'PrintJS - Form Element Selection' })">
+                        Print Form with Header
+                     </button> -->
+                     <hr>
+
+                     <legend>Pending Orders</legend>
+                     <table class="table table-striped-columns  table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Order Type</th>
+                            <th scope="col">Supplier</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Notes</th>
+                        </tr>
+                        </thead>
+                        {% if pending %}
+                            {% for order in pending %}
+                            <tbody>
+                                <tr>
+                                <th scope="row">{{ order.order_id }}</th>
+                                <td>{{ order.order_created_at|date }}</td>
+                                <td>{{ order.order_type }}</td>
+                                <td>{{ order.associated_name }}</td>
+                                <td>{{ order.item }}</td>
+                                <td>{{ order.total_items }}</td>
+                                <td class="orderStatus">{{ order.status }}</td>
+                                <td>{{ order.notes }}</td>
+                                </tr>
+                            </tbody>
+                            {% if order.status.Pending %}
+                                <li>{{ order.status }}</li>
+                            {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <h4 class="text-center bg-danger text-white p-2">No records found!</h4>
+                        {% endif %}
+                    </table>
+                         <a href="{% url 'orders' %}" class="float-end btn-landing-outline d-flex align-items-center">View all orders <span class="material-symbols-outlined">
+                             chevron_right
+                             </span></a>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

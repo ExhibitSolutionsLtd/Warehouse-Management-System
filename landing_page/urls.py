@@ -18,5 +18,6 @@ urlpatterns = [
     path('customer/<int:pk>/edit/', CustomerUpdateView.as_view(), name="customers-update"),
     path('customer/<int:pk>/delete/', CustomerDeleteView.as_view(), name="customer-delete"),
     path('product/<int:pk>/detail/', OrderDetailView.as_view(), name="order-detail"),
+    path('reports', views.reports, name="reports"),
 
 ]

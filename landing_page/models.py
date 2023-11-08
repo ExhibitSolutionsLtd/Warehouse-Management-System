@@ -34,7 +34,7 @@ class Product(models.Model):
     item_name = models.CharField(max_length=100)
     quantity = models.IntegerField()
     category = models.CharField(max_length=50, choices=category_choices)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     location = models.CharField(verbose_name ="Location (e.g., Aisle/Shelf/Bin)", max_length=100)
     product_image = models.ImageField("product_images")
     user = models.ForeignKey(User, related_name="created_by", on_delete=models.CASCADE)
@@ -95,7 +95,7 @@ class Supplier(models.Model):
     sup_l_name = models.CharField(verbose_name='Last Name', max_length=100)
     orders = GenericRelation(Order)
     email = models.EmailField(verbose_name='Email Address', blank=True, max_length=50)
-    mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', max_length=12, blank=True)
+    mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', max_length=12, blank=True, null=True)
     address = models.TextField(verbose_name='Address', blank=True)
     notes = models.TextField(verbose_name='Notes', blank=True)
 

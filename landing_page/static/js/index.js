@@ -8,9 +8,13 @@ if (order_type_elem!=null){
         if (this.value == 'Inbound') {
             document.getElementById('div_id_supplier').style.display = 'block';
             document.getElementById('div_id_customer').style.display = 'none';
+            div_id_supplier.querySelector('select').required = true;
+            div_id_customer.querySelector('select').required = false;
         } else {
             document.getElementById('div_id_supplier').style.display = 'none';
             document.getElementById('div_id_customer').style.display = 'block';
+            div_id_supplier.querySelector('select').required = false;
+            div_id_customer.querySelector('select').required = true;
         }
     });
 }
