@@ -26,7 +26,7 @@
   .btn-landing-outline{
     color: #0a1e39;
     border: #0a1e39 1px solid;
-    padding: 10px 20px;
+    padding: 5px 20px;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
@@ -157,4 +157,8 @@
 
 .actions{
   cursor: pointer;
+}
+
+.links{
+  text-decoration: none;
 }

@@ -96,12 +96,12 @@ function printDocument() {
 //jQuery
 $(document).ready(()=>{
     $("#printme").click(()=>{
+        $("#header").append("<legend>Inventory List</legend>")
         $(".actions").remove()
-        $("#productTbl").printThis({
+        $("#printableContent").printThis({
             pageTitle:"Receipt"
         });
         $(".actions").add()
-        // alert('Hi')
     });
 });
   

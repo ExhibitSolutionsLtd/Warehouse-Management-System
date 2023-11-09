@@ -58,50 +58,85 @@
                 </div>
                 
                 <div id="Tab1" class="tabcontent">
-                    <h3>Inbound Orders</h3>
-                    <hr>
-                     <!-- Inbound Table -->
+                    <div id="printableContent">
+                        <div class="d-flex justify-content-between">
+                            <h3>Inbound Orders</h3>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn-landing mt-1 align-items-center d-flex" data-bs-toggle="modal" data-bs-target="#myModalInbound">
+                            <span class="material-symbols-outlined">
+                                add
+                                </span> ADD ORDER
+                        </button>
+                        </div>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModalInbound" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <legend class="modal-title fs-5" id="myModalLabel">Add Order</legend>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Add product form -->
+                                        <form action="" method="POST" enctype="multipart/form-data" class="p-5">
+                                            <fieldset class="form-group">
+                                                {% csrf_token %}
+                                                {{ order_form | crispy }}
+                                                <div class="modal-footer">
+                                                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                                                    <button type="submit" class="btn-landing w-100">Save</button>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- Inbound Table -->
 
-                    <table class="table table-striped-columns  table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">Order ID</th>
-                            <th scope="col">Order Date</th>
-                            <th scope="col">Order Type</th>
-                            <th scope="col">Supplier</th>
-                            <th scope="col">Item</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Notes</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                        </thead>
-                        {% if inbound_orders %}
-                            {% for order in customers_page_in %}
-                            <tbody>
-                                <tr>
-                                <th scope="row"><a href="{% url 'order-detail' order.id %}">{{ order.order_id }}</a></th>
-                                <td>{{ order.order_created_at|date }}</td>
-                                <td>{{ order.order_type }}</td>
-                                <td>{{ order.associated_name }}</td>
-                                <td>{{ order.item }}</td>
-                                <td>{{ order.total_items }}</td>
-                                <td class="orderStatus">{{ order.status }}</td>
-                                <td>{{ order.notes }}</td>
-                                <td class="d-flex justify-content-between align-items-center">
-                                    <a href="{% url 'orders-update' order.id %}"><span class="material-symbols-outlined actions" title="Edit"> edit_document </span></a>
-                                    <a href="{% url 'order-delete' order.id %}"><span class="material-symbols-outlined text-danger actions" title="Delete"> delete </span></a>
-                                </td>
-                                </tr>
-                            </tbody>
-                            {% if order.status.Pending %}
-                                <li>{{ order.status }}</li>
+                        <table class="table table-bordered table-striped-columns table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Order Date</th>
+                                <th scope="col">Order Type</th>
+                                <th scope="col">Supplier</th>
+                                <th scope="col">Item</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Notes</th>
+                                <th scope="col" class="actions">Actions</th>
+                            </tr>
+                            </thead>
+                            {% if inbound_orders %}
+                                {% for order in customers_page_in %}
+                                <tbody>
+                                    <tr>
+                                    <th scope="row"><a class="links" href="{% url 'order-detail' order.id %}">{{ order.order_id }}</a></th>
+                                    <td>{{ order.order_created_at|date }}</td>
+                                    <td>{{ order.order_type }}</td>
+                                    <td>{{ order.associated_name }}</td>
+                                    <td>{{ order.item }}</td>
+                                    <td>{{ order.total_items }}</td>
+                                    <td class="orderStatus">{{ order.status }}</td>
+                                    <td>{{ order.notes }}</td>
+                                    <td class="d-flex justify-content-between align-items-center actions">
+                                        <a href="{% url 'orders-update' order.id %}"><span class="material-symbols-outlined actions" title="Edit"> edit_document </span></a>
+                                        <a href="{% url 'order-delete' order.id %}"><span class="material-symbols-outlined text-danger actions" title="Delete"> delete </span></a>
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                {% if order.status.Pending %}
+                                    <li>{{ order.status }}</li>
+                                {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <h4 class="text-center bg-danger text-white p-2">No inbound orders added yet!</h4>
                             {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            <h4 class="text-center bg-danger text-white p-2">No inbound orders added yet!</h4>
-                        {% endif %}
-                    </table>
+                        </table>
+                    </div>
                     <div class="pagination">
                         <span class="step-links">
                             {% if customers_page_in.has_previous %}
@@ -119,49 +154,54 @@
                             {% endif %}
                         </span>
                     </div>
+                    <button id="printme" class="btn-landing-outline my-3 float-end align-items-center d-flex">
+                        PRINT
+                    </button>
                 </div>
                 
                 <div id="Tab2" class="tabcontent">
-                    <h3>Outbound Orders</h3>
-                    <hr>
+                    <div id="printableContent">
+                        <h3>Outbound Orders</h3>
+                        <hr>
 
-                    <!-- Outbound Table -->
-                    <table class="table table-striped-columns table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">Order ID</th>
-                            <th scope="col">Order Date</th>
-                            <th scope="col">Order Type</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Total Items</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Notes</th>
-                            <th scope="col">Actions</th>
-                          </tr>
-                        </thead>
-                        {% if outbound_orders %}
-                            {% for order in customers_page_out %}
-                            <tbody>
-                                <tr>
-                                  <th scope="row"><a href="{% url 'order-detail' order.id %}">{{ order.order_id }}</a></th>
-                                  <td>{{ order.order_created_at|date }}</td>
-                                  <td>{{ order.order_type }}</td>
-                                  <td>{{ order.associated_name }}</td>
-                                  <td>{{ order.total_items }}</td>
-                                  <td class="orderStatus">{{ order.status }}</td>
-                                  <td>{{ order.notes }}</td>
-                                  <td class="d-flex justify-content-between align-items-center">
-                                    <a href="{% url 'orders-update' order.id %}"><span class="material-symbols-outlined actions" title="Edit"> edit_document </span></a>
-                                    <a href="{% url 'order-delete' order.id %}"><span class="material-symbols-outlined text-danger actions" title="Delete"> delete </span></a>
-                                </td>
-                                </tr>
-                              </tbody>
-                            {% endfor %}
-                        {% else %}
-                              <h4 class="text-center bg-danger text-white p-2">No outbound orders added yet!</h4>
-                        {% endif %}
-                    </table>
-                      <div class="pagination">
+                        <!-- Outbound Table -->
+                        <table class="table table-striped-columns table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Order Date</th>
+                                <th scope="col">Order Type</th>
+                                <th scope="col">Customer</th>
+                                <th scope="col">Total Items</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Notes</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            {% if outbound_orders %}
+                                {% for order in customers_page_out %}
+                                <tbody>
+                                    <tr>
+                                    <th scope="row"><a href="{% url 'order-detail' order.id %}">{{ order.order_id }}</a></th>
+                                    <td>{{ order.order_created_at|date }}</td>
+                                    <td>{{ order.order_type }}</td>
+                                    <td>{{ order.associated_name }}</td>
+                                    <td>{{ order.total_items }}</td>
+                                    <td class="orderStatus">{{ order.status }}</td>
+                                    <td>{{ order.notes }}</td>
+                                    <td class="d-flex justify-content-between align-items-center">
+                                        <a href="{% url 'orders-update' order.id %}"><span class="material-symbols-outlined actions" title="Edit"> edit_document </span></a>
+                                        <a href="{% url 'order-delete' order.id %}"><span class="material-symbols-outlined text-danger actions" title="Delete"> delete </span></a>
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                {% endfor %}
+                            {% else %}
+                                <h4 class="text-center bg-danger text-white p-2">No outbound orders added yet!</h4>
+                            {% endif %}
+                        </table>
+                    </div>
+                    <div class="pagination">
                         <span class="step-links">
                             {% if customers_page_out.has_previous %}
                                 <a href="?page=1">&laquo; First</a>
@@ -178,6 +218,9 @@
                             {% endif %}
                         </span>
                     </div>
+                    <button id="printme" class="btn-landing-outline my-3 float-end align-items-center d-flex">
+                        PRINT
+                    </button>
                 </div>
             </div>
         </div>

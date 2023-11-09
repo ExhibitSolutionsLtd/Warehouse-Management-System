@@ -11,7 +11,12 @@
                 {% endblock %}
             </div>
             <div class="col-md-9 my-3">
-                <h4>Order No: {{order_detail.order_id}}</h4> 
+                <div class="d-flex justify-content-between">
+                  <h4>Order No: {{order_detail.order_id}}</h4>
+                  <button id="printme" class="btn-landing-outline align-items-center d-flex">
+                    PRINT RECEIPT
+                  </button>
+                </div>
                 <hr>
                 <div class="container rounded  border table-content-div">
                     <div class="row">
@@ -19,9 +24,9 @@
                             <!-- Update order form -->
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-md-8">
-                                        
-                                        <table id="productTbl" class="table table-bordered table-secondary my-4">
+                                    <div class="col-md-8 py-3" id="printableContent">
+                                        <legend>Order Receipt</legend>
+                                        <table class="table table-bordered table-striped  table-hover my-4">
                                             <thead>
                                               <tr>
                                                 <th scope="col">#</th>
@@ -30,16 +35,20 @@
                                             </thead>
                                             <tbody>
                                               <tr>
+                                                <th scope="row">Order Number</th>
+                                                <td>{{ order_detail.order_id }}</td>
+                                              </tr>
+                                              <tr>
+                                                <th scope="row">Supplier/Customer</th>
+                                                <td>{{ order_detail.associated_name }}</td>
+                                              </tr>
+                                              <tr>
                                                 <th scope="row">Order Date</th>
                                                 <td>{{ order_detail.order_created_at|date }}</td>
                                               </tr>
                                               <tr>
                                                 <th scope="row">Order Type</th>
                                                 <td>{{ order_detail.order_type }}</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">Supplier/Customer</th>
-                                                <td>{{ order_detail.associated_name }}</td>
                                               </tr>
                                               <tr>
                                                 <th scope="row">Item</th>
@@ -60,10 +69,6 @@
                                              
                                             </tbody>
                                           </table>
-
-                                            <button id="printme" class="btn btn-primary mt-1 align-items-center d-flex">
-                                            PRINT
-                                            </button>
                                     </div>
                                 </div>
                             </div>
