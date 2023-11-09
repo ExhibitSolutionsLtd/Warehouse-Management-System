@@ -65,24 +65,29 @@ def products(request):
 @login_required
 def orders(request):
     if request.method == "POST":
-        order_form = OrderCreationForm(request.POST)
-        if order_form.is_valid():
-            order_form.save()
+        in_order_form = OrderCreationForm(request.POST)
+        out_order_form = OrderCreationForm(request.POST)
+        if in_order_form.is_valid() or out_order_form.is_valid():
+            in_order_form.instance.order_type = 'Inbound'
+            in_order_form.save()
+            out_order_form.instance.order_type = 'Outbound'
+            out_order_form.save()
             messages.success(request, f'Order Added Successfully!')
             return redirect('orders')
     else:
-        order_form = OrderCreationForm()
-        inbound_orders = Order.objects.filter(order_type = 'Inbound')
-        outbound_orders = Order.objects.filter(order_type = 'Outbound')
-        paginator_inbound = Paginator(inbound_orders, 8)
-        page_number_in = request.GET.get('page')
-        customers_page_in = paginator_inbound.get_page(page_number_in)
+        in_order_form = OrderCreationForm()
 
-        paginator_outbound = Paginator(outbound_orders, 8)
-        page_number_out = request.GET.get('page')
-        customers_page_out = paginator_outbound.get_page(page_number_out)
+    inbound_orders = Order.objects.filter(order_type = 'Inbound')
+    outbound_orders = Order.objects.filter(order_type = 'Outbound')
+    paginator_inbound = Paginator(inbound_orders, 8)
+    page_number_in = request.GET.get('page')
+    customers_page_in = paginator_inbound.get_page(page_number_in)
+
+    paginator_outbound = Paginator(outbound_orders, 8)
+    page_number_out = request.GET.get('page')
+    customers_page_out = paginator_outbound.get_page(page_number_out)
     context = {
-        "order_form": order_form,
+        "in_order_form": in_order_form,
         "inbound_orders": inbound_orders,
         "outbound_orders":outbound_orders,
         "customers_page_in":customers_page_in,
