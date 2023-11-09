@@ -93,6 +93,17 @@ function printDocument() {
 });
 
 
+//jQuery
+$(document).ready(()=>{
+    $("#printme").click(()=>{
+        $(".actions").remove()
+        $("#productTbl").printThis({
+            pageTitle:"Receipt"
+        });
+        $(".actions").add()
+        // alert('Hi')
+    });
+});
   
 
 // console.log(textareaDivs)
