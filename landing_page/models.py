@@ -108,7 +108,7 @@ class Order(models.Model):
     order_created_at = models.DateTimeField(auto_now_add=True)
     order_updated_at = models.DateTimeField(auto_now=True)
     item = models.ForeignKey(Product, related_name= "ordered_item", on_delete=models.CASCADE)
-    order_type = models.CharField(verbose_name='Order Type', blank=True)
+    order_type = models.CharField(verbose_name='Order Type', blank=True, choices=ORDER_TYPE_CHOICES)
     total_items = models.PositiveIntegerField(verbose_name='Total Items')
     status = models.CharField(verbose_name='Status', choices=[('Pending', 'Pending'), ('Processing', 'Processing'), ('Completed', 'Completed'), ('GIT', 'GIT')])
     notes = models.TextField(verbose_name='Notes', blank=True)

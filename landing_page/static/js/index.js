@@ -1,36 +1,52 @@
 
 // show and hide supplier and customer divs when the value for order type is inbound or outbound
-orderBtn = document.getElementById('orderBtn')
+// let orderBtn = document.getElementById('orderBtn')
 
+// if (orderBtn!=null){
+//     orderBtn.addEventListener('click', ()=>{
+//         let input = document.getElementById("id_order_type")
+//         // input.disabled = true
+//         input.value = "Inbound"
+//         // input.innerHTML = "Inbound"
+//         document.getElementById('div_id_supplier').style.display = 'block';
+//         document.getElementById('div_id_customer').style.display = 'none';
+//         document.querySelector('#inb_form>#div_id_supplier>#id_supplier').required = true;
 
-if (orderBtn!=null){
-    orderBtn.addEventListener('click', ()=>{
-        let input = document.getElementById("id_order_type")
-        input.disabled = true
-        input.value = "Inbound"
-        document.getElementById('div_id_supplier').style.display = 'block';
-        document.getElementById('div_id_customer').style.display = 'none';
-    })
-}
-
-
-
-
-// if (order_type_elem!=null){
-//     order_type_elem.addEventListener('change', function() {
-//         if (this.value == 'Inbound') {
-//             document.getElementById('div_id_supplier').style.display = 'block';
-//             document.getElementById('div_id_customer').style.display = 'none';
-//             div_id_supplier.querySelector('select').required = true;
-//             div_id_customer.querySelector('select').required = false;
-//         } else {
-//             document.getElementById('div_id_supplier').style.display = 'none';
-//             document.getElementById('div_id_customer').style.display = 'block';
-//             div_id_supplier.querySelector('select').required = false;
-//             div_id_customer.querySelector('select').required = true;
-//         }
-//     });
+//     })
 // }
+
+// let orderBtn2 = document.getElementById('orderBtn2')
+
+// if (orderBtn2!=null){
+//     orderBtn2.addEventListener('click', ()=>{
+//         let input = document.querySelector("#outb_form>#div_id_order_type>#id_order_type")
+//         // input.disabled = true
+//         input.value = "Outbound"
+//         // input.textContent = "Outbound"
+//         document.querySelector('#outb_form>#div_id_supplier').style.display = 'none';
+//         document.querySelector('#outb_form>#div_id_customer').style.display = 'block';
+//         document.querySelector('#outb_form>#div_id_customer>#id_customer').required = true;
+
+//     })
+// }
+
+
+let order_type_elem = document.getElementById('id_order_type')
+if (order_type_elem!=null){
+    order_type_elem.addEventListener('change', function() {
+        if (this.value == 'Inbound') {
+            document.getElementById('div_id_supplier').style.display = 'block';
+            document.getElementById('div_id_customer').style.display = 'none';
+            document.querySelector('select').required = true;
+            document.querySelector('select').required = false;
+        } else {
+            document.getElementById('div_id_supplier').style.display = 'none';
+            document.getElementById('div_id_customer').style.display = 'block';
+            div_id_supplier.querySelector('select').required = false;
+            div_id_customer.querySelector('select').required = true;
+        }
+    });
+}
 
 
 // functionality for the Orders Tabs

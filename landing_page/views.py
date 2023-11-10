@@ -65,17 +65,28 @@ def products(request):
 @login_required
 def orders(request):
     if request.method == "POST":
-        in_order_form = OrderCreationForm(request.POST)
-        out_order_form = OrderCreationForm(request.POST)
-        if in_order_form.is_valid() or out_order_form.is_valid():
-            in_order_form.instance.order_type = 'Inbound'
-            in_order_form.save()
-            out_order_form.instance.order_type = 'Outbound'
-            out_order_form.save()
+        # in_order_form = OrderCreationForm(request.POST)
+        # out_order_form = OrderCreationForm(request.POST)
+        order_form = OrderCreationForm(request.POST)
+        # if in_order_form.is_valid():
+        #     in_order_form.instance.order_type = 'Inbound'
+        #     in_order_form.save()
+            
+        #     messages.success(request, f'Order Added Successfully!')
+        #     return redirect('orders')
+        # elif out_order_form.is_valid():
+        #     out_order_form.instance.order_type = 'Outbound'
+        #     out_order_form.save()
+        if order_form.is_valid():
+            order_form.save()
+
             messages.success(request, f'Order Added Successfully!')
             return redirect('orders')
+
     else:
-        in_order_form = OrderCreationForm()
+        # in_order_form = OrderCreationForm()
+        # out_order_form = OrderCreationForm()
+        order_form = OrderCreationForm()
 
     inbound_orders = Order.objects.filter(order_type = 'Inbound')
     outbound_orders = Order.objects.filter(order_type = 'Outbound')
@@ -87,7 +98,9 @@ def orders(request):
     page_number_out = request.GET.get('page')
     customers_page_out = paginator_outbound.get_page(page_number_out)
     context = {
-        "in_order_form": in_order_form,
+        # "in_order_form": in_order_form,
+        # "out_order_form": out_order_form,
+        "order_form":order_form,
         "inbound_orders": inbound_orders,
         "outbound_orders":outbound_orders,
         "customers_page_in":customers_page_in,
@@ -95,6 +108,7 @@ def orders(request):
     }
 
     return render(request, 'landing_page/orders.html', context)
+
 @login_required
 def customers(request):
     if request.method == "POST":

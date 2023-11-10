@@ -33,7 +33,7 @@
                                     <div class="modal-body">
                                         <!-- Add product form -->
                                         <form action="" method="POST" enctype="multipart/form-data" class="p-5">
-                                            <fieldset class="form-group">
+                                            <fieldset class="form-group" id="inb_form">
                                                 {% csrf_token %}
                                                 {{ order_form | crispy }}
                                                 <div class="modal-footer">
@@ -62,37 +62,37 @@
                         <div class="d-flex justify-content-between">
                             <h3>Inbound Orders</h3>
                             <!-- Button trigger modal -->
-                            <button id="orderBtn" type="button" class="btn-landing mt-1 align-items-center d-flex" data-bs-toggle="modal" data-bs-target="#myModalInbound">
+                            <!-- <button id="orderBtn" type="button" class="btn-landing mt-1 align-items-center d-flex" data-bs-toggle="modal" data-bs-target="#myModalInbound">
                                 <span class="material-symbols-outlined">
                                     add
                                     </span> ADD ORDER
-                            </button>
+                            </button> -->
                         </div>
                             
                             <!-- Modal -->
-                            <div class="modal fade" id="myModalInbound" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <!-- <div class="modal fade" id="myModalInbound" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <legend class="modal-title fs-5" id="myModalLabel">Add Order</legend>
+                                            <legend class="modal-title fs-5" id="myModalLabel">Add Inbound Order</legend>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
+                                        <div class="modal-body"> -->
                                             <!-- Add product form -->
-                                            <form action="" method="POST" enctype="multipart/form-data" class="p-5">
-                                                <fieldset class="form-group">
+                                            <!-- <form action="" method="POST" enctype="multipart/form-data" class="p-5">
+                                                <fieldset class="form-group" id="inb_form">
                                                     {% csrf_token %}
                                                     {{ in_order_form | crispy }}
-                                                    <div class="modal-footer">
+                                                    <div class="modal-footer"> -->
                                                         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                                                        <button type="submit" class="btn-landing w-100">Save</button>
+                                                        <!-- <button type="submit" class="btn-landing w-100">Save</button>
                                                     </div>
                                                 </fieldset>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <hr>
                             <!-- Inbound Table -->
 
@@ -164,37 +164,37 @@
                         <div class="d-flex justify-content-between">
                             <h3>Outbound Orders</h3>
                             <!-- Button trigger modal -->
-                            <button id="orderBtn2" type="button" class="btn-landing mt-1 align-items-center d-flex" data-bs-toggle="modal" data-bs-target="#myModalOutbound">
+                            <!-- <button id="orderBtn2" type="button" class="btn-landing mt-1 align-items-center d-flex" data-bs-toggle="modal" data-bs-target="#myModalOutbound">
                                 <span class="material-symbols-outlined">
                                     add
                                     </span> ADD ORDER
-                            </button>
+                            </button> -->
                         </div>
                         
                         <!-- Modal -->
-                        <div class="modal fade" id="myModalOutbound" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <!-- <div class="modal fade" id="myModalOutbound" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <legend class="modal-title fs-5" id="myModalLabel">Add Order</legend>
+                                        <legend class="modal-title fs-5" id="myModalLabel">Add Outbound Order</legend>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body"> -->
                                         <!-- Add product form -->
-                                        <form action="" method="POST" enctype="multipart/form-data" class="p-5">
-                                            <fieldset class="form-group">
+                                        <!-- <form action="" method="POST" enctype="multipart/form-data" class="p-5">
+                                            <fieldset class="form-group" id="outb_form">
                                                 {% csrf_token %}
                                                 {{ out_order_form | crispy }}
-                                                <div class="modal-footer">
+                                                <div class="modal-footer"> -->
                                                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                                                    <button type="submit" class="btn-landing w-100">Save</button>
+                                                    <!-- <button type="submit" class="btn-landing w-100">Save</button>
                                                 </div>
                                             </fieldset>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <hr>
 
                         <!-- Outbound Table -->

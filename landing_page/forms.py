@@ -1,5 +1,6 @@
 from .models import Product, Order, Customer, Supplier
 from django import forms
+from django.contrib.contenttypes.models import ContentType
 
 
 class ProductCreationForm(forms.ModelForm):
@@ -36,10 +37,16 @@ class OrderCreationForm(forms.ModelForm):
         instance = super(OrderCreationForm, self).save(commit=False)
         
         if instance.order_type == "Inbound":
-            instance.associated_name = self.cleaned_data['supplier']
+            supplier = self.cleaned_data['supplier']
+            instance.associated_name = supplier
+            instance.content_type = ContentType.objects.get_for_model(Supplier)
+            instance.object_id = supplier.id if supplier else None
         else:
-            instance.associated_name = self.cleaned_data['customer']
-
+            customer = self.cleaned_data['customer']
+            instance.associated_name = customer
+            instance.content_type = ContentType.objects.get_for_model(Customer)
+            instance.object_id = customer.id if customer else None
+        
         if commit:
             instance.save()
         return instance
