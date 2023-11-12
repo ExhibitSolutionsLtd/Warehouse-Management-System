@@ -26,6 +26,8 @@ def generate_qr_code(data):
     filename = f'{data}-qr.png'
     filebuffer = File(buffer, name=filename)
     return filebuffer
+class Location(models.Model):
+    location = models.CharField(max_length=100)
 
 class Product(models.Model):
     unit_choices = [
@@ -56,7 +58,7 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField()
     category = models.CharField(max_length=50, choices=category_choices)
     description = models.TextField(blank=True)
-    location = models.CharField(verbose_name ="Location (e.g., Aisle/Shelf/Bin)", max_length=100)
+    location = models.ForeignKey(Location, verbose_name ="Location (e.g., Aisle/Shelf/Bin)", on_delete=models.CASCADE)
     product_image = models.ImageField("product_images")
     user = models.ForeignKey(User, related_name="created_by", on_delete=models.CASCADE)
     item_created_at = models.DateTimeField(auto_now_add=True)
@@ -97,6 +99,10 @@ class Product(models.Model):
             self.qr_code = generate_qr_code(data)
         super().save(*args, **kwargs)
 
+
+class Transfers(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    transfer_to = models.ForeignKey(Location, on_delete=models.CASCADE)
 
 
 class Order(models.Model):
