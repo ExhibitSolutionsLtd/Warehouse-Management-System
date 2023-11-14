@@ -100,9 +100,16 @@ class Product(models.Model):
         super().save(*args, **kwargs)
 
 
-class Transfers(models.Model):
+class ProductTransfers(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    transfer_to = models.ForeignKey(Location, on_delete=models.CASCADE)
+    source_location = models.ForeignKey(Location, related_name='transfers_from', on_delete=models.CASCADE)
+    destination_location = models.ForeignKey(Location, related_name='transfers_to', on_delete=models.CASCADE)
+    quantity_transferred = models.PositiveIntegerField()
+    transfer_date = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, related_name='transfers_made', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.product.item_name} from {self.source_location} to {self.destination_location}"
 
 
 class Order(models.Model):

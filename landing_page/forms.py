@@ -1,4 +1,4 @@
-from .models import Product, Order, Customer, Supplier
+from .models import Product, Order, Customer, Supplier, ProductTransfers
 from django import forms
 from django.contrib.contenttypes.models import ContentType
 
@@ -61,3 +61,8 @@ class SupplierCreationForm(forms.ModelForm):
     class Meta:
         model = Supplier
         fields = ['sup_f_name', 'sup_l_name', 'email', 'mobile_no', 'address', 'notes']
+
+class TransferCreationForm(forms.ModelForm):
+    class Meta:
+        model = ProductTransfers
+        fields = ['product', 'source_location', 'destination_location', 'quantity_transferred']

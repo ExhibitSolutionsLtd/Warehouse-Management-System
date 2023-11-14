@@ -3,12 +3,12 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm, SupplierCreationForm
-from .models import Product, Order, Customer, Supplier
+from .models import Product, Order, Customer, Supplier, ProductTransfers
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
-from django.views.generic import DetailView
+from django.views.generic import DetailView, CreateView
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -260,3 +260,14 @@ class ProductDetailsView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'landing_page/product_detail.html'
     context_object_name = 'product_detail'
+
+class TransferCreateView(LoginRequiredMixin, CreateView):
+    model = ProductTransfers
+    template_name = 'landing_page/transfers.html'
+    fields = ['product', 'source_location', 'destination_location', 'quantity_transferred']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.save()
+        messages.success(self.request, f'Product transfer recorded successfully!')
+        return super().form_valid(form)
