@@ -68,6 +68,9 @@ class Product(models.Model):
     item_updated_at = models.DateTimeField(auto_now=True)
     qr_code = models.ImageField(upload_to='qr_codes/', blank=True)
 
+    class Meta:
+        unique_together = ('item_name', 'location')
+
     def __str__(self):
         return f'{self.item_name}'
 
@@ -95,7 +98,7 @@ class Product(models.Model):
             ]
 
             # Create a table string
-            data = 'Product Details' + \
+            data = 'Product Details\n' + \
                         '\n'.join('{} \t- {} \t'.format(row[0], row[1]) for row in table_data)
             #saves a qr image with encorded instance data
             # data = f"{self.sku} {self.item_name} {self.quantity} {self.category}"  # This should be the data unique to each instance

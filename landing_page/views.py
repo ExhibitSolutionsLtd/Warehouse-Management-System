@@ -49,11 +49,12 @@ def products(request):
             return redirect('products')
     else:
         product_form = ProductCreationForm()
-        products = Product.objects.all().order_by('-pk')
+        
+    products = Product.objects.all().order_by('-pk')
 
-        paginator_prods = Paginator(products, 8)
-        page_number = request.GET.get('page')
-        products_page = paginator_prods.get_page(page_number)
+    paginator_prods = Paginator(products, 8)
+    page_number = request.GET.get('page')
+    products_page = paginator_prods.get_page(page_number)
     context = {
         "product_form": product_form,
         "products": products,
