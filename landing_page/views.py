@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, CreateView
+from django.views.generic import DetailView, CreateView, ListView
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -265,7 +265,7 @@ class TransferCreateView(LoginRequiredMixin, CreateView):
     model = ProductTransfers
     template_name = 'landing_page/transfers.html'
     fields = ['product', 'source_location', 'destination_location', 'quantity_transferred']
-    success_url = reverse_lazy('products')
+    success_url = reverse_lazy('transfers-list')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -282,3 +282,8 @@ class TransferCreateView(LoginRequiredMixin, CreateView):
             form.add_error(None, str(e))
             return super().form_invalid(form)
         
+
+class TransfersListsView(LoginRequiredMixin, ListView):
+    model = ProductTransfers
+    template_name = 'landing_page/transfer_list.html'
+    context_object_name = 'transfer_list'

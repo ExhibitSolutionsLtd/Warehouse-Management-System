@@ -1,0 +1,87 @@
+{% extends 'landing_page/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% block navbar %}
+                    {% include 'landing_page/navbar.html' %}
+                {% endblock %}
+            </div>
+            <div class="col-md-10 table-content-div mt-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4>View Transfers</h4>
+                    <a href="{% url 'transfers' %}" class="btn-landing mt-1 align-items-center d-flex">
+                        <span class="material-symbols-outlined">
+                            add
+                            </span> ADD TRANSFER
+                    </a>
+                </div>
+                
+
+                <hr>
+
+                <div id="printableContent">
+                
+                <div id="header">
+                    
+                </div>
+                    <!-- Table -->
+                
+                <table class="table table-striped-columns table-hover table-sm table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">From</th>
+                        <th scope="col">To</th>
+                        <th scope="col">Quantity Transferred</th>
+                        <th scope="col">Date Transferred</th>
+                        
+                      </tr>
+                    </thead>
+                    {% if transfer_list %}
+                        {% for product in transfer_list %}
+                        <tbody>
+                            <tr>
+                              <td>{{ product.product.item_name }}</td>
+                              <td>{{ product.source_location }}</td>
+                              <td>{{ product.destination_location }}</td>
+                              <td>{{ product.quantity_transferred }}</td>
+                              <td>{{ product.transfer_date | date}}</td>
+                            </tr>
+                            
+                          </tbody>
+                        {% endfor %}
+                    {% else %}
+                          <h4 class="text-center bg-danger text-white p-2">No records found!</h4>
+                    {% endif %}
+                  </table>
+                </div>
+
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if products_page.has_previous %}
+                            <a href="?page=1">&laquo; First</a>
+                            <a href="?page={{ products_page.previous_page_number }}">Previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ products_page.number }} of {{ products_page.paginator.num_pages }}.
+                        </span>
+                
+                        {% if products_page.has_next %}
+                            <a href="?page={{ products_page.next_page_number }}">Next</a>
+                            <a href="?page={{ products_page.paginator.num_pages }}">Last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+
+                <button id="printme" class="btn-landing-outline my-3 float-end align-items-center d-flex">
+                    PRINT
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
