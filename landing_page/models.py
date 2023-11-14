@@ -29,6 +29,9 @@ def generate_qr_code(data):
 class Location(models.Model):
     location = models.CharField(max_length=100)
 
+    def __str__(self):
+        return f"{self.location}"
+
 class Product(models.Model):
     unit_choices = [
         ("milligrams", "milligrams"),
@@ -36,7 +39,7 @@ class Product(models.Model):
         ("Kilograms", "Kilograms"),
         ("millilitres", "millilitres"),
         ("Litres", "Litres"),
-        ("metres", "mitres"),
+        ("metres", "metres"),
         ("Units", "Units")
     ]
     nature_choices = [
@@ -55,8 +58,8 @@ class Product(models.Model):
     ]
     sku = models.CharField(verbose_name = "Stock Keeping Unit", max_length=50) #Stock Keeping Unit
     item_name = models.CharField(max_length=100)
-    quantity = models.PositiveIntegerField()
     category = models.CharField(max_length=50, choices=category_choices)
+    quantity = models.PositiveIntegerField()
     description = models.TextField(blank=True)
     location = models.ForeignKey(Location, verbose_name ="Location (e.g., Aisle/Shelf/Bin)", on_delete=models.CASCADE)
     product_image = models.ImageField("product_images")
@@ -92,12 +95,19 @@ class Product(models.Model):
             ]
 
             # Create a table string
-            data = '| # \t| Details \t|\n|-----------|-----------|\n' + \
-                        '\n'.join('| {} \t| {} \t|'.format(row[0], row[1]) for row in table_data)
+            data = 'Product Details' + \
+                        '\n'.join('{} \t- {} \t'.format(row[0], row[1]) for row in table_data)
             #saves a qr image with encorded instance data
             # data = f"{self.sku} {self.item_name} {self.quantity} {self.category}"  # This should be the data unique to each instance
             self.qr_code = generate_qr_code(data)
         super().save(*args, **kwargs)
+    
+    def transfer(self, quantity):
+        if quantity <= self.quantity:
+            self.quantity -= quantity
+            self.save()
+        else:
+            raise ValueError("Transferred quantity exceeds available quantity.")
 
 
 class ProductTransfers(models.Model):

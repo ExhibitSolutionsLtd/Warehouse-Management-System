@@ -265,9 +265,20 @@ class TransferCreateView(LoginRequiredMixin, CreateView):
     model = ProductTransfers
     template_name = 'landing_page/transfers.html'
     fields = ['product', 'source_location', 'destination_location', 'quantity_transferred']
+    success_url = reverse_lazy('products')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.save()
-        messages.success(self.request, f'Product transfer recorded successfully!')
-        return super().form_valid(form)
+        try:
+            product = form.cleaned_data['product']
+            quantity = form.cleaned_data['quantity_transferred']
+            # Assuming the 'transfer' method raises ValueError if the condition fails
+            product.transfer(quantity)
+            messages.success(self.request, f'Product transfer recorded successfully!')
+            return super().form_valid(form)
+        except ValueError as e:
+            # Add a non-field error
+            form.add_error(None, str(e))
+            return super().form_invalid(form)
+        
