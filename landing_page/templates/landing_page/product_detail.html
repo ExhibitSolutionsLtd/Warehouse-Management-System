@@ -23,7 +23,10 @@
                                     <img class="img-fluid" src="{{product_detail.product_image.url}}" alt="">
                                     <img class="img-fluid img-thumbnail my-2" src="{{product_detail.qr_code.url}}" alt="">
                                   </div>
-                                  <div class="col-lg-6">
+                                  <div class="col-lg-6" id="printableContent">
+                                      <div>
+                                        <legend>Product Details</legend>
+                                      </div>
                                       <table id="productTbl" class="table table-striped table-hover table-sm table-bordered my-4">
                                           <thead>
                                             <tr>
@@ -35,8 +38,6 @@
                                             <tr>
                                               <th scope="row">Stock Keeping Unit</th>
                                               <td>{{ product_detail.sku }}</td>
-                                            </tr>
-                                            <tr>
                                             </tr>
                                             <tr>
                                               <th scope="row">Product Name</th>
@@ -61,14 +62,12 @@
                                             
                                           </tbody>
                                         </table>
-
-                                          <button onclick="printDocument()" class="btn btn-primary mt-1 align-items-center d-flex">
-                                          PRINT
-                                          </button>
                                   </div>
                                 </div>
+                                <button id="printme" class="btn-landing-outline my-3 float-end align-items-center d-flex">
+                                  PRINT
+                                </button>
                             </div>
-                            
                         </div>
                     </div>
                 </div>

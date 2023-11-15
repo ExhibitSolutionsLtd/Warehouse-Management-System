@@ -56,8 +56,8 @@ class Product(models.Model):
         ("Clothing", "Clothing"),
         ("Electronic", "Electronic")
     ]
-    sku = models.CharField(verbose_name = "Stock Keeping Unit", max_length=50) #Stock Keeping Unit
-    item_name = models.CharField(max_length=100)
+    sku = models.CharField(verbose_name = "Stock Keeping Unit", max_length=50, unique=True) #Stock Keeping Unit
+    item_name = models.CharField(max_length=100, unique=True)
     category = models.CharField(max_length=50, choices=category_choices)
     quantity = models.PositiveIntegerField()
     description = models.TextField(blank=True)
@@ -111,7 +111,16 @@ class Product(models.Model):
             self.save()
         else:
             raise ValueError("Transferred quantity exceeds available quantity.")
+    def add_inventory(self, quantity):
+        self.quantity += quantity
+        self.save()
 
+    def remove_inventory(self, quantity):
+        if quantity <= self.quantity:
+            self.quantity -= quantity
+            self.save()
+        else:
+            raise ValueError("Insufficient Stock!")
 
 class ProductTransfers(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -130,13 +139,13 @@ class Order(models.Model):
         ("Inbound", "Inbound"),
         ("Outbound", "Outbound")
     ]
-    order_id = models.CharField(verbose_name='Order ID', max_length=50)
+    order_id = models.CharField(verbose_name='Order ID', max_length=50, unique=True)
     order_created_at = models.DateTimeField(auto_now_add=True)
     order_updated_at = models.DateTimeField(auto_now=True)
     item = models.ForeignKey(Product, related_name= "ordered_item", on_delete=models.CASCADE)
     total_items = models.PositiveIntegerField(verbose_name='Total Items')
     order_type = models.CharField(verbose_name='Order Type', blank=True, choices=ORDER_TYPE_CHOICES)
-    status = models.CharField(verbose_name='Status', choices=[('Pending', 'Pending'), ('Processing', 'Processing'), ('Completed', 'Completed'), ('GIT', 'GIT')])
+    status = models.CharField(verbose_name='Status', choices=[('Pending', 'Pending'), ('Processing', 'Processing'), ('GIT', 'GIT'), ('Completed', 'Completed')])
     notes = models.TextField(verbose_name='Notes', blank=True)
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
@@ -151,7 +160,7 @@ class Customer(models.Model):
     cust_f_name = models.CharField(verbose_name='First Name', max_length=100)
     cust_l_name = models.CharField(verbose_name='Last Name', max_length=100)
     orders = GenericRelation(Order)
-    email = models.EmailField(verbose_name='Email Address', max_length=50)
+    email = models.EmailField(verbose_name='Email Address', max_length=50, unique=True)
     mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', max_length=12, blank=True, null=True)
     address = models.TextField(verbose_name='Address', blank=True)
     notes = models.TextField(verbose_name='Notes', blank=True)
@@ -163,7 +172,7 @@ class Supplier(models.Model):
     sup_f_name = models.CharField(verbose_name='First Name', max_length=100)
     sup_l_name = models.CharField(verbose_name='Last Name', max_length=100)
     orders = GenericRelation(Order)
-    email = models.EmailField(verbose_name='Email Address', blank=True, max_length=50)
+    email = models.EmailField(verbose_name='Email Address', blank=True, max_length=50, unique=True)
     mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', max_length=12, blank=True, null=True)
     address = models.TextField(verbose_name='Address', blank=True)
     notes = models.TextField(verbose_name='Notes', blank=True)

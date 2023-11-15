@@ -79,6 +79,20 @@ def orders(request):
         #     out_order_form.instance.order_type = 'Outbound'
         #     out_order_form.save()
         if order_form.is_valid():
+            order_type = order_form.cleaned_data['order_type']
+            if order_type == "Inbound":
+                product = order_form.cleaned_data['item']
+                quantity = order_form.cleaned_data['total_items']
+                product.add_inventory(quantity)
+            else:
+                try:
+                    product = order_form.cleaned_data['item']
+                    quantity = order_form.cleaned_data['total_items']
+                    # Assuming the 'transfer' method raises ValueError if the condition fails
+                    product.remove_inventory(quantity)
+                except ValueError as e:
+                    # Add a non-field error
+                    order_form.add_error(None, str(e))
             order_form.save()
 
             messages.success(request, f'Order Added Successfully!')
@@ -275,7 +289,7 @@ class TransferCreateView(LoginRequiredMixin, CreateView):
             product = form.cleaned_data['product']
             quantity = form.cleaned_data['quantity_transferred']
             # Assuming the 'transfer' method raises ValueError if the condition fails
-            product.transfer(quantity)
+            # product.transfer(quantity)
             messages.success(self.request, f'Product transfer recorded successfully!')
             return super().form_valid(form)
         except ValueError as e:
