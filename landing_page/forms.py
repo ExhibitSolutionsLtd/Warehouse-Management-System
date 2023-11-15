@@ -1,3 +1,4 @@
+from typing import Any
 from .models import Product, Order, Customer, Supplier, ProductTransfers
 from django import forms
 from django.contrib.contenttypes.models import ContentType
@@ -41,6 +42,10 @@ class OrderCreationForm(forms.ModelForm):
             instance.associated_name = supplier
             instance.content_type = ContentType.objects.get_for_model(Supplier)
             instance.object_id = supplier.id if supplier else None
+
+            product = self.cleaned_data['item']
+            quantity = self.cleaned_data['total_items']
+            product.add_inventory(quantity)
         else:
             customer = self.cleaned_data['customer']
             instance.associated_name = customer
@@ -50,6 +55,19 @@ class OrderCreationForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+    #validate the Tota items field to ensure enough stock is available before placing orders.
+    def clean(self):
+        cleaned_data = super().clean()
+        order_type = self.cleaned_data['order_type']
+        if order_type == "Outbound":
+            try:
+                product = self.cleaned_data['item']
+                quantity = self.cleaned_data['total_items']
+                # Assuming the 'transfer' method raises ValueError if the condition fails
+                product.remove_inventory(quantity)
+            except ValueError as e:
+                # Add a non-field error
+                raise forms.ValidationError(str(e))
     
 class CustomerCreationForm(forms.ModelForm):
     class Meta:

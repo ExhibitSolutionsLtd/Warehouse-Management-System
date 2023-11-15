@@ -120,7 +120,7 @@ class Product(models.Model):
             self.quantity -= quantity
             self.save()
         else:
-            raise ValueError("Insufficient Stock!")
+            raise ValueError(f"Insufficient Stock! Only {self.quantity} units available.")
 
 class ProductTransfers(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

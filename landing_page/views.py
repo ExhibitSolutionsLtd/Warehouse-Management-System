@@ -79,20 +79,21 @@ def orders(request):
         #     out_order_form.instance.order_type = 'Outbound'
         #     out_order_form.save()
         if order_form.is_valid():
-            order_type = order_form.cleaned_data['order_type']
-            if order_type == "Inbound":
-                product = order_form.cleaned_data['item']
-                quantity = order_form.cleaned_data['total_items']
-                product.add_inventory(quantity)
-            else:
-                try:
-                    product = order_form.cleaned_data['item']
-                    quantity = order_form.cleaned_data['total_items']
-                    # Assuming the 'transfer' method raises ValueError if the condition fails
-                    product.remove_inventory(quantity)
-                except ValueError as e:
-                    # Add a non-field error
-                    order_form.add_error(None, str(e))
+            # order_type = order_form.cleaned_data['order_type']
+            # if order_type == "Inbound":
+            #     product = order_form.cleaned_data['item']
+            #     quantity = order_form.cleaned_data['total_items']
+            #     product.add_inventory(quantity)
+            # else:
+            #     try:
+            #         product = order_form.cleaned_data['item']
+            #         quantity = order_form.cleaned_data['total_items']
+            #         # Assuming the 'transfer' method raises ValueError if the condition fails
+            #         product.remove_inventory(quantity)
+            #     except ValueError as e:
+            #         # Add a non-field error
+            #         order_form.add_error(None, str(e))
+                # print(order_form.cleaned_data)
             order_form.save()
 
             messages.success(request, f'Order Added Successfully!')
