@@ -107,6 +107,8 @@ function printDocument() {
     // Get the sidebar and toggle button elements
     var sidebar = document.getElementById("sidebar");
     var toggleSidebarButton = document.getElementById("toggleSidebar");
+    let bigDiv = document.querySelector(".col-lg-10")
+    let smallDiv = document.querySelector(".col-lg-2")
 
     // Add click event listener to the toggle button
     toggleSidebarButton.addEventListener("click", function() {
@@ -117,6 +119,8 @@ function printDocument() {
         } else {
             sidebar.classList.add("closed");
             toggleSidebarButton.classList.add("closed")
+            bigDiv.styles.width = "100%"
+            smallDiv.styles.width = "0%"
         }
     });
 });
