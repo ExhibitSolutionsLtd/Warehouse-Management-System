@@ -130,6 +130,7 @@ function printDocument() {
 $(document).ready(()=>{
     $("#printme").click(()=>{
         $("#header").append("<legend>Inventory List</legend>")
+        $("#headertrans").append("<legend>Transfers</legend>")
         $(".actions").remove()
         $("#printableContent").printThis({
             pageTitle:"Receipt"
@@ -138,6 +139,22 @@ $(document).ready(()=>{
     });
 });
   
+//Logic for scanning using instascan
+
+let scanner = new Instascan.Scanner({ video: document.getElementById('qrScanner') });
+    scanner.addListener('scan', function (content) {
+        console.log('Scanned content:', content);
+        // Handle the scanned content here.
+    });
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            scanner.start(cameras[0]); // Starts the first camera.
+        } else {
+            console.error('No cameras found.');
+        }
+    }).catch(function (e) {
+        console.error('An error occurred:', e);
+    });
 
 // console.log(textareaDivs)
 // alert('Hello')

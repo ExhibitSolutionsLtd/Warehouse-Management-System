@@ -303,3 +303,6 @@ class TransfersListsView(LoginRequiredMixin, ListView):
     model = ProductTransfers
     template_name = 'landing_page/transfer_list.html'
     context_object_name = 'transfer_list'
+
+def scanner(request):
+    return render(request, "landing_page/scan.html")

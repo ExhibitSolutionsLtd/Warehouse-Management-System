@@ -22,5 +22,6 @@ urlpatterns = [
     path('reports', views.reports, name="reports"),
     path('transfers/create', TransferCreateView.as_view(), name="transfers"),
     path('transfers/', TransfersListsView.as_view(), name="transfers-list"),
+    path('scan/', views.scanner, name="scanner"),
 
 ]
