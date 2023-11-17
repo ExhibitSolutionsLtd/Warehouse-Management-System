@@ -8,22 +8,39 @@
   left: 0;
   background-color: #0a1e39; /* Sidebar background color */
   color: #fff; /* Text color in the sidebar */
-  padding: 20px;
   z-index: 1;
   transition: all 0.3s ease;
+  overflow-x: hidden;
+  padding: 60px 0 0 0;
 }
 
   /* Style for the sidebar links */
 .sidebar a {
     text-decoration: none;
-    color: #fff;
+    color: #818181;
     display: block;
+    margin: 5px 5px;
     padding: 5px 5px;
+    transition: 0.3s;
 }
 
   /* Style for the sidebar links on hover */
-.sidebar a:hover {
-    background-color: #555;
+.sidebar a:hover, .offcanvas a:focus{
+  color: #f1f1f1;
+  background-color: #555;
+}
+
+.closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 30px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px){
+.sidebar {padding-top: 15px;}
+.sidebar a {font-size: 18px;}
 }
 
 .accounts-sidebar{
@@ -47,28 +64,19 @@
   overflow: hidden;
   transition: width 0.3s ease;
 }
-/* #toggleSidebar{
-  position: relative;
-  z-index: 1;
-} */
+
+@media only screen and (min-width:992px) {
+  /* Additional style when sidebar is closed */
+  .sidebar.closed {
+    width: 0;
+    overflow: hidden;
+    padding: 0;
+  }
+}
 .toggle-button {
-  position: fixed;
-  top: 0;
-  left: 14vw;
   z-index: 2;  /*the button stays above the sidebar */
   transition: all 0.3s ease;
   cursor: pointer;
-}
-
-/* Additional style when sidebar is closed */
-.sidebar.closed {
-  width: 0;
-  overflow: hidden;
-  padding: 0;
-}
-
-.toggle-button.closed {
-  left: 5px; /* Move it to where the sidebar starts */
 }
 
 .toggle-button.closed div{
@@ -78,8 +86,13 @@
 .toggle-button div {
 width: 35px;
 height: 5px;
-background-color: white;
 margin: 6px 0;
+background-color: #0a1e39;
+}
+
+.active-link {
+  background-color: #fff; /* Active background color */
+  color: #0a1e39 !important; /* Active text color */
 }
 
 /* end of sidebar styles */
@@ -269,9 +282,20 @@ margin: 6px 0;
 
 @media only screen and (max-width:992px){
   .sidebar{
-    display: none;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
   }
-  .toggle-button{
-    display: none;
+
+  .toggle-button div{
+    background-color: #0a1e39;
   }
 }
+
+
+

@@ -1,5 +1,5 @@
 
-<div id="toggleSidebar" class="toggle-button">
+<div id="toggleSidebar" onclick="openNav()" class="toggle-button">
   <div></div>
   <div></div>
   <div></div>
@@ -10,38 +10,43 @@
     
 
     <!-- Existing sidebar content here -->
-    <div>
-      <div class="pt-4"></div>
-      <img src="../../static/images/logo-2.png" class="img-fluid mb-5" alt="">
+    <div class="ms-2">
+      <div class="my-4">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      </div>
+      <img src="../../static/images/logo-2.png" class="img-fluid mb-1" alt="">
       <h5 class="py-2">
         Welcome <span class="position-relative text-warning text-uppercase">{{ user.username }}</span>!
         <hr class="mb-0">
       </h5>
-      <a href="{% url 'dashboard' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
-        space_dashboard
-        </span> Dashboard</a>
-      <a href="{% url 'products' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
-        inventory
-        </span> Inventory</a>
-      <a href="{% url 'orders' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
-        orders
-        </span> Orders</a>
-      <a href="{% url 'transfers-list' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
-        move_up
-        </span></span> Transfers</a>
-      <a href="{% url 'suppliers' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
-        person
-        </span> Suppliers</a>
-      <a href="{% url 'customers' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
-        group
-        </span></span> Customers</a>
-      <!-- <a href="#"><span class="mdi mdi-cash-multiple fs-6"></span> New Transactions</a> -->
-      <!-- <a href="#" class="align-items-center d-flex"><span class="material-symbols-outlined">
-        visibility
-        </span> View</a> -->
-      <a href="{% url 'reports' %}" class="align-items-center d-flex"><span class="material-symbols-outlined">
-        show_chart
-        </span> Reports</a>
+      <div id="navElements" class="navElements">
+        <a href="{% url 'dashboard' %}" class="align-items-center d-flex {% if request.resolver_match.url_name == 'dashboard' %}active-link{% endif %}"><span class="material-symbols-outlined">
+          space_dashboard
+          </span> Dashboard</a>
+        <a href="{% url 'products' %}" class="align-items-center d-flex {% if request.resolver_match.url_name == 'products' %}active-link{% endif %}"><span class="material-symbols-outlined">
+          inventory
+          </span> Inventory</a>
+        <a href="{% url 'orders' %}" class="align-items-center d-flex {% if request.resolver_match.url_name == 'orders' %}active-link{% endif %}"><span class="material-symbols-outlined">
+          orders
+          </span> Orders</a>
+        <a href="{% url 'transfers-list' %}" class="align-items-center d-flex {% if request.resolver_match.url_name == 'transfers-list' %}active-link{% endif %}"><span class="material-symbols-outlined">
+          move_up
+          </span></span> Transfers</a>
+        <a href="{% url 'suppliers' %}" class="align-items-center d-flex {% if request.resolver_match.url_name == 'suppliers' %}active-link{% endif %}"><span class="material-symbols-outlined">
+          person
+          </span> Suppliers</a>
+        <a href="{% url 'customers' %}" class="align-items-center d-flex {% if request.resolver_match.url_name == 'customers' %}active-link{% endif %}"><span class="material-symbols-outlined">
+          group
+          </span></span> Customers</a>
+        <!-- <a href="#"><span class="mdi mdi-cash-multiple fs-6"></span> New Transactions</a> -->
+        <!-- <a href="#" class="align-items-center d-flex {% if request.resolver_match.url_name == 'dashboard' %}active-link{% endif %}"><span class="material-symbols-outlined">
+          visibility
+          </span> View</a> -->
+        <a href="{% url 'reports' %}" class="align-items-center d-flex {% if request.resolver_match.url_name == 'reports' %}active-link{% endif %}"><span class="material-symbols-outlined">
+          show_chart
+          </span> Reports</a>
+      </div>
+
       <div class="accounts-sidebar">
           <div class="btn-group dropup">
               <button type="button" class="btn dropdown-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,6 +66,9 @@
 <!-- Side nav in small screens -->
 
 
+<!-- <span style="font-size:30px;cursor:
+pointer">open
+</span>
 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)"
@@ -72,4 +80,4 @@
   <a href="#">Career</a>
   <a href="#">Contact</a>
 
-</div>
+</div> -->

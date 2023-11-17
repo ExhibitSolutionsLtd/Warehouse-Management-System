@@ -103,27 +103,23 @@ function printDocument() {
     printJS('productTbl', 'html');
   }
 
-  document.addEventListener("DOMContentLoaded", function() {
+//   document.addEventListener("DOMContentLoaded", function() {
     // Get the sidebar and toggle button elements
     var sidebar = document.getElementById("sidebar");
     var toggleSidebarButton = document.getElementById("toggleSidebar");
-    let bigDiv = document.querySelector(".col-lg-10")
-    let smallDiv = document.querySelector(".col-lg-2")
 
     // Add click event listener to the toggle button
-    toggleSidebarButton.addEventListener("click", function() {
+    // toggleSidebarButton.addEventListener("click", function() {
         // Toggle the "closed" class based on its presence
-        if (sidebar.classList.contains("closed")) {
-            sidebar.classList.remove("closed");
-            toggleSidebarButton.classList.remove("closed")
-        } else {
-            sidebar.classList.add("closed");
-            toggleSidebarButton.classList.add("closed")
-            bigDiv.styles.width = "100%"
-            smallDiv.styles.width = "0%"
-        }
-    });
-});
+    //     if (sidebar.classList.contains("closed")) {
+    //         sidebar.classList.remove("closed");
+    //         toggleSidebarButton.classList.remove("closed")
+    //     } else {
+    //         sidebar.classList.add("closed");
+    //         toggleSidebarButton.classList.add("closed")
+    //     }
+    // });
+// });
 
 
 //jQuery
@@ -156,5 +152,17 @@ let scanner = new Instascan.Scanner({ video: document.getElementById('qrScanner'
         console.error('An error occurred:', e);
     });
 
+/* Set the width of the side navigation to
+250px */ 
+
+function openNav() {
+    document.getElementById("sidebar").style.width="18%";
+   }
+   
+function closeNav() {
+document.getElementById("sidebar").style.width = "0";
+}
+
+   
 // console.log(textareaDivs)
 // alert('Hello')
