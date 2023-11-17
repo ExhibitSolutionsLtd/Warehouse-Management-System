@@ -46,9 +46,6 @@
           <div class="btn-group dropup">
               <button type="button" class="btn dropdown-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="{{ user.profile.image.url }}" class="user-avator position-relative" alt="User Avator">
-                  <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle">
-                    <span class="visually-hidden">New alerts</span>
-                  </span>
                   {{ user.username }}
               </button>
               <ul class="dropdown-menu">
@@ -60,3 +57,19 @@
   </div>
 </div>
 
+
+<!-- Side nav in small screens -->
+
+
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)"
+  class="closebtn"
+  onclick="closeNav()">&times;</a>
+
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Career</a>
+  <a href="#">Contact</a>
+
+</div>

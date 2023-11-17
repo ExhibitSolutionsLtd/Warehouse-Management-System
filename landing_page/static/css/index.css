@@ -2,7 +2,7 @@
     /* Define the sidebar styles */
 .sidebar {
   height: 100%;
-  width: 17vw; /* Adjust the width as needed */
+  width: 18vw; /* Adjust the width as needed */
   position: fixed;
   top: 0;
   left: 0;
@@ -54,7 +54,7 @@
 .toggle-button {
   position: fixed;
   top: 0;
-  left: 12vw;
+  left: 14vw;
   z-index: 2;  /*the button stays above the sidebar */
   transition: all 0.3s ease;
   cursor: pointer;
@@ -267,10 +267,11 @@ margin: 6px 0;
   margin:0px auto;
 }
 
-/* @media only screen and (max-width:992px){
+@media only screen and (max-width:992px){
   .sidebar{
-    width: 0;
-    overflow: hidden;
-    padding: 0;
+    display: none;
   }
-} */
+  .toggle-button{
+    display: none;
+  }
+}
