@@ -146,3 +146,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 LOGIN_REDIRECT_URL = 'dashboard'
 
 LOGIN_URL = 'login'
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://quickpick-wms.up.railway.app",
+    # Add any other trusted origins as needed
+]
