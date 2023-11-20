@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm, SupplierCreationForm
-from .models import Product, Order, Customer, Supplier, ProductTransfers
+from .models import Product, Order, Customer, Supplier, ProductTransfers, Location
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView, DeleteView
@@ -306,3 +306,15 @@ class TransfersListsView(LoginRequiredMixin, ListView):
 
 def scanner(request):
     return render(request, "landing_page/scan.html")
+
+class LocationCreateView(LoginRequiredMixin, CreateView):
+    model = Location
+    template_name = "landing_page/location.html"
+    fields = ['location']
+    success_url = reverse_lazy('transfers-list')
+
+    def form_valid(self, form):
+        form.save()
+
+        messages.success(self.request, f'Location Added successfully!')
+        return super().form_valid(form)
