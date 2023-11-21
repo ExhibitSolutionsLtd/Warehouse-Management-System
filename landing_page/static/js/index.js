@@ -134,23 +134,6 @@ $(document).ready(()=>{
         $(".actions").add()
     });
 });
-  
-//Logic for scanning using instascan
-
-let scanner = new Instascan.Scanner({ video: document.getElementById('qrScanner') });
-    scanner.addListener('scan', function (content) {
-        console.log('Scanned content:', content);
-        // Handle the scanned content here.
-    });
-    Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length > 0) {
-            scanner.start(cameras[0]); // Starts the first camera.
-        } else {
-            console.error('No cameras found.');
-        }
-    }).catch(function (e) {
-        console.error('An error occurred:', e);
-    });
 
 /* Set the width of the side navigation to
 250px */ 
@@ -162,7 +145,30 @@ function openNav() {
 function closeNav() {
 document.getElementById("sidebar").style.width = "0";
 }
+// Logic for scanning using instascan
+const scanner = new Html5QrcodeScanner('qrScanner', {
+    qrbox:{
+        width:300,
+        height:300
+    },
+    fps:20
+})
 
-   
-// console.log(textareaDivs)
+scanner.render(success, error);
+
+function success(results){
+    document.getElementById('results').innerHTML = `
+    <h5>Success</h5>
+    <p>${results}</p>
+    `;
+
+    scanner.clear();
+    document.getElementById('qrScanner').remove();
+}
+
+function error(err){
+    console.log(err)
+}
+
+// console.log(Html5QrcodeScanner);
 // alert('Hello')
