@@ -140,10 +140,13 @@ $(document).ready(()=>{
 
 function openNav() {
     document.getElementById("sidebar").style.width="18%";
+    document.getElementById("sidebar2").style.width="18%";
+    document.getElementById("content-box").style.width="82%"
    }
    
 function closeNav() {
 document.getElementById("sidebar").style.width = "0";
+document.getElementById("content-box").style.width="100%"
 }
 // Logic for scanning using instascan
 const scanner = new Html5QrcodeScanner('qrScanner', {

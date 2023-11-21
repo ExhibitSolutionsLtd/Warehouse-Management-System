@@ -72,8 +72,17 @@
     overflow: hidden;
     padding: 0;
   }
+  #content-box{
+    width: 82%;
+  }
+  #sidebar2{
+    width: 18%;
+  }
 }
 .toggle-button {
+  position: fixed;
+  top: 5px;
+  left: 5px;
   z-index: 2;  /*the button stays above the sidebar */
   transition: all 0.3s ease;
   cursor: pointer;
@@ -289,11 +298,15 @@ background-color: #0a1e39;
     top: 0;
     left: 0;
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: 0.3s;
   }
 
   .toggle-button div{
     background-color: #0a1e39;
+  }
+ 
+  #sidebar, #content-box{
+    transition: all 0.3s;
   }
 }
 
