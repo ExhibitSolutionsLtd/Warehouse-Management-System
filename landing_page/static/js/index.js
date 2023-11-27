@@ -128,7 +128,7 @@ $(document).ready(()=>{
         $("#header").append("<legend>Inventory List</legend>")
         $("#headertrans").append("<legend>Transfers</legend>")
         $(".actions").remove()
-        $("#printableContent").printThis({
+        $(".printableContent").printThis({
             pageTitle:"Receipt"
         });
         $(".actions").add()

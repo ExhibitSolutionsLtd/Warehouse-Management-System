@@ -310,7 +310,7 @@ def scanner(request):
 class LocationCreateView(LoginRequiredMixin, CreateView):
     model = Location
     template_name = "landing_page/location.html"
-    fields = ['location']
+    fields = ['zone', 'row', 'bay', 'tier']
     success_url = reverse_lazy('transfers-list')
 
     def form_valid(self, form):

@@ -27,7 +27,10 @@ def generate_qr_code(data):
     filebuffer = File(buffer, name=filename)
     return filebuffer
 class Location(models.Model):
-    location = models.CharField(max_length=100)
+    zone = models.CharField(max_length=100)
+    row = models.PositiveIntegerField()
+    bay = models.PositiveIntegerField()
+    tier = models.PositiveIntegerField()
 
     def __str__(self):
         return f"{self.location}"
@@ -161,7 +164,7 @@ class Customer(models.Model):
     cust_l_name = models.CharField(verbose_name='Last Name', max_length=100)
     orders = GenericRelation(Order)
     email = models.EmailField(verbose_name='Email Address', max_length=50, unique=True)
-    mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', max_length=12, blank=True, null=True)
+    mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', blank=True, null=True)
     address = models.TextField(verbose_name='Address', blank=True)
     notes = models.TextField(verbose_name='Notes', blank=True)
 
@@ -173,7 +176,7 @@ class Supplier(models.Model):
     sup_l_name = models.CharField(verbose_name='Last Name', max_length=100)
     orders = GenericRelation(Order)
     email = models.EmailField(verbose_name='Email Address', blank=True, max_length=50, unique=True)
-    mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', max_length=12, blank=True, null=True)
+    mobile_no = models.PositiveIntegerField(verbose_name='Mobile No. e.g., 254712345678', blank=True, null=True)
     address = models.TextField(verbose_name='Address', blank=True)
     notes = models.TextField(verbose_name='Notes', blank=True)
 
