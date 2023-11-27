@@ -148,30 +148,40 @@ function closeNav() {
 document.getElementById("sidebar").style.width = "0";
 document.getElementById("content-box").style.width="100%"
 }
-// Logic for scanning using instascan
-const scanner = new Html5QrcodeScanner('qrScanner', {
-    qrbox:{
-        width:300,
-        height:300
-    },
-    fps:20
-})
+// Logic for scanning using Html5QrcodeScanner
+if (document.getElementById('qrScanner')!=null){
+    const scanner = new Html5QrcodeScanner('qrScanner', {
+        qrbox:{
+            width:300,
+            height:300
+        },
+        fps:20
+    })
 
-scanner.render(success, error);
+    scanner.render(success, error);
 
-function success(results){
-    document.getElementById('results').innerHTML = `
-    <h5>Success</h5>
-    <p>${results}</p>
-    `;
+    function success(results){
+        document.getElementById('results').innerHTML = `
+        <h5>Success</h5>
+        <p>${results}</p>
+        
+        `;
 
-    scanner.clear();
-    document.getElementById('qrScanner').remove();
-}
+        scanner.clear();
+        document.getElementById('qrScanner').remove();
+    };
 
-function error(err){
-    console.log(err)
-}
+    function error(err){
+        console.log(err)
+    };
+};
+//end of Html5QrcodeScanner
+
+document.getElementById('id_product_image').onchange = function (event) {
+    var output = document.getElementById('imagePreview');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.style.display = 'block';
+};
 
 // console.log(Html5QrcodeScanner);
 // alert('Hello')

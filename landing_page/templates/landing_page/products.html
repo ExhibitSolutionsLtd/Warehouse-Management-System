@@ -40,6 +40,7 @@
                                             <fieldset class="form-group">
                                                 {% csrf_token %}
                                                 {{ product_form | crispy }}
+                                                <img id="imagePreview" src="#" alt="Image preview" style="display:none;" class="img-fluid"/>
                                                 <div class="modal-footer">
                                                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
                                                     <button type="submit" class="btn-landing w-100">Save</button>
