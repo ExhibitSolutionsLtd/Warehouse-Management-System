@@ -155,8 +155,8 @@ class ProductTransfers(models.Model):
 
 class Order(models.Model):
     ORDER_TYPE_CHOICES = [
-        ("Inbound", "Inbound"),
-        ("Outbound", "Outbound")
+        ("Purchase Orders", "Purchase Orders"),
+        ("Sales Orders", "Sales Orders")
     ]
     order_id = models.CharField(verbose_name='Order ID', max_length=50, unique=True)
     order_created_at = models.DateTimeField(auto_now_add=True)
