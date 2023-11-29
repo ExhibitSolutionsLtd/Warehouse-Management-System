@@ -103,9 +103,10 @@ def orders(request):
         # in_order_form = OrderCreationForm()
         # out_order_form = OrderCreationForm()
         order_form = OrderCreationForm()
-
-    inbound_orders = Order.objects.filter(order_type = 'Inbound')
-    outbound_orders = Order.objects.filter(order_type = 'Outbound')
+    #Inbound orders == Purchase Orders
+    #Outbound Orders == Sales Orders
+    inbound_orders = Order.objects.filter(order_type = 'Purchase Orders')
+    outbound_orders = Order.objects.filter(order_type = 'Sales Orders')
     paginator_inbound = Paginator(inbound_orders, 8)
     page_number_in = request.GET.get('page')
     customers_page_in = paginator_inbound.get_page(page_number_in)

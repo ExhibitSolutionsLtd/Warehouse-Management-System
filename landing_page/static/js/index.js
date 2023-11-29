@@ -34,7 +34,7 @@
 let order_type_elem = document.getElementById('id_order_type')
 if (order_type_elem!=null){
     order_type_elem.addEventListener('change', function() {
-        if (this.value == 'Inbound') {
+        if (this.value == 'Purchase Orders') {
             document.getElementById('div_id_supplier').style.display = 'block';
             document.getElementById('div_id_customer').style.display = 'none';
             document.querySelector('select').required = true;

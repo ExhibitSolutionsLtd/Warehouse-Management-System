@@ -35,7 +35,7 @@ class OrderCreationForm(forms.ModelForm):
           super(OrderCreationForm, self).__init__(*args, **kwargs)
           
           if self.instance.id:  # If order already exists
-              if self.instance.order_type == "Inbound":
+              if self.instance.order_type == "Purchase Orders":
                   self.fields['supplier'].initial = self.instance.associated_name
               else:
                   self.fields['customer'].initial = self.instance.associated_name
@@ -43,7 +43,7 @@ class OrderCreationForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super(OrderCreationForm, self).save(commit=False)
         
-        if instance.order_type == "Inbound":
+        if instance.order_type == "Purchase Orders":
             supplier = self.cleaned_data['supplier']
             instance.associated_name = supplier
             instance.content_type = ContentType.objects.get_for_model(Supplier)
@@ -65,7 +65,7 @@ class OrderCreationForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         order_type = self.cleaned_data['order_type']
-        if order_type == "Outbound":
+        if order_type == "Sales Orders":
             try:
                 product = self.cleaned_data['item']
                 quantity = self.cleaned_data['total_items']
