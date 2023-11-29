@@ -27,13 +27,29 @@ def generate_qr_code(data):
     filebuffer = File(buffer, name=filename)
     return filebuffer
 class Location(models.Model):
-    zone = models.CharField(max_length=100)
-    row = models.PositiveIntegerField()
-    bay = models.PositiveIntegerField()
-    tier = models.PositiveIntegerField()
+    ZONE_CHOICES = [
+    ('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('E', 'E'),
+    ('F', 'F'), ('G', 'G'), ('H', 'H'), ('I', 'I'), ('J', 'J'),
+    ('K', 'K'), ('L', 'L'), ('M', 'M'), ('N', 'N'), ('O', 'O'),
+    ('P', 'P'), ('Q', 'Q'), ('R', 'R'), ('S', 'S'), ('T', 'T'),
+    ('U', 'U'), ('V', 'V'), ('W', 'W'), ('X', 'X'), ('Y', 'Y'),
+    ('Z', 'Z')
+    ]
+
+    CHOICES = [
+    (1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'),
+    (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10')
+    ]
+
+
+
+    zone = models.CharField(max_length=1, choices=ZONE_CHOICES)
+    row = models.PositiveIntegerField(choices=CHOICES)
+    bay = models.PositiveIntegerField(choices=CHOICES)
+    tier = models.PositiveIntegerField(choices=CHOICES)
 
     def __str__(self):
-        return f"{self.location}"
+        return f"{self.zone}, {self.row}, {self.bay}, {self.tier}"
 
 class Product(models.Model):
     unit_choices = [
@@ -64,7 +80,7 @@ class Product(models.Model):
     category = models.CharField(max_length=50, choices=category_choices)
     quantity = models.PositiveIntegerField()
     description = models.TextField(blank=True)
-    location = models.ForeignKey(Location, verbose_name ="Location (e.g., Aisle/Shelf/Bin)", on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, verbose_name=" Available Locations(Zone, Row, Bay, Tier)", related_name="product_location", on_delete=models.SET_NULL, null=True, blank=True)
     product_image = models.ImageField("product_images")
     user = models.ForeignKey(User, related_name="created_by", on_delete=models.CASCADE)
     item_created_at = models.DateTimeField(auto_now_add=True)

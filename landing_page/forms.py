@@ -1,5 +1,5 @@
 from typing import Any
-from .models import Product, Order, Customer, Supplier, ProductTransfers
+from .models import Product, Order, Customer, Supplier, ProductTransfers, Location
 from django import forms
 from django.contrib.contenttypes.models import ContentType
 
@@ -16,6 +16,12 @@ class ProductCreationForm(forms.ModelForm):
                 "description",
                 "product_image",
                   ]
+    def __init__(self, *args, **kwargs):
+        super(ProductCreationForm, self).__init__(*args, **kwargs)
+        # Set the choices for location
+        used_locations = Product.objects.exclude(location__isnull=True).values_list('location', flat=True)
+        available_locations = Location.objects.exclude(id__in=used_locations)
+        self.fields['location'].queryset = available_locations
         
 class OrderCreationForm(forms.ModelForm):
     supplier = forms.ModelChoiceField(queryset=Supplier.objects.all(), required=False)
