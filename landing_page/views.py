@@ -1,5 +1,5 @@
 from django.forms.models import BaseModelForm
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm, SupplierCreationForm
@@ -11,6 +11,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .utils import import_from_excel
 
 
 # Create your views here.
@@ -319,3 +320,12 @@ class LocationCreateView(LoginRequiredMixin, CreateView):
 
         messages.success(self.request, f'Location Added successfully!')
         return super().form_valid(form)
+    
+
+def excel_import(request):
+    if request.method == 'POST':
+        excel_file = request.FILES['excel_file']
+        import_from_excel(excel_file)
+        return HttpResponseRedirect('products')
+    
+    return render(request, 'landing_page/excel_import.html')
