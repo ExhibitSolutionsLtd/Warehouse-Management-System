@@ -1,5 +1,5 @@
 from django.forms.models import BaseModelForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm, SupplierCreationForm
@@ -324,8 +324,14 @@ class LocationCreateView(LoginRequiredMixin, CreateView):
 
 def excel_import(request):
     if request.method == 'POST':
-        excel_file = request.FILES['excel_file']
-        import_from_excel(excel_file)
-        return HttpResponseRedirect('products')
+        excel_file = request.FILES.get('excel_file')
+        
+        
+        if not excel_file:
+            return HttpResponseBadRequest('No file provided!')
+        
+        user = request.user
+        import_from_excel(excel_file, user)
+        return redirect('products')
     
     return render(request, 'landing_page/excel_import.html')

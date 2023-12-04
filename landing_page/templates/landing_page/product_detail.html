@@ -21,7 +21,11 @@
                                 <div class="row">
                                   <div class="col-lg-4">
                                     <div class="d-flex justify-content-center">
-                                      <img class="img-fluid" src="{{product_detail.product_image.url}}" alt="">
+                                      {% if product_detail.product_image %}
+                                        <img class="img-fluid" src="{{product_detail.product_image.url}}" alt="{{ product_detail.item_name }} image">
+                                      {% else %}
+                                        <img class="img-fluid" src="{% static 'image/No-image-found.jpg'%}" alt="No-image-found">
+                                      {% endif %}
                                     </div>
                                     <div class="d-flex justify-content-center">
                                       <img class="img-fluid img-thumbnail my-2 printableContent" height="300" width="300" id="printableContent" src="{{product_detail.qr_code.url}}" alt="Product QR code">

@@ -81,7 +81,7 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField()
     description = models.TextField(blank=True)
     location = models.ForeignKey(Location, verbose_name=" Available Locations(Zone, Row, Bay, Tier)", related_name="product_location", on_delete=models.SET_NULL, null=True, blank=True)
-    product_image = models.ImageField("product_images")
+    product_image = models.ImageField("product_images", default="No-image-found.jpg")
     user = models.ForeignKey(User, related_name="created_by", on_delete=models.CASCADE)
     item_created_at = models.DateTimeField(auto_now_add=True)
     item_updated_at = models.DateTimeField(auto_now=True)
