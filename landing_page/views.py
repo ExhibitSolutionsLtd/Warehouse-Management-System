@@ -334,4 +334,16 @@ def excel_import(request):
         import_from_excel(excel_file, user)
         return redirect('products')
     
-    return render(request, 'landing_page/excel_import.html')
+    return render(request, 'imports/excel_import.html')
+
+def customer_import(request):
+    if request.method == 'POST':
+        excel_file = request.FILES.get('customer_file')
+
+        if not excel_file:
+            return HttpResponseBadRequest('No file provided!')
+        
+        import_from_excel(excel_file)
+        return redirect('customers')
+    
+    return render(request, 'imports/customers_import.html')
