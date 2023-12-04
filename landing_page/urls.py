@@ -24,6 +24,7 @@ urlpatterns = [
     path('transfers/', TransfersListsView.as_view(), name="transfers-list"),
     path('scan/', views.scanner, name="scanner"),
     path('location/', LocationCreateView.as_view(), name="location"),
-    path('import/', views.excel_import, name='excel_import'),
+    path('import-inventory/', views.excel_import, name='excel_import'),
+    path('import-customers/', views.customer_import, name='customer_import'),
 
 ]
