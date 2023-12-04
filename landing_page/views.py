@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .utils import import_from_excel
+from .utils import import_from_excel, import_customers
 
 
 # Create your views here.
@@ -343,7 +343,7 @@ def customer_import(request):
         if not excel_file:
             return HttpResponseBadRequest('No file provided!')
         
-        import_from_excel(excel_file)
+        import_customers(excel_file)
         return redirect('customers')
     
     return render(request, 'imports/customers_import.html')
