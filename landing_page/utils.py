@@ -1,5 +1,5 @@
 import openpyxl
-from .models import Product, Location, generate_qr_code
+from .models import Product, Location, Customer
 
 
 def import_from_excel(file, user):
@@ -17,3 +17,12 @@ def import_from_excel(file, user):
 
         product = Product(sku=row[0], item_name=row[1], category=row[2], quantity=row[7], description=row[8], location=location, user=user)
         product.save()
+
+def import_customers(file):
+    workbook = openpyxl.load_workbook(file)
+    sheet = workbook.active
+
+    for row in sheet.iter_rows(min_row=2, values_only=True):  # Assuming first row is header
+        
+        customer = Customer(cust_f_name=row[0], cust_l_name=row[1], email=row[2], mobile_no=row[3], address=row[4], notes=row[5])
+        customer.save()
