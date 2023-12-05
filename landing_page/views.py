@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .utils import import_from_excel, import_customers
+from .utils import import_from_excel, import_customer, import_supplier
 
 
 # Create your views here.
@@ -357,10 +357,11 @@ def customer_import(request):
         if not excel_file:
             # return HttpResponseBadRequest('No file provided!')
             messages.error(request, 'No file provided!', 'danger')
-            messages.success(request, 'Customers uploaded successfully.')
+            
         
         try:
-            import_customers(excel_file)
+            import_customer(excel_file)
+            messages.success(request, 'Customer(s) uploaded successfully.')
         except ValueError as e:
             # Return a user-friendly error message or redirect
             messages.error(request, e, 'danger')
@@ -375,3 +376,30 @@ def customer_import(request):
         return redirect('customers')
     
     return render(request, 'imports/customers_import.html')
+
+def supplier_import(request):
+    if request.method == 'POST':
+        excel_file = request.FILES.get('supplier_file')
+
+        if not excel_file:
+            # return HttpResponseBadRequest('No file provided!')
+            messages.error(request, 'No file provided!', 'danger')
+            
+        
+        try:
+            import_supplier(excel_file)
+            messages.success(request, 'Supplier(s) uploaded successfully.')
+        except ValueError as e:
+            # Return a user-friendly error message or redirect
+            messages.error(request, e, 'danger')
+            # return HttpResponseBadRequest(f"Error processing file: {e}")
+            return redirect('supplier_import')
+        except Exception as e:
+            # For any other exception, return a server error
+            messages.error(request, e, 'danger')
+            return redirect('supplier_import')
+        
+        
+        return redirect('suppliers')
+    
+    return render(request, 'imports/suppliers_import.html')
