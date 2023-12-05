@@ -328,10 +328,24 @@ def excel_import(request):
         
         
         if not excel_file:
-            return HttpResponseBadRequest('No file provided!')
+            messages.error(request, 'No file provided!', 'danger')
         
-        user = request.user
-        import_from_excel(excel_file, user)
+        try:
+            user = request.user
+            import_from_excel(excel_file, user)
+            messages.success(request, 'Inventory uploaded successfully.')
+
+        except ValueError as e:
+            # Return a user-friendly error message or redirect
+            messages.error(request, e, 'danger')
+            # return HttpResponseBadRequest(f"Error processing file: {e}")
+            return redirect('excel_import')
+        except Exception as e:
+            # For any other exception, return a server error
+            messages.error(request, e, 'danger')
+            return redirect('excel_import')
+        
+        
         return redirect('products')
     
     return render(request, 'imports/excel_import.html')
@@ -341,7 +355,8 @@ def customer_import(request):
         excel_file = request.FILES.get('customer_file')
 
         if not excel_file:
-            return HttpResponseBadRequest('No file provided!')
+            # return HttpResponseBadRequest('No file provided!')
+            messages.error(request, 'No file provided!', 'danger')
         
         try:
             import_customers(excel_file)
