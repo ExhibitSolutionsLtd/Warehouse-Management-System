@@ -1,5 +1,5 @@
 from django.forms.models import BaseModelForm
-from django.http import HttpResponseRedirect, HttpResponseBadRequest
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponseServerError
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm, SupplierCreationForm
@@ -343,7 +343,19 @@ def customer_import(request):
         if not excel_file:
             return HttpResponseBadRequest('No file provided!')
         
-        import_customers(excel_file)
+        try:
+            import_customers(excel_file)
+        except ValueError as e:
+            # Return a user-friendly error message or redirect
+            messages.error(request, e, 'danger')
+            # return HttpResponseBadRequest(f"Error processing file: {e}")
+            return redirect('customer_import')
+        except Exception as e:
+            # For any other exception, return a server error
+            messages.error(request, e, 'danger')
+            return redirect('customer_import')
+        
+        
         return redirect('customers')
     
     return render(request, 'imports/customers_import.html')
