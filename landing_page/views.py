@@ -357,6 +357,7 @@ def customer_import(request):
         if not excel_file:
             # return HttpResponseBadRequest('No file provided!')
             messages.error(request, 'No file provided!', 'danger')
+            messages.success(request, 'Customers uploaded successfully.')
         
         try:
             import_customers(excel_file)
