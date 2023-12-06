@@ -282,7 +282,7 @@ class ProductDetailsView(LoginRequiredMixin, DetailView):
 class TransferCreateView(LoginRequiredMixin, CreateView):
     model = ProductTransfers
     template_name = 'landing_page/transfers.html'
-    fields = ['product', 'source_location', 'destination_location', 'quantity_transferred']
+    fields = ['product', 'source_location', 'destination_location', 'quantity_transferred', 'reason']
     success_url = reverse_lazy('transfers-list')
 
     def form_valid(self, form):

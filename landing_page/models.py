@@ -91,7 +91,7 @@ class Product(models.Model):
         unique_together = ('item_name', 'location')
 
     def __str__(self):
-        return f'{self.item_name}'
+        return f'{self.sku} - {self.item_name}'
 
 
     def save(self, *args, **kwargs):
@@ -147,6 +147,7 @@ class ProductTransfers(models.Model):
     destination_location = models.ForeignKey(Location, related_name='transfers_to', on_delete=models.CASCADE)
     quantity_transferred = models.PositiveIntegerField()
     transfer_date = models.DateTimeField(auto_now_add=True)
+    reason = models.TextField(default='Hello')
     user = models.ForeignKey(User, related_name='transfers_made', on_delete=models.CASCADE)
 
     def __str__(self):
