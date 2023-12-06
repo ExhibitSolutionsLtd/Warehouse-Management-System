@@ -152,6 +152,13 @@ class ProductTransfers(models.Model):
 
     def __str__(self):
         return f"{self.product.item_name} from {self.source_location} to {self.destination_location}"
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Check if this is a new instance
+            # Set the source_location based on the selected product
+            self.source_location = self.product.source_location
+
+        super().save(*args, **kwargs)
 
 
 class Order(models.Model):

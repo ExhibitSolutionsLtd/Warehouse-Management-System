@@ -2,7 +2,7 @@ from django.forms.models import BaseModelForm
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponseServerError
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm, SupplierCreationForm
+from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm, SupplierCreationForm, TransferCreationForm
 from .models import Product, Order, Customer, Supplier, ProductTransfers, Location
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -282,7 +282,7 @@ class ProductDetailsView(LoginRequiredMixin, DetailView):
 class TransferCreateView(LoginRequiredMixin, CreateView):
     model = ProductTransfers
     template_name = 'landing_page/transfers.html'
-    fields = ['product', 'source_location', 'destination_location', 'quantity_transferred', 'reason']
+    form_class = TransferCreationForm
     success_url = reverse_lazy('transfers-list')
 
     def form_valid(self, form):
