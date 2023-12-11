@@ -85,5 +85,5 @@ This project is licensed under the [MIT License](LICENSE).
 ## Acknowledgments
 
 - Thank you to the Django community for providing an excellent web framework.
-- Special thanks to [contributors](CONTRIBUTORS.md) who have helped improve this project.
+- Special thanks to [contributors](https://github.com/charles-okunzo) who have helped improve this project.
 
