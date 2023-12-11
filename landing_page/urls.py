@@ -27,5 +27,6 @@ urlpatterns = [
     path('import-inventory/', views.excel_import, name='excel_import'),
     path('import-customers/', views.customer_import, name='customer_import'),
     path('import-suppliers/', views.supplier_import, name='supplier_import'),
+    path('get-source-location/<int:product_id>/', views.get_source_location, name='get_source_location'),
 
 ]

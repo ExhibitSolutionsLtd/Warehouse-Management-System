@@ -101,6 +101,9 @@ class TransferCreationForm(forms.ModelForm):
 
         # Disable the source_location field
         self.fields['source_location'].widget.attrs['disabled'] = True
+        used_locations = Product.objects.exclude(location__isnull=True).values_list('location', flat=True)
+        available_locations = Location.objects.exclude(id__in=used_locations)
+        self.fields['destination_location'].queryset = available_locations
 
     def clean(self):
         cleaned_data = super().clean()
@@ -108,7 +111,7 @@ class TransferCreationForm(forms.ModelForm):
         
         # Auto-populate source_location if product is selected
         if product:
-            cleaned_data['source_location'] = product.source_location
+            cleaned_data['source_location'] = product.location
 
         destination_location = cleaned_data.get('destination_location')
 

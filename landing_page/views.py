@@ -1,5 +1,5 @@
 from django.forms.models import BaseModelForm
-from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponseServerError
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm, SupplierCreationForm, TransferCreationForm
@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .utils import import_from_excel, import_customer, import_supplier
+from .utils import import_from_excel, import_customer, import_supplier, get_source_location_for_product
 
 
 # Create your views here.
@@ -278,6 +278,11 @@ class ProductDetailsView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'landing_page/product_detail.html'
     context_object_name = 'product_detail'
+
+def get_source_location(request, product_id):
+    # Logic to get the source location for the given product
+    source_location = get_source_location_for_product(product_id)
+    return JsonResponse({'source_location_id': source_location.id})
 
 class TransferCreateView(LoginRequiredMixin, CreateView):
     model = ProductTransfers

@@ -177,11 +177,26 @@ if (document.getElementById('qrScanner')!=null){
 };
 //end of Html5QrcodeScanner
 
-document.getElementById('id_product_image').onchange = function (event) {
-    var output = document.getElementById('imagePreview');
-    output.src = URL.createObjectURL(event.target.files[0]);
-    output.style.display = 'block';
-};
+if (document.getElementById('id_product_image')!=null){
+    document.getElementById('id_product_image').onchange = function (event) {
+        var output = document.getElementById('imagePreview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.style.display = 'block';
+    };
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('id_product').addEventListener('change', function() {
+        let productId = this.value;
+        console.log(productId)
+        fetch(`/get-source-location/${productId}/`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('id_source_location').value = data.source_location_id;
+            })
+            .catch(error => console.log(error));  // handle errors
+    });
+});
 
 // console.log(Html5QrcodeScanner);
 // alert('Hello')

@@ -24,6 +24,7 @@
                                         <fieldset class="form-group">
                                             {% csrf_token %}
                                             {{ form | crispy }}
+                                            <div id="source-location-display"></div>
                                             <div>
                                                 <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
                                                 <button type="submit" class="btn-landing w-100">SUBMIT</button>

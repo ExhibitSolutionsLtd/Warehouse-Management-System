@@ -36,3 +36,7 @@ def import_supplier(file):
         
         supplier = Supplier(sup_f_name=row[0], sup_l_name=row[1], email=row[2], mobile_no=row[3], address=row[4], notes=row[5])
         supplier.save()
+
+def get_source_location_for_product(product_id):
+    product = Product.objects.get(id = product_id)
+    return product.location
