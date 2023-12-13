@@ -64,6 +64,21 @@ def products(request):
 
     return render(request, 'landing_page/products.html', context)
 
+def softdelete_product(request, product_id):
+    product = Product.objects.get(id=product_id)
+    product.delete()
+    return redirect('products')
+
+def restore_product(request, product_id):
+    product = Product.objects.deleted().get(pk=product_id)
+    product.restore()
+    return redirect('products')
+
+def deleted_items_lists(request):
+    products = Product.objects.deleted()
+    return render(request, 'landing_page/trash.html', {'products': products})
+
+
 @login_required
 def orders(request):
     if request.method == "POST":

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from PIL import Image
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.db.models.query import QuerySet
 import qrcode
 from io import BytesIO
 from django.core.files import File
@@ -51,6 +52,13 @@ class Location(models.Model):
 
     def __str__(self):
         return f"{self.zone}, {self.row}, {self.bay}, {self.tier}"
+    
+class ProductManager(models.Manager):
+    def get_queryset(self) -> QuerySet:
+        return super().get_queryset().filter(is_deleted = False)
+    
+    def deleted(self):
+        return super().get_queryset().filter(is_deleted = True)
 
 class Product(models.Model):
     unit_choices = [
@@ -91,6 +99,7 @@ class Product(models.Model):
     is_deleted = models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True, blank=True)
     reason_for_deleting = models.TextField(null=True, blank=True)
+    objects = ProductManager()
 
     class Meta:
         unique_together = ('item_name', 'location')
@@ -107,6 +116,7 @@ class Product(models.Model):
     def restore(self):
         self.is_deleted = False
         self.deleted_at = None
+        self.reason_for_deleting = ''
         self.save()
 
 
