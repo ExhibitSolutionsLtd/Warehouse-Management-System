@@ -85,6 +85,12 @@ def restore_product(request, product_id):
     messages.success(request, f'Product Restored')
     return redirect('trash-list')
 
+def permanently_delete_product(request, pk):
+    product = Product.objects.deleted().get(pk=pk)
+    product.permanently_delete()
+    messages.success(request, f'Product Permenently deleted')
+    return redirect('trash-list')
+
 def deleted_items_lists(request):
     products = Product.objects.deleted()
     paginator_prods = Paginator(products, 8)
@@ -218,17 +224,17 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         messages.success(self.request, f'Item edited successfully!')
         return super().form_valid(form)
     
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
-    model = Product
-    template_name = 'landing_page/product_delete.html'
-    success_url = reverse_lazy('trash-list')
+# class ProductDeleteView(LoginRequiredMixin, DeleteView):
+#     model = Product
+#     template_name = 'landing_page/product_delete.html'
+#     success_url = reverse_lazy('trash-list')
 
-    def form_valid(self, form):
-        messages.success(self.request, f'Item permanently deleted!')
-        return super().form_valid(form)
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(pk=self.kwargs.get('pk'))
+#     def form_valid(self, form):
+#         messages.success(self.request, f'Item permanently deleted!')
+#         return super().form_valid(form)
+#     def get_queryset(self):
+#         queryset = super().get_queryset()
+#         return queryset.filter(pk=self.kwargs.get('pk'))
 
 class OrderUpdateView(LoginRequiredMixin, UpdateView):
     model = Order

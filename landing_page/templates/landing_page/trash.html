@@ -47,7 +47,7 @@
                                     <td>{{ product.reason_for_deleting }}</td>
                                     <td class="d-flex justify-content-between align-items-center actions">
                                         <a href="{% url 'restore-product' product.id %}"><span class="material-symbols-outlined fs-3 actions" title="Restore"> restore_from_trash </span></a>
-                                        <a href="{% url 'product-delete' product.id %}"><span style="color: red;" class="material-symbols-outlined fs-3 actions" title="Delete Forever"> delete_forever </span></a>
+                                        <!-- <a href="{% url 'product-delete' product.id %}"><span style="color: red;" class="material-symbols-outlined fs-3 actions" title="Delete Forever"> delete_forever </span></a> -->
 
                                     </td>
                                     </tr>

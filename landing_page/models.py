@@ -122,6 +122,8 @@ class Product(models.Model):
         self.deleted_by=None
         self.save()
 
+    def permanently_delete(self):
+        self.delete()
 
     def save(self, *args, **kwargs):
         super().save()
