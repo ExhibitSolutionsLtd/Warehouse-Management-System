@@ -7,6 +7,7 @@ import qrcode
 from io import BytesIO
 from django.core.files import File
 from PIL import Image, ImageDraw
+import datetime
 
 # Create your models here.
 
@@ -96,6 +97,17 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.sku} - {self.item_name}'
+    
+    def delete(self, reason='', *args, **kwargs):
+        self.is_deleted = True
+        self.deleted_at = datetime.datetime.now()
+        self.reason_for_deleting = reason
+        self.save()
+
+    def restore(self):
+        self.is_deleted = False
+        self.deleted_at = None
+        self.save()
 
 
     def save(self, *args, **kwargs):
