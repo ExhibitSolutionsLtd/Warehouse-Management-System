@@ -87,6 +87,10 @@ class Product(models.Model):
     item_updated_at = models.DateTimeField(auto_now=True)
     qr_code = models.ImageField(upload_to='qr_codes/', blank=True)
 
+    is_deleted = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    reason_for_deleting = models.TextField(null=True, blank=True)
+
     class Meta:
         unique_together = ('item_name', 'location')
 
