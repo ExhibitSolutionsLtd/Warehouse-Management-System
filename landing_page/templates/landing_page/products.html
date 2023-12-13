@@ -95,7 +95,7 @@
                                     <td>{{ product.description }}</td>
                                     <td class="d-flex justify-content-between align-items-center actions">
                                         <a href="{% url 'products-update' product.id %}"><span class="material-symbols-outlined fs-3 actions" title="Edit"> edit_document </span></a>
-                                        <a href="{% url 'product-delete' product.id %}"><span class="material-symbols-outlined text-danger actions" title="Delete"> delete </span></a>
+                                        <a href="{% url 'softdelete-product' product.id %}"><span class="material-symbols-outlined text-danger actions" title="Delete"> delete </span></a>
                                     </td>
                                     </tr>
                                     

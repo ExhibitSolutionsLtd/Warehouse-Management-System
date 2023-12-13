@@ -121,3 +121,5 @@ class TransferCreationForm(forms.ModelForm):
 
         return cleaned_data
     
+class DeleteReasonForm(forms.Form):
+    reason = forms.CharField(widget=forms.Textarea, label='Reason for Deleting')

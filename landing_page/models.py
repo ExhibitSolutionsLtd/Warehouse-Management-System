@@ -98,6 +98,7 @@ class Product(models.Model):
 
     is_deleted = models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True, blank=True)
+    deleted_by = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     reason_for_deleting = models.TextField(null=True, blank=True)
     objects = ProductManager()
 
@@ -107,16 +108,18 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.sku} - {self.item_name}'
     
-    def delete(self, reason='', *args, **kwargs):
+    def delete(self, reason='', user=None, *args, **kwargs):
         self.is_deleted = True
         self.deleted_at = datetime.datetime.now()
         self.reason_for_deleting = reason
+        self.deleted_by = user
         self.save()
 
     def restore(self):
         self.is_deleted = False
         self.deleted_at = None
         self.reason_for_deleting = ''
+        self.deleted_by=None
         self.save()
 
 

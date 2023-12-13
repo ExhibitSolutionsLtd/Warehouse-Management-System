@@ -1,8 +1,7 @@
-from django.forms.models import BaseModelForm
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm, SupplierCreationForm, TransferCreationForm
+from .forms import ProductCreationForm, OrderCreationForm, CustomerCreationForm, SupplierCreationForm, TransferCreationForm, DeleteReasonForm
 from .models import Product, Order, Customer, Supplier, ProductTransfers, Location
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -65,9 +64,19 @@ def products(request):
     return render(request, 'landing_page/products.html', context)
 
 def softdelete_product(request, product_id):
-    product = Product.objects.get(id=product_id)
-    product.delete()
-    return redirect('products')
+    product = get_object_or_404(Product, pk=product_id)
+
+    if request.method == "POST":
+        form = DeleteReasonForm(request.POST)
+    
+        if form.is_valid():
+            reason = form.cleaned_data.get('reason')
+            product.delete(reason, user=request.user)
+            return redirect('products')
+    else:
+        form = DeleteReasonForm()
+    
+    return render(request, 'landing_page/confirm_softdelete.html', {'form':form, 'product':product})
 
 def restore_product(request, product_id):
     product = Product.objects.deleted().get(pk=product_id)

@@ -28,7 +28,7 @@ urlpatterns = [
     path('import-customers/', views.customer_import, name='customer_import'),
     path('import-suppliers/', views.supplier_import, name='supplier_import'),
     path('get-source-location/<int:product_id>/', views.get_source_location, name='get_source_location'),
-    path('delete-product/<int:product_id>/', views.softdelete_product, name='delete-product'),
+    path('delete-product/<int:product_id>/', views.softdelete_product, name='softdelete-product'),
     path('restore-product/<int:product_id>/', views.restore_product, name='restore-product'),
     path('trash-list/<int:product_id>/', views.restore_product, name='trash-list'),
 
