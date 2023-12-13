@@ -46,6 +46,9 @@
         <a href="{% url 'reports' %}" class="align-items-center d-flex {% if request.resolver_match.url_name == 'reports' %}active-link{% endif %}"><span class="material-symbols-outlined">
           show_chart
           </span> Reports</a>
+          <a href="{% url 'trash-list' %}" class="align-items-center d-flex {% if request.resolver_match.url_name == 'trash-list' %}active-link{% endif %}"><span class="material-symbols-outlined">
+            recycling
+            </span></span> Recycle Bin</a>
       </div>
 
       <div class="accounts-sidebar">

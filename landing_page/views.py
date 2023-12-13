@@ -72,6 +72,7 @@ def softdelete_product(request, product_id):
         if form.is_valid():
             reason = form.cleaned_data.get('reason')
             product.delete(reason, user=request.user)
+            messages.success(request, f'Item deleted successfully!')
             return redirect('products')
     else:
         form = DeleteReasonForm()
@@ -81,11 +82,20 @@ def softdelete_product(request, product_id):
 def restore_product(request, product_id):
     product = Product.objects.deleted().get(pk=product_id)
     product.restore()
-    return redirect('products')
+    messages.success(request, f'Product Restored')
+    return redirect('trash-list')
 
 def deleted_items_lists(request):
     products = Product.objects.deleted()
-    return render(request, 'landing_page/trash.html', {'products': products})
+    paginator_prods = Paginator(products, 8)
+    page_number = request.GET.get('page')
+    products_page = paginator_prods.get_page(page_number)
+
+    context = {
+        "products": products,
+        "products_page":products_page
+    }
+    return render(request, 'landing_page/trash.html', context)
 
 
 @login_required
@@ -211,11 +221,14 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'landing_page/product_delete.html'
-    success_url = reverse_lazy('products')
+    success_url = reverse_lazy('trash-list')
 
     def form_valid(self, form):
-        messages.success(self.request, f'Item deleted successfully!')
+        messages.success(self.request, f'Item permanently deleted!')
         return super().form_valid(form)
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(pk=self.kwargs.get('pk'))
 
 class OrderUpdateView(LoginRequiredMixin, UpdateView):
     model = Order

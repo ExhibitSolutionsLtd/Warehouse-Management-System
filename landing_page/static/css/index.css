@@ -150,8 +150,8 @@ background-color: #0a1e39;
 }
 
 .user-avator{
-  height: 40px;
-  width: 40px;
+  height: 25px;
+  width: 25px;
   aspect-ratio: 1/1;
   border-radius: 50%;
 }

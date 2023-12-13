@@ -1,0 +1,84 @@
+{% extends 'landing_page/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="" id="sidebar2">
+                {% block navbar %}
+                    {% include 'landing_page/navbar.html' %}
+                {% endblock %}
+            </div>
+            <div class=" table-content-div mt-3" id="content-box">
+                <div class="py-2">
+                    <h4>Deleted Items</h4>
+                <hr>
+
+                <div id="">
+                    <legend>Products Deleted</legend>
+                        <!-- Table -->
+                    
+                    <div class="scrollable">
+                        <div id="header">
+                        
+                        </div>
+                        
+                        <table class="table table-striped-columns table-hover table-sm table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col"> SKU</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Deleted By</th>
+                                <th scope="col">Deletion Time</th>
+                                <th scope="col">Reason</th>
+                                <th scope="col" class="actions">Actions</th>
+                                
+                            </tr>
+                            </thead>
+                            {% if products %}
+                                {% for product in products_page %}
+                                <tbody>
+                                    <tr>
+                                    <th scope="row">{{ product.sku }}</th>
+                                    <td><a class="links" href="{% url 'product-detail' product.id %}">{{ product.item_name }}</a></td>
+                                    <td>{{ product.deleted_by }}</td>
+                                    <td>{{ product.deleted_at }}</td>
+                                    <td>{{ product.reason_for_deleting }}</td>
+                                    <td class="d-flex justify-content-between align-items-center actions">
+                                        <a href="{% url 'restore-product' product.id %}"><span class="material-symbols-outlined fs-3 actions" title="Restore"> restore_from_trash </span></a>
+                                        <a href="{% url 'product-delete' product.id %}"><span style="color: red;" class="material-symbols-outlined fs-3 actions" title="Delete Forever"> delete_forever </span></a>
+
+                                    </td>
+                                    </tr>
+                                    
+                                </tbody>
+                                {% endfor %}
+                            {% else %}
+                                <h4 class="text-center bg-danger text-white p-2">No items added yet!</h4>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if products_page.has_previous %}
+                            <a href="?page=1">&laquo; First</a>
+                            <a href="?page={{ products_page.previous_page_number }}">Previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ products_page.number }} of {{ products_page.paginator.num_pages }}.
+                        </span>
+                
+                        {% if products_page.has_next %}
+                            <a href="?page={{ products_page.next_page_number }}">Next</a>
+                            <a href="?page={{ products_page.paginator.num_pages }}">Last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

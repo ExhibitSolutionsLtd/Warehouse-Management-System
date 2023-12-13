@@ -30,6 +30,6 @@ urlpatterns = [
     path('get-source-location/<int:product_id>/', views.get_source_location, name='get_source_location'),
     path('delete-product/<int:product_id>/', views.softdelete_product, name='softdelete-product'),
     path('restore-product/<int:product_id>/', views.restore_product, name='restore-product'),
-    path('trash-list/<int:product_id>/', views.restore_product, name='trash-list'),
+    path('trash-list/', views.deleted_items_lists, name='trash-list'),
 
 ]
