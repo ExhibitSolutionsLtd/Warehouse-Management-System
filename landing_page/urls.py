@@ -32,5 +32,9 @@ urlpatterns = [
     path('delete-product/<int:product_id>/', views.softdelete_product, name='softdelete-product'),
     path('restore-product/<int:product_id>/', views.restore_product, name='restore-product'),
     path('trash-list/', views.deleted_items_lists, name='trash-list'),
+    path('inventory-reports/', views.inventory_report, name="inventory-reports"),
+    path('pending-orders-reports/', views.pendingorder_report, name="pending-orders-reports"),
+    path('recent-shipments-reports/', views.recentshipments_report, name="recent-shipments-reports"),
+
 
 ]

@@ -1,0 +1,74 @@
+{% extends 'landing_page/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% block navbar %}
+                    {% include 'landing_page/navbar.html' %}
+                {% endblock %}
+            </div>
+            <div class="col-md-10 table-content-div mt-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4>Inventory Reports</h4>
+
+                    <!-- Search bar -->
+                    
+                </div>
+                
+
+                <hr>
+
+                <!-- Table -->
+                <legend>Recent Shipments</legend>
+                             <hr>
+                             <h6>Today- {{today|date:"D, d M Y"}}</h6>
+
+                             <table class="table table-striped-columns table-hover table-sm table-bordered">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Order ID</th>
+                                    <th scope="col">Order Date</th>
+                                    <th scope="col">Order Type</th>
+                                    <th scope="col">Supplier</th>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Notes</th>
+                                </tr>
+                                </thead>
+                                {% if recent_shipments %}
+                                    {% for order in recent_shipments %}
+                                    <tbody>
+                                        <tr>
+                                        <th scope="row">{{ order.order_id }}</th>
+                                        <td>{{ order.order_created_at|date }}</td>
+                                        <td>{{ order.order_type }}</td>
+                                        <td>{{ order.associated_name }}</td>
+                                        <td>{{ order.item }}</td>
+                                        <td>{{ order.total_items }}</td>
+                                        <td class="orderStatus">{{ order.status }}</td>
+                                        <td>{{ order.notes }}</td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                    {% endfor %}
+                                {% else %}
+                                    <h4 class="text-center bg-danger text-white p-2">No records found!</h4>
+                                {% endif %}
+                            </table>
+                    <!-- <button onclick="printDocument()" class="btn btn-primary mt-1 align-items-center d-flex">
+                         PRINT
+                    </button> -->
+
+                    <!-- <button onclick="printJS('productTbl', 'html')">Print</button>
+
+                    <button type="button" onclick="printJS({ printable: 'productTbl', type: 'html', header: 'PrintJS - Form Element Selection' })">
+                        Print Form with Header
+                     </button> -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

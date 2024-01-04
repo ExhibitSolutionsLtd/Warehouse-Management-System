@@ -317,6 +317,15 @@ def reports(request):
     }
     return render(request, 'landing_page/reports.html', context)
 
+def inventory_report(request):
+    return render(request, 'reports/inventory_report.html')
+
+def pendingorder_report(request):
+    return render(request, 'reports/pending_orders.html')
+
+def recentshipments_report(request):
+    return render(request, 'reports/recent_shipments_report.html')
+
 class ProductDetailsView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'landing_page/product_detail.html'
@@ -451,3 +460,4 @@ def supplier_import(request):
         return redirect('suppliers')
     
     return render(request, 'imports/suppliers_import.html')
+
