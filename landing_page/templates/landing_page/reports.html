@@ -39,7 +39,7 @@
 
                     <div class="col-lg m-3">
                         <div class="card tilebox-one card-content-div">
-                            <a href="{% url 'recent-shipments-reports' %}" class="btn btn-secondary">
+                            <a href="{% url 'pending-orders-reports' %}" class="btn btn-secondary">
                                 <div class="card-body ">
                                     <h6 class="text-uppercase mt-0 align-items-center d-flex justify-content-between">Pending Orders <span class="material-symbols-outlined">
                                         inventory_2
@@ -56,12 +56,12 @@
 
                     <div class="col-lg m-3">
                         <div class="card tilebox-one card-content-div">
-                            <a href="{% url 'inventory-reports' %}" class="btn btn-secondary">
+                            <a href="{% url 'recent-shipments-reports' %}" class="btn btn-secondary">
                                 <div class="card-body ">
                                     <h6 class="text-uppercase mt-0 align-items-center d-flex justify-content-between">Recent Shipments <span class="material-symbols-outlined">
                                         inventory_2
                                         </span></h6>
-                                    <h2 class="my-2 float-start" id="active-users-count">{{pending|length}}</h2>
+                                    <h2 class="my-2 float-start" id="active-users-count">{{recent_shipments|length}}</h2>
                                     <p class="mb-0 text-muted">
                                         <!-- <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 5.27%</span>
                                         <span class="text-nowrap">Since last month</span>   -->

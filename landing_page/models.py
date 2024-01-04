@@ -174,7 +174,7 @@ class Product(models.Model):
 
 class ProductTransfers(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    source_location = models.ForeignKey(Location, related_name='transfers_from', on_delete=models.CASCADE)
+    source_location = models.ForeignKey(Location, related_name='transfers_from', on_delete=models.CASCADE, blank=True)
     destination_location = models.ForeignKey(Location, related_name='transfers_to', on_delete=models.CASCADE)
     quantity_transferred = models.PositiveIntegerField()
     transfer_date = models.DateTimeField(auto_now_add=True)

@@ -195,7 +195,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('id_source_location').value = data.source_location_id;
             })
             .catch(error => console.log(error));  // handle errors
+            console.log()
     });
+    document.getElementById("id_source_location").required = false
 });
 
 // console.log(Html5QrcodeScanner);

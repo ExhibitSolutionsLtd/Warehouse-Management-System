@@ -318,13 +318,35 @@ def reports(request):
     return render(request, 'landing_page/reports.html', context)
 
 def inventory_report(request):
-    return render(request, 'reports/inventory_report.html')
+    today = timezone.localdate()
+    todays_inventory = Product.objects.filter(item_created_at__date=today)
+    pending = Order.objects.filter(status = 'Pending')
+    recent_shipments = Order.objects.filter(status = 'GIT', order_created_at__date = today)
+    context = {
+        'today':today,
+        'todays_inventory':todays_inventory,
+        'pending':pending,
+        'recent_shipments':recent_shipments
+    }
+    return render(request, 'reports/inventory_report.html',context)
 
 def pendingorder_report(request):
-    return render(request, 'reports/pending_orders.html')
+    today = timezone.localdate()
+    pending = Order.objects.filter(status = 'Pending')
+    context = {
+        'today':today,
+        'pending':pending,
+    }
+    return render(request, 'reports/pending_orders.html',context)
 
 def recentshipments_report(request):
-    return render(request, 'reports/recent_shipments_report.html')
+    today = timezone.localdate()
+    recent_shipments = Order.objects.filter(status = 'GIT', order_created_at__date = today)
+    context = {
+        'today':today,
+        'recent_shipments':recent_shipments
+    }
+    return render(request, 'reports/recent_shipments_reports.html', context)
 
 class ProductDetailsView(LoginRequiredMixin, DetailView):
     model = Product
@@ -345,6 +367,7 @@ class TransferCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.save()
+        
         try:
             product = form.cleaned_data['product']
             quantity = form.cleaned_data['quantity_transferred']
