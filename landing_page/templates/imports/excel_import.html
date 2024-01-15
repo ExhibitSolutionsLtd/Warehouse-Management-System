@@ -20,16 +20,23 @@
                             <div class="container my-3">
                                 <div class="row">
                                   <div class="col-lg-10 mx-auto">
-                                        <form action="" method="POST" enctype="multipart/form-data" class="p-5">
-                                            <fieldset class="form-group">
-                                                {% csrf_token %}
-                                                <input class="my-3" type="file" name="excel_file" accept=".xlsx">
-                                                <div>
-                                                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                                                    <button type="submit" class="btn-landing w-100">IMPORT</button>
-                                                </div>
-                                            </fieldset>
-                                        </form>
+                                    
+                                    <form action="" method="POST" enctype="multipart/form-data" class="p-5">
+                                        <div>
+                                            <p> Download template <a href="{% static 'documents/Inventory_template.xlsx' %}"><span class="material-symbols-outlined">
+                                                download
+                                                </span></a></p>
+                                        </div>
+
+                                        <fieldset class="form-group">
+                                            {% csrf_token %}
+                                            <input class="my-3" type="file" name="excel_file" accept=".xlsx">
+                                            <div>
+                                                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                                                <button type="submit" class="btn-landing w-100">IMPORT</button>
+                                            </div>
+                                        </fieldset>
+                                    </form>
                                   </div>
                                 </div>
                             </div>
